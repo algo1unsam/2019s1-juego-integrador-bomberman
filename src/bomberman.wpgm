@@ -1,0 +1,19 @@
+import wollok.game.*
+
+program Bomberman {
+	
+//	CONFIG	
+	game.title("Bomberman")
+	game.height(15)
+	game.width(20)
+	game.ground("suelo.png")
+
+//	VISUALES
+
+
+//	TECLADO
+
+		
+//	START
+	game.start()
+}
