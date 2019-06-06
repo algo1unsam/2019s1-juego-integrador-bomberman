@@ -13,6 +13,10 @@ program Bomberman {
 
 //	TECLADO
 
+	/*keyboard.up().onPressDo { hector.move(hector.position().up(1)) }
+	keyboard.down().onPressDo { hector.move(hector.position().down(1)) }
+	keyboard.left().onPressDo { hector.move(hector.position().left(1)) }
+	keyboard.right().onPressDo { hector.move(hector.position().right(1)) }*/
 		
 //	START
 	game.start()
