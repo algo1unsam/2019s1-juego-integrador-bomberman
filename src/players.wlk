@@ -13,4 +13,12 @@ class Player{
 
 	//ACCIONES
 	method ponerBomba() { (new Bomba()).generar(position) }
+	
+	method morir() { 
+		//game.removeVisual(self)
+		self.position(game.at(0,0))
+		//self.revivir()
+	}//Cuando muere vuelve a la posicion X=0 Y=0
+	
+	//method revivir(){ game.addVisual(self) }
 }

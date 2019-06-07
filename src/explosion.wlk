@@ -23,4 +23,5 @@ class Explosion{
 		self.apagada(true)
 	} //Cambio la imagen de la explocion por algo (ejemplo: Piso destruido) y digo que ya no sirve
 	
+	method accion(alguien) { if(not(apagada)) alguien.morir()} //se mueve si toca la explocion
 }
