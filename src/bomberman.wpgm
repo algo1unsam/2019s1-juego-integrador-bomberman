@@ -1,22 +1,27 @@
 import wollok.game.*
-
+import players.*
 program Bomberman {
 	
 //	CONFIG	
 	game.title("Bomberman")
 	game.height(15)
 	game.width(20)
-	game.ground("suelo.png")
+	game.ground("ground.png")
+	
+	var player1=new Player(position=game.at(0,0))
 
 //	VISUALES
-
+	game.addVisual(player1)
 
 //	TECLADO
 
-	/*keyboard.up().onPressDo { hector.move(hector.position().up(1)) }
-	keyboard.down().onPressDo { hector.move(hector.position().down(1)) }
-	keyboard.left().onPressDo { hector.move(hector.position().left(1)) }
-	keyboard.right().onPressDo { hector.move(hector.position().right(1)) }*/
+	//MOVIMIENTO
+	keyboard.up().onPressDo { player1.move(player1.position().up(1)) }
+	keyboard.down().onPressDo { player1.move(player1.position().down(1)) }
+	keyboard.left().onPressDo { player1.move(player1.position().left(1)) }
+	keyboard.right().onPressDo { player1.move(player1.position().right(1)) }
+	//ACCIONES
+	keyboard.space().onPressDo { player1.ponerBomba() }
 		
 //	START
 	game.start()
