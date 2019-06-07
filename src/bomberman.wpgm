@@ -6,7 +6,7 @@ program Bomberman {
 	game.title("Bomberman")
 	game.height(15)
 	game.width(20)
-	game.ground("ground.png")
+	game.ground("ground01.png")
 	
 	var player1=new Player(position=game.at(0,0))
 	var player2=new Player(position=game.at(19,14))
