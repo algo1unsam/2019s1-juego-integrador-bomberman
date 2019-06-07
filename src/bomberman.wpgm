@@ -9,23 +9,27 @@ program Bomberman {
 	game.ground("ground.png")
 	
 	var player1=new Player(position=game.at(0,0))
+	var player2=new Player(position=game.at(19,14))
 
 //	VISUALES
 	game.addVisual(player1)
+	game.addVisual(player2)
 	
 //	TECLADO
 
-	//MOVIMIENTO
+	//MOVIMIENTO PLAYER 1
 	keyboard.up().onPressDo { player1.move(player1.position().up(1)) }
 	keyboard.down().onPressDo { player1.move(player1.position().down(1)) }
 	keyboard.left().onPressDo { player1.move(player1.position().left(1)) }
 	keyboard.right().onPressDo { player1.move(player1.position().right(1)) }
+	
 	//ACCIONES
 	keyboard.space().onPressDo { player1.ponerBomba() }
 	//keyboard.r().onPressDo { player1.revivir()} //cheat
 	
 // COLISIONES
 	game.whenCollideDo(player1, { algo => algo.accion(player1) })
+	game.whenCollideDo(player2, { algo => algo.accion(player2) })
 	//Cuando un lugar coliciona con algo, sucede una accion que la determina el objeto
 		
 //	START
