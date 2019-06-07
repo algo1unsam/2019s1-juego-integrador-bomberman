@@ -12,7 +12,7 @@ program Bomberman {
 
 //	VISUALES
 	game.addVisual(player1)
-
+	
 //	TECLADO
 
 	//MOVIMIENTO
