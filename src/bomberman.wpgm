@@ -14,7 +14,6 @@ program Bomberman {
 	game.addVisual(player1)
 	
 //	TECLADO
-
 	//MOVIMIENTO
 	keyboard.up().onPressDo { player1.move(player1.position().up(1)) }
 	keyboard.down().onPressDo { player1.move(player1.position().down(1)) }
