@@ -1,7 +1,11 @@
 import wollok.game.*
 import explosion.*
 
-class Bomba{
+object bombaNormal {
+	method generar(posicion) { new BombaNormal().generar(posicion)}
+}
+
+class BombaNormal{
 	//ATRIBUTOS
 	var property position
 	
@@ -26,6 +30,7 @@ class Bomba{
 	method explotar(){ 
 		
 		//new Explosion().generar(self.position().x(),self.position().y())
+		new Explosion().generar(self.position().x(),self.position().y())
 		new Explosion().generar(self.position().x()-1,self.position().y())
 		new Explosion().generar(self.position().x()-2,self.position().y())
 		new Explosion().generar(self.position().x(),self.position().y()-1)
@@ -34,7 +39,7 @@ class Bomba{
 		new Explosion().generar(self.position().x()+2,self.position().y())
 		new Explosion().generar(self.position().x(),self.position().y()+1)
 		new Explosion().generar(self.position().x(),self.position().y()+2)
-		//game.removeVisual(self) //change image
+		game.removeVisual(self)
 	}//Hago explotar la bomba y generar los objetos de explocion alrededor de ella `ver si se puede hacer algo para no repetir codigo`
 	
 }

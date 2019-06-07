@@ -6,13 +6,15 @@ class Player{
 	//ATRIBUTOS
 	var property position
 	
+	var tipoDeBomba = bombaNormal
+	
 	//WOLLOK GAME
 	method move(nuevaPosicion) { self.position(nuevaPosicion) }
 	
 	method image() = "player.png"
 
 	//ACCIONES
-	method ponerBomba() { (new Bomba()).generar(position) }
+	method ponerBomba() { tipoDeBomba.generar(position) }
 	
 	method morir() { 
 		//game.removeVisual(self)
