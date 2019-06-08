@@ -23,6 +23,8 @@ class Explosion{
 	method configurarRemover() { game.onTick(2000, "remover", { self.remover()}) } //En cuanto tiempo quiero que se remueva la explosion
 	
 	method remover() { 
+		//game.removeTickEvent("remover")
+		//game.removeVisual(self)
 		self.cambiarImagen("corn_adult.png")
 		self.apagada(true)
 	} //Cambio la imagen de la explocion por algo (ejemplo: Piso destruido) y digo que ya no sirve
