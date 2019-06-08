@@ -10,19 +10,11 @@ class Player{
 	
 	var property tipoDeBomba = constructorDeBombaNormal
 	
-	//WOLLOK GAME
+	//ABSTRACTOS
+	method configurarTeclado()
+	
+	//MOVIMIENTO
 	method move(nuevaPosicion) { self.position(nuevaPosicion) }
-	
-	method image() = "player.png"
-
-	//ACCIONES
-	method ponerBomba() { tipoDeBomba.generar(position) }
-	
-	method generar() {game.addVisual(self) }
-	
-	method morir() { self.position(game.at(1,1)) }//Cuando muere vuelve a la posicion X=0 Y=0
-	
-	method accion(algo) { algo.volverAlaAnteriorPosicion()}
 	
 	method moverArriba() {
 		self.lastPosition(self.position())
@@ -41,5 +33,45 @@ class Player{
 		self.move(self.position().right(1))	
 	}
 	
+	//ACCIONES
+	method generar(x,y) { 
+		self.position(game.at(x,y))
+		game.addVisual(self)
+		self.configurarTeclado()
+		self.configurarColiciones()
+	}
+	
+	method ponerBomba() { tipoDeBomba.generar(position) }
+	
+	method morir() { self.position(game.at(1,1)) } //Cuando muere vuelve a la posicion X=0 Y=0
+	
+	method accion(algo) { algo.volverAlaAnteriorPosicion()}
+	
 	method volverAlaAnteriorPosicion() { self.position(self.lastPosition()) }
+	
+	method configurarColiciones() { game.whenCollideDo(self, { algo => algo.accion(self) }) }
+}
+
+object player1 inherits Player{
+	method image() = "player.png"
+
+	override method configurarTeclado(){
+		keyboard.up().onPressDo { self.moverArriba() }
+		keyboard.down().onPressDo { self.moverAbajo() }
+		keyboard.left().onPressDo { self.moverIzquierda() }
+		keyboard.right().onPressDo { self.moverDerecha() }
+	}
+}
+
+object player2 inherits Player{
+	method image() = "player.png"
+	
+	override method configurarTeclado(){
+		keyboard.w().onPressDo { self.moverArriba() }
+		keyboard.s().onPressDo { self.moverAbajo() }
+		keyboard.a().onPressDo { self.moverIzquierda() }
+		keyboard.d().onPressDo { self.moverDerecha() }
+		keyboard.space().onPressDo { player1.ponerBomba() }
+	}
+	
 }
