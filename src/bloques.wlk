@@ -1,10 +1,12 @@
 import wollok.game.*
 
-//Constructor de bloques
-object indestructible { method construir(newPosition) = new BloqueIndestructible(position = newPosition) } 
+//CONSTRUCTOR DE BLOQUES
+object bloqueIndestructible { 
+	method construir(newPosition) = new BloqueIndestructible(position = newPosition)
+} 
 
 
-//Clase bloques
+//TIPOS DE BLOQUE
 class Bloque {
 	var property position
 	
@@ -14,13 +16,20 @@ class Bloque {
 	
 	method generar() { game.addVisual(self) }
 	
-	method accion(algo) { algo.volverAlaAnteriorPosicion()}
+	method chocoJugador(algo) { algo.volverAlaAnteriorPosicion()}
 }
 
+//BLOQUE INDESTRUCCTIBLE
 class BloqueIndestructible inherits Bloque {
 	method cambiarImagen() { picture = "block01.png" }
+	
+	//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
+	method explotarObjeto(explosion) { 
+		explosion.encontroBloque(true)
+	}
 }
 
+//BLOQUE DESTRUCCTIBLE
 class BloqueDestructible inherits Bloque {
 	method cambiarImagen() { picture = "block02.png" }
 }

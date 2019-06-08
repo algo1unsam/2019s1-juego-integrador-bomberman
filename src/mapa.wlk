@@ -3,19 +3,24 @@ import bloques.*
 
 class Mapa {
 	
-	var bloques = []
+	var elementos = []
 	
-	method generar() { bloques.forEach{ bloque => bloque.generar() } }
+	//GENERO TODOS LOS ELEMENTOS DE LA LISTA
+	method generar() { elementos.forEach{ elemento => elemento.generar() } }
 	
-	method aniadirBloque(bloque) { bloques.add(bloque) }
+	//ANIADO ELEMENTOS A LA LSITA
+	method aniadirElemento(tipo,x,y) { elementos.add(self.construirElemento(tipo,x,y)) }
 	
-	method crearBloque(tipoDeBloque,x,y) { self.aniadirBloque(tipoDeBloque.construir(game.at(x,y))) }
+	//CONSTRUYO ELEMENTOS
+	method construirElemento(tipo,x,y) = tipo.construir(game.at(x,y))
 	
-	method crearLineaHorizontal(tipoDeBloque,enDonde,desde,hasta) {
-		(desde .. hasta).forEach{ n => self.crearBloque(tipoDeBloque,n,enDonde) } 
+	//CREO LINEAS HORIZONTALES
+	method aniadirLineaHorizontal(tipoDeBloque,enDonde,desde,hasta) {
+		(desde .. hasta).forEach{ n => self.aniadirElemento(tipoDeBloque,n,enDonde) } 
 	}
 	
-	method crearLineaVertical(tipoDeBloque,enDonde,desde,hasta) {
-		(desde .. hasta).forEach{ n => self.crearBloque(tipoDeBloque,enDonde,n) } 
+	//CREO LINEAS VERTICALES
+	method aniadirLineaVertical(tipoDeBloque,enDonde,desde,hasta) {
+		(desde .. hasta).forEach{ n => self.aniadirElemento(tipoDeBloque,enDonde,n) } 
 	}
 }

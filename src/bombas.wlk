@@ -3,50 +3,57 @@ import explosion.*
 
 //CONSTRUCTORES DE BOMBAS
 object constructorDeBombaNormal {
-	method generar(posicion) { new BombaNormal().generar(posicion)}
+	method construir(posicion) { new BombaNormal().generar(posicion)}
 }
 
 object constructorDeBombaFuerte {
-
+	method construir(posicion) { new BombaFuerte().generar(posicion)}
 }
 
-//CLASE BOMBA
+//CLASE BOMBA ABSTRACTA
 class Bomba{
 	var property position
 	
-	method accion(algo) { }
+	method radio()
 	
+	method explotarObjeto(explocion) {}
+	
+	//PARA QUE SOLO SE ACTIVE EL CHOQUE CUANDO SE MUEVE Y VUELVE A TOCARLA
+	method chocoJugador(algo) { if(not(algo.pusoBomba())) algo.volverAlaAnteriorPosicion()  }
+	
+	//GENERO LA BOMBA Y LA CONFIGURO
 	method generar(lugar) {
 		self.position(lugar)
 		game.addVisual(self)
 		self.configurar()
 	}
 	
+	//LA CONFIGURO CON LOS MILISEGUDOS QUE QUIERO PARA QUE EXPLOTE
 	method configurar(){
 		game.onTick(2000, "explotar", { self.explotar() game.removeTickEvent("explotar")
 		})}
 		
-	method explotar()
+	//VUELVA LA BOMBA
+	method explotar(){
+		new Explosion().generar(self.radio(),self.position())
+		game.removeVisual(self)
+	}
+	
+	
 }
 
 class BombaNormal inherits Bomba{
 	method image() = "bomb01.png"
 	
-	override method explotar(){ 
-		new Explosion().generar(self.position().x(),self.position().y())
-		new Explosion().generar(self.position().x()-1,self.position().y())
-		new Explosion().generar(self.position().x()-2,self.position().y())
-		new Explosion().generar(self.position().x(),self.position().y()-1)
-		new Explosion().generar(self.position().x(),self.position().y()-2)
-		new Explosion().generar(self.position().x()+1,self.position().y())
-		new Explosion().generar(self.position().x()+2,self.position().y())
-		new Explosion().generar(self.position().x(),self.position().y()+1)
-		new Explosion().generar(self.position().x(),self.position().y()+2)
-		game.removeVisual(self)
-	}
+	//ELIGO EL RADIO DE LA BOMBA
+	override method radio() = 2
 	
 }
 
-class BombaFuerte inherits Bomba {
+class BombaFuerte inherits Bomba{
+	method image() = "bomb01.png"
 	
+	//ELIGO EL RADIO DE LA BOMBA
+	override method radio() = 5
 }
+
