@@ -20,13 +20,7 @@ class Player{
 	
 	method generar() {game.addVisual(self) }
 	
-	method morir() { 
-		//game.removeVisual(self)
-		self.position(game.at(1,1))
-		//self.revivir()
-	}//Cuando muere vuelve a la posicion X=0 Y=0
-	
-	//method revivir(){ game.addVisual(self) }
+	method morir() { self.position(game.at(1,1)) }//Cuando muere vuelve a la posicion X=0 Y=0
 	
 	method accion(algo) { algo.volverAlaAnteriorPosicion()}
 	

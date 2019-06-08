@@ -11,94 +11,21 @@ program Bomberman {
 	game.width(20)
 	game.ground("ground01.png")
 	
-	var player1=new Player(position=game.at(1,1))
-	var player2=new Player(position=game.at(18,12))
+	var player1 = new Player(position=game.at(1,1))
+	var player2 = new Player(position=game.at(18,12))
 	
-	var mapa1 = new Mapa(bloques = [
-		new Indestructible(position = game.at(0,0)),
-		new Indestructible(position = game.at(0,1)),
-		new Indestructible(position = game.at(0,2)),
-		new Indestructible(position = game.at(0,3)),
-		new Indestructible(position = game.at(0,4)),
-		new Indestructible(position = game.at(0,5)),
-		new Indestructible(position = game.at(0,6)),
-		new Indestructible(position = game.at(0,7)),
-		new Indestructible(position = game.at(0,8)),
-		new Indestructible(position = game.at(0,9)),
-		new Indestructible(position = game.at(0,10)),
-		new Indestructible(position = game.at(0,11)),
-		new Indestructible(position = game.at(0,12)),
-		new Indestructible(position = game.at(0,13)),
-		
-		
-		new Indestructible(position = game.at(1,0)),
-		new Indestructible(position = game.at(2,0)),
-		new Indestructible(position = game.at(3,0)),
-		new Indestructible(position = game.at(4,0)),
-		new Indestructible(position = game.at(5,0)),
-		new Indestructible(position = game.at(6,0)),
-		new Indestructible(position = game.at(7,0)),
-		new Indestructible(position = game.at(8,0)),
-		new Indestructible(position = game.at(9,0)),
-		new Indestructible(position = game.at(10,0)),
-		new Indestructible(position = game.at(11,0)),
-		new Indestructible(position = game.at(12,0)),
-		new Indestructible(position = game.at(13,0)),
-		new Indestructible(position = game.at(14,0)),
-		new Indestructible(position = game.at(15,0)),
-		new Indestructible(position = game.at(16,0)),
-		new Indestructible(position = game.at(17,0)),
-		new Indestructible(position = game.at(18,0)),
-		new Indestructible(position = game.at(19,0)),
-		
-		
-		new Indestructible(position = game.at(19,0)),
-		new Indestructible(position = game.at(19,1)),
-		new Indestructible(position = game.at(19,2)),
-		new Indestructible(position = game.at(19,3)),
-		new Indestructible(position = game.at(19,4)),
-		new Indestructible(position = game.at(19,5)),
-		new Indestructible(position = game.at(19,6)),
-		new Indestructible(position = game.at(19,7)),
-		new Indestructible(position = game.at(19,8)),
-		new Indestructible(position = game.at(19,9)),
-		new Indestructible(position = game.at(19,10)),
-		new Indestructible(position = game.at(19,11)),
-		new Indestructible(position = game.at(19,12)),
-		new Indestructible(position = game.at(19,13)),
-		
-		new Indestructible(position = game.at(1,13)),
-		new Indestructible(position = game.at(2,13)),
-		new Indestructible(position = game.at(3,13)),
-		new Indestructible(position = game.at(4,13)),
-		new Indestructible(position = game.at(5,13)),
-		new Indestructible(position = game.at(6,13)),
-		new Indestructible(position = game.at(7,13)),
-		new Indestructible(position = game.at(8,13)),
-		new Indestructible(position = game.at(9,13)),
-		new Indestructible(position = game.at(10,13)),
-		new Indestructible(position = game.at(11,13)),
-		new Indestructible(position = game.at(12,13)),
-		new Indestructible(position = game.at(13,13)),
-		new Indestructible(position = game.at(14,13)),
-		new Indestructible(position = game.at(15,13)),
-		new Indestructible(position = game.at(16,13)),
-		new Indestructible(position = game.at(17,13)),
-		new Indestructible(position = game.at(18,13)),
-		new Indestructible(position = game.at(19,13))
-	])
+	var mapa1=new Mapa()
 	
-	
-	
-	//mapa1.crearMapa(indestructibles = [0,1,0,2,0,3,0,4,0,5])
+	mapa1.crearLineaHorizontal(indestructible, 0, 0, 19)
+	mapa1.crearLineaHorizontal(indestructible, 13, 0, 19)
+	mapa1.crearLineaVertical(indestructible, 0, 0, 13)
+	mapa1.crearLineaVertical(indestructible, 19, 0, 13)
 	
 	mapa1.generar()
 	
 //	VISUALES
 	game.addVisual(player1)
 	game.addVisual(player2)
-	
-	game.
 	
 //	TECLADO
 

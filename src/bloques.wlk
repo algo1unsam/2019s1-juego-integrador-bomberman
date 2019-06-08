@@ -1,5 +1,10 @@
 import wollok.game.*
 
+//Constructor de bloques
+object indestructible { method construir(newPosition) = new BloqueIndestructible(position = newPosition) } 
+
+
+//Clase bloques
 class Bloque {
 	var property position
 	
@@ -7,22 +12,15 @@ class Bloque {
 	
 	method image() = picture
 	
-	method generar() {
-		//self.position(position)
-		game.addVisual(self)
-	}
+	method generar() { game.addVisual(self) }
 	
 	method accion(algo) { algo.volverAlaAnteriorPosicion()}
 }
 
-class Indestructible inherits Bloque {
-	
+class BloqueIndestructible inherits Bloque {
 	method cambiarImagen() { picture = "block01.png" }
-	
 }
 
-class Destructible inherits Bloque {
-	
+class BloqueDestructible inherits Bloque {
 	method cambiarImagen() { picture = "block02.png" }
-	
 }
