@@ -13,8 +13,9 @@ object constructorDeBombaFuerte {
 
 //CLASE BOMBA ABSTRACTA
 class Bomba{
-	var property position
 	
+	var property position
+
 	method radio()
 	
 	method explotarObjeto(explocion,onda) { }
@@ -23,8 +24,8 @@ class Bomba{
 	method chocoJugador(algo) { if(not(algo.pusoBomba())) algo.volverAlaAnteriorPosicion()  }
 	
 	//GENERO LA BOMBA Y LA CONFIGURO
-	method generar(lugar) {
-		self.position(lugar)
+	method generar(posicion) {
+		self.position(posicion)
 		game.addVisual(self)
 		player1.refresh()
 		player2.refresh()
@@ -41,8 +42,6 @@ class Bomba{
 		new Explosion().generar(self.radio(),self.position())
 		game.removeVisual(self)
 	}
-	
-	
 }
 
 class BombaNormal inherits Bomba{

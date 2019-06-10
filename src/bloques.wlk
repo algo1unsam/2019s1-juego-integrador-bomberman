@@ -14,6 +14,8 @@ object bloqueDestructible {
 //TIPOS DE BLOQUE
 class Bloque {
 	var property position
+	
+	constructor(x,y) { self.position(game.at(x,y)) }
 
 	method generar() { game.addVisual(self) }
 	

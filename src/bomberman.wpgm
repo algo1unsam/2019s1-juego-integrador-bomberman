@@ -17,30 +17,9 @@ program Bomberman {
 	player2.generar()
 	
 //CREAR MAPA
-	var mapa1=new Mapa()
-	
-	//Para crear lineas! (en donde, inicio, fin)
-	mapa1.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 19)
-	mapa1.aniadirLineaHorizontal(bloqueIndestructible, 13, 0, 19)
-	mapa1.aniadirLineaVertical(bloqueIndestructible, 0, 0, 13)
-	mapa1.aniadirLineaVertical(bloqueIndestructible, 19, 0, 13)
-	
-	//Se puede aniadirElementos, (tipo,x,y) los elementos pueden ser power ups o bloques
-	mapa1.aniadirElemento(bloqueIndestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-	mapa1.aniadirElemento(bloqueIndestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-	mapa1.aniadirElemento(bloqueIndestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-	
-	mapa1.aniadirElemento(bloqueDestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-	mapa1.aniadirElemento(bloqueDestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-	mapa1.aniadirElemento(bloqueDestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-	
-	
-	mapa1.aniadirElemento(powerUpBombaFuerte, 5, 6)
-	
-	//Genero todos los elementos que aniadi arriba
 	mapa1.generar()
 	
-	//Movi las coliciones y las configuracion de teclado a sus respectivos objetos, asi es mas facil ubicarlos
+//Movi todo a sus respectivos objetos, asi es mas facil ubicarlos
 
 //	START
 	game.start()

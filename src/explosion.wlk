@@ -67,8 +67,7 @@ class OndaExpansiva{
 		if(explosion.encontroBloqueIdestructible()) self.removerOnda()
 	}
 	
-		
-	method configurarRemover() { game.onTick(2000, "remover", { self.remover()}) }
+	method configurarRemover() { game.onTick(1500, "remover", { self.remover()}) }
 	
 	method remover() { 
 		self.cambiarImagen("corn_adult.png")
@@ -86,6 +85,4 @@ class OndaExpansiva{
 	
 	//MUERE EL JUGADOR SI TOCA LA ONDA *estaria bueno hacer esto en .explotarObjeto()*
 	method chocoJugador(alguien) { if(not(apagada)) alguien.morir()} 
-	
-	
 }
