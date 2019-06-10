@@ -4,9 +4,9 @@ import bombas.*
 class Player{
 	
 	//ATRIBUTOS
-	var property position
+	var property position = self.respawn()
 	
-	var property lastPosition = game.at(0, 0)
+	var property lastPosition = self.respawn()
 	
 	var property tipoDeBomba = constructorDeBombaNormal
 	
@@ -14,6 +14,8 @@ class Player{
 	
 	//ABSTRACTOS
 	method configurarTeclado()
+	
+	method respawn()
 	
 	//MOVIMIENTO
 	method move(nuevaPosicion) { 
@@ -38,8 +40,7 @@ class Player{
 	}
 	
 	//GENERO EL PERSONAJE
-	method generar(x,y) { 
-		self.position(game.at(x,y))
+	method generar() { 
 		game.addVisual(self)
 		self.configurarTeclado()
 		self.configurarColiciones()
@@ -50,14 +51,21 @@ class Player{
 		tipoDeBomba.construir(position)
 		self.pusoBomba(true)
 	}
-	
-	method morir() { self.position(game.at(1,1)) }
+	method morir() { self.position(self.respawn()) }
 	
 	method chocoJugador(algo) { algo.volverAlaAnteriorPosicion()}
 	
 	method volverAlaAnteriorPosicion() { self.position(self.lastPosition()) }
 	
 	method configurarColiciones() { game.whenCollideDo(self, { algo => algo.chocoJugador(self) }) }
+	
+	method explotarObjeto(explosion,onda) {  }
+	
+	method refresh() {
+		game.removeVisual(self)
+		game.addVisual(self)
+		self.configurarColiciones()
+	}
 }
 
 //PLAYER 1
@@ -65,12 +73,15 @@ object player1 inherits Player{
 	
 	method image() = "player.png"
 	
+	override method respawn() = game.at(1,1)
+	
 	//TECLADO (ver si se puede ahorrar codigo)
 	override method configurarTeclado(){
 		keyboard.up().onPressDo { self.moverArriba() }
 		keyboard.down().onPressDo { self.moverAbajo() }
 		keyboard.left().onPressDo { self.moverIzquierda() }
 		keyboard.right().onPressDo { self.moverDerecha() }
+		keyboard.num1().onPressDo { self.ponerBomba() }
 	}
 }
 
@@ -79,13 +90,15 @@ object player2 inherits Player{
 	
 	method image() = "player.png"
 	
+	override method respawn() = game.at(18,12)
+	
 	//TECLADO (ver si se puede ahorrar codigo)
 	override method configurarTeclado(){
 		keyboard.w().onPressDo { self.moverArriba() }
 		keyboard.s().onPressDo { self.moverAbajo() }
 		keyboard.a().onPressDo { self.moverIzquierda() }
 		keyboard.d().onPressDo { self.moverDerecha() }
-		keyboard.space().onPressDo { player1.ponerBomba() }
+		keyboard.space().onPressDo { self.ponerBomba() }
 	}
 	
 }

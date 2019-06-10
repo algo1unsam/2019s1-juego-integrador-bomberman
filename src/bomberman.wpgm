@@ -13,8 +13,8 @@ program Bomberman {
 	game.ground("ground01.png")
 	
 // CREAR JUGADOR
-	player1.generar(1,1)
-	player2.generar(18,12)
+	player1.generar()
+	player2.generar()
 	
 //CREAR MAPA
 	var mapa1=new Mapa()
@@ -29,6 +29,11 @@ program Bomberman {
 	mapa1.aniadirElemento(bloqueIndestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
 	mapa1.aniadirElemento(bloqueIndestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
 	mapa1.aniadirElemento(bloqueIndestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
+	
+	mapa1.aniadirElemento(bloqueDestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
+	mapa1.aniadirElemento(bloqueDestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
+	mapa1.aniadirElemento(bloqueDestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
+	
 	
 	mapa1.aniadirElemento(powerUpBombaFuerte, 5, 6)
 	

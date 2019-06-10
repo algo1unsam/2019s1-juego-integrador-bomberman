@@ -1,5 +1,6 @@
 import wollok.game.*
 import explosion.*
+import players.*
 
 //CONSTRUCTORES DE BOMBAS
 object constructorDeBombaNormal {
@@ -16,7 +17,7 @@ class Bomba{
 	
 	method radio()
 	
-	method explotarObjeto(explocion) {}
+	method explotarObjeto(explocion,onda) { }
 	
 	//PARA QUE SOLO SE ACTIVE EL CHOQUE CUANDO SE MUEVE Y VUELVE A TOCARLA
 	method chocoJugador(algo) { if(not(algo.pusoBomba())) algo.volverAlaAnteriorPosicion()  }
@@ -25,6 +26,8 @@ class Bomba{
 	method generar(lugar) {
 		self.position(lugar)
 		game.addVisual(self)
+		player1.refresh()
+		player2.refresh()
 		self.configurar()
 	}
 	

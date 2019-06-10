@@ -21,4 +21,6 @@ class PowerUpBombaFuerte{
 		game.removeVisual(self)
 	}
 	
+	method explotarObjeto(explosion,onda) { game.removeVisual(self) }
+	
 }

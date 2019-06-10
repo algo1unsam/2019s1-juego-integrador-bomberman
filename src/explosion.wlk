@@ -1,10 +1,11 @@
 import wollok.game.*
 import bloques.*
+import players.*
 
 class Explosion{
 	
 	//PARA PARAR LA EXPLOCION
-	var property encontroBloque = false
+	var property encontroBloqueIdestructible = false
 	
 	//GENERO LA EXPLOCION
 	method generar(radio,posicion){
@@ -17,18 +18,18 @@ class Explosion{
 	//CREO LA EXPLOCION
 	method explosionHorizontal(radio,posicion) {
 		(posicion.x().. posicion.x()+radio).forEach { 
-			n => if (not(self.encontroBloque()))
+			n => if (not(self.encontroBloqueIdestructible()))
 					new OndaExpansiva(position = game.at(n,posicion.y())).generar(self)
 				}
-		self.encontroBloque(false)
+		self.encontroBloqueIdestructible(false)
 	}
 	
 		method explosionVertical(radio,posicion) {
 		(posicion.y().. posicion.y()+radio).forEach { 
-			n => if (not(self.encontroBloque()))
+			n => if (not(self.encontroBloqueIdestructible()))
 				new OndaExpansiva(position = game.at(posicion.x(),n)).generar(self)
 		}
-		self.encontroBloque(false)
+		self.encontroBloqueIdestructible(false)
 	}
 	
 	method explocionDerecha(radio,posicion) { self.explosionHorizontal(radio,posicion) }
@@ -50,7 +51,7 @@ class OndaExpansiva{
 	//PARA CREAR LA CENIZA
 	var property apagada = false
 	
-	method explotarObjeto(explosion) {}
+	method explotarObjeto(explosion,onda) {}
 	
 	method image() = picture 
 	
@@ -59,10 +60,13 @@ class OndaExpansiva{
 	//GENERO LA ONDA
 	method generar(explosion){ 
 		game.addVisual(self)
+		player1.refresh()
+		player2.refresh()
 		self.configurarRemover()
-		self.explotarObjetos(explosion)
-		if(explosion.encontroBloque()) game.removeVisual(self)
+		self.explotarObjetos(explosion,self)
+		if(explosion.encontroBloqueIdestructible()) self.removerOnda()
 	}
+	
 		
 	method configurarRemover() { game.onTick(2000, "remover", { self.remover()}) }
 	
@@ -71,10 +75,11 @@ class OndaExpansiva{
 		self.apagada(true)
 	}
 	
+	method removerOnda() { game.removeVisual(self) }
+	
 	//EXPLOTO LOS OBJETOS QUE TOCA LA ONDA
-	method explotarObjetos(explosion) { (self.objetosConLosQueColiciona()).forEach {
-		elemento => elemento.explotarObjeto(explosion)
-		} 
+	method explotarObjetos(explosion,onda) {
+		 (self.objetosConLosQueColiciona()).forEach { elemento => elemento.explotarObjeto(explosion,onda) } 
 	}
 	
 	method objetosConLosQueColiciona() = game.colliders(self)
