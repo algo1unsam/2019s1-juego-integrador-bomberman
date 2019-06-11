@@ -10,7 +10,7 @@ program Bomberman {
 	game.title("Bomberman")
 	game.height(13)
 	game.width(21)
-	game.ground("ground03.png")
+	game.ground("groundMap1.png")
 	
 // CREAR JUGADOR
 	player1.generar()

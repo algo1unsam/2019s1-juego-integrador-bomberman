@@ -94,7 +94,7 @@ class OndaExpansiva{
 }
 
 object ceniza{
-	method imagen() = "ground05.png"
+	method imagen() = "groundMap1Broken.png"
 }
 
 object central{
@@ -102,16 +102,16 @@ object central{
 }
 
 object derecha{
-	method imagen() = "player1right.png"
+	method imagen() = "explosionSideRight.png"
 }
 
 object izquierda{
-	method imagen() = "player1left.png"
+	method imagen() = "explosionSideLeft.png"
 }
 
 object arriba{
-	method imagen() = "player1up.png"
+	method imagen() = "explosionSideUp.png"
 }
 object abajo{
-	method imagen() = "player1down.png"
+	method imagen() = "explosionSideDown.png"
 }

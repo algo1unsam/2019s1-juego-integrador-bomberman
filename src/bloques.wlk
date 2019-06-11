@@ -25,7 +25,7 @@ class Bloque {
 //BLOQUE INDESTRUCCTIBLE
 class BloqueIndestructible inherits Bloque {
 	
-	method image() = "block03.png"
+	method image() = "blockMap1Unbreakable.png"
 	
 	//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
 	method explotarObjeto(explosion,onda) { explosion.encontroBloqueIdestructible(true) }
@@ -33,7 +33,7 @@ class BloqueIndestructible inherits Bloque {
 
 //BLOQUE DESTRUCCTIBLE
 class BloqueDestructible inherits Bloque {
-	method image() = "block04.png"
+	method image() = "blockMap1Breakable.png"
 	
 	//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
 	method explotarObjeto(explosion,onda) { self.destruirBloque() }
