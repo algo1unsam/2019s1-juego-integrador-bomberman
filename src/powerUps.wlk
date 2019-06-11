@@ -29,7 +29,7 @@ class PowerUP{
 
 class PowerUpBombaFuerte inherits PowerUP{
 	
-	method image() = "tomaco_baby.png"
+	method image() = "powerup02.png"
 	
 	//SI UN JUGADOR TOCA EL PowerUP LO AGARRA
 	override method chocoJugador(jugador) {
@@ -40,7 +40,7 @@ class PowerUpBombaFuerte inherits PowerUP{
 
 class PowerUpAumentarVelocidad inherits PowerUP{
 	
-	method image() = "corn_adult.png"
+	method image() = "powerup01.png"
 	
 	override method chocoJugador(jugador) {
 		jugador.reductor(0)
@@ -50,7 +50,7 @@ class PowerUpAumentarVelocidad inherits PowerUP{
 
 class PowerUpEscudo inherits PowerUP{
 	
-	method image() = "ground.png"
+	method image() = "powerup03.png"
 	
 	override method chocoJugador(jugador) {
 		jugador.ponerEscudo()

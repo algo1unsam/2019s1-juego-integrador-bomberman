@@ -70,7 +70,7 @@ class OndaExpansiva{
 	method configurarRemover() { game.onTick(1500, "remover", { self.remover()}) }
 	
 	method remover() { 
-		self.cambiarImagen("corn_adult.png")
+		self.cambiarImagen("ground05.png")
 		self.apagada(true)
 	}
 	

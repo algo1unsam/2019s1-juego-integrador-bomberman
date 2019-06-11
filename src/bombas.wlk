@@ -45,7 +45,7 @@ class Bomba{
 }
 
 class BombaNormal inherits Bomba{
-	method image() = "bomb01.png"
+	method image() = "bomb02.png"
 	
 	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 2
@@ -53,7 +53,7 @@ class BombaNormal inherits Bomba{
 }
 
 class BombaFuerte inherits Bomba{
-	method image() = "bomb01.png"
+	method image() = "bomb03.png"
 	
 	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 5

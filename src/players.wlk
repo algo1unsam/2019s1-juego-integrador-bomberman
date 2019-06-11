@@ -97,7 +97,7 @@ class Player{
 //PLAYER 1
 object player1 inherits Player{
 	
-	var picture = "player.png"
+	var picture = "player1down.png"
 	
 	method image() = picture
 	
@@ -118,9 +118,9 @@ object player1 inherits Player{
 //PLAYER 2
 object player2 inherits Player{
 	
-	method image() = "player.png"
+	method image() = "player2down.png"
 	
-	override method respawn() = game.at(18,12)
+	override method respawn() = game.at(19,11)
 	
 	override method nombreDelReductor() = "reductor2"
 	

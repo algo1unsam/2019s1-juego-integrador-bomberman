@@ -8,9 +8,9 @@ program Bomberman {
 	
 //	CONFIG	
 	game.title("Bomberman")
-	game.height(14)
-	game.width(20)
-	game.ground("ground01.png")
+	game.height(13)
+	game.width(21)
+	game.ground("ground03.png")
 	
 // CREAR JUGADOR
 	player1.generar()
