@@ -14,6 +14,8 @@ class Player{
 	
 	var property reductorDeVelocidad = false
 	
+	var property bombasEnPantalla = 2
+	
 	var property reductor = 0
 	
 	var property escudo = false
@@ -49,15 +51,19 @@ class Player{
 		game.addVisual(self)
 		self.configurarTeclado()
 		self.configurarColiciones()
-		self.reductor(100)
+		self.reductor(0)
 	}
 	
 	//ACCIONES
-	method ponerBomba() { 
-		self.tipoDeBomba().construir(self.position())
-		self.pusoBomba(true)
+	method ponerBomba() {
+		if(self.bombasEnPantalla ()>0){
+			self.tipoDeBomba().construir(self)
+			self.pusoBomba(true)
+			self.cambiarBombasEnPantalla(-1)
+		}
 	}
 	
+	method cambiarBombasEnPantalla(numero) { self.bombasEnPantalla(self.bombasEnPantalla() + numero) }
 	
 	method cambiarBomba(nuevaBomba,tiempo) { self.tipoDeBomba(nuevaBomba) }
 	

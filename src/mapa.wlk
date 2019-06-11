@@ -24,6 +24,7 @@ class Mapa {
 	method aniadirLineaVertical(tipoDeBloque,enDonde,desde,hasta) {
 		(desde .. hasta).forEach{ n => self.aniadirElemento(tipoDeBloque,enDonde,n) } 
 	}
+	
 }
 
 object mapa1 inherits Mapa{

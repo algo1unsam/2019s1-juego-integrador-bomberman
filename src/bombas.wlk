@@ -4,11 +4,11 @@ import players.*
 
 //CONSTRUCTORES DE BOMBAS
 object constructorDeBombaNormal {
-	method construir(posicion) { new BombaNormal().generar(posicion)}
+	method construir(jugador) { new BombaNormal().generar(jugador)}
 }
 
 object constructorDeBombaFuerte {
-	method construir(posicion) { new BombaFuerte().generar(posicion)}
+	method construir(jugador) { new BombaFuerte().generar(jugador)}
 }
 
 //CLASE BOMBA ABSTRACTA
@@ -24,22 +24,23 @@ class Bomba{
 	method chocoJugador(algo) { if(not(algo.pusoBomba())) algo.volverAlaAnteriorPosicion()  }
 	
 	//GENERO LA BOMBA Y LA CONFIGURO
-	method generar(posicion) {
-		self.position(posicion)
+	method generar(jugador) {
+		self.position(jugador.position())
 		game.addVisual(self)
 		player1.refresh()
 		player2.refresh()
-		self.configurar()
+		self.configurar(jugador)
 	}
 	
 	//LA CONFIGURO CON LOS MILISEGUDOS QUE QUIERO PARA QUE EXPLOTE
-	method configurar(){
-		game.onTick(2000, "explotar", { self.explotar() game.removeTickEvent("explotar")
-		})}
+	method configurar(jugador){
+		game.onTick(2000, "explotar", { self.explotar(jugador) })}
 		
 	//VUELVA LA BOMBA
-	method explotar(){
+	method explotar(jugador){
 		new Explosion().generar(self.radio(),self.position())
+		jugador.cambiarBombasEnPantalla(1)
+		game.removeTickEvent("explotar")
 		game.removeVisual(self)
 	}
 }
