@@ -50,7 +50,6 @@ class BombaNormal inherits Bomba{
 	
 	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 2
-	
 }
 
 class BombaFuerte inherits Bomba{

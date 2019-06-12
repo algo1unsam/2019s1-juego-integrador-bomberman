@@ -10,7 +10,7 @@ program Bomberman {
 	game.title("Bomberman")
 	game.height(13)
 	game.width(21)
-	game.ground("groundMap1.png")
+	game.ground("groundMap3.png")
 	
 // CREAR JUGADOR
 	player1.generar()
@@ -18,6 +18,8 @@ program Bomberman {
 	
 //CREAR MAPA
 	mapa1.generar()
+	/*keyboard.t().onPressDo {mapa1.generar()}
+	keyboard.y().onPressDo {mapa1.remover() mapa2.generar()}*/
 	
 //Movi todo a sus respectivos objetos, asi es mas facil ubicarlos
 

@@ -20,6 +20,8 @@ class Player{
 	
 	var property escudo = false
 	
+	var property choco = true
+	
 	//ABSTRACTOS
 	method configurarTeclado()
 	
@@ -91,7 +93,9 @@ class Player{
 		self.configurarColiciones()
 	}	
 
-	method chocoJugador(algo) { algo.volverAlaAnteriorPosicion()}
+	method chocoJugador(algo) { algo.volverAlaAnteriorPosicion() self.lastPosition(self.position())
+	}
+
 	
 	method volverAlaAnteriorPosicion() { self.position(self.lastPosition()) }
 	

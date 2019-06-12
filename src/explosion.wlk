@@ -16,16 +16,17 @@ class Explosion{
 	 	self.explosionIzquierda(radio,posicion)
 		self.explosionArriba(radio,posicion)
 		self.explosionAbajo(radio,posicion)
+		
 	}
 	
 	//CREO LA EXPLOCION
 	
-	method explosionCentral(posicion) { new OndaExpansiva(position = posicion,imagen = self.lado()).generar(self) }
+	method explosionCentral(posicion) { new OndaExpansiva(position = posicion,imagen = (self.lado()).imagen(0,0)).generar(self) }
 	
 	method explosionHorizontal(radio,x,y) {
 		(x.. x+radio).forEach { 
 			n => if (not(self.encontroBloqueIdestructible()) )
-				new OndaExpansiva(position = game.at(n,y),imagen = self.lado()).generar(self)
+				new OndaExpansiva(position = game.at(n,y),imagen = (self.lado()).imagen(n,x+radio)).generar(self)
 		}
 		self.encontroBloqueIdestructible(false)
 	}
@@ -33,9 +34,11 @@ class Explosion{
 	method explosionVertical(radio,x,y) {
 		(y.. y+radio).forEach { 
 			n => if (not(self.encontroBloqueIdestructible()))
-				new OndaExpansiva(position = game.at(x,n),imagen = self.lado()).generar(self)
+					new OndaExpansiva(position = game.at(x,n),imagen = (self.lado()).imagen(n,y+radio)).generar(self)
 		}
 		self.encontroBloqueIdestructible(false)
+		
+		
 	}
 	
 	method explosionDerecha(radio,posicion) {self.lado(derecha) self.explosionHorizontal(radio-1,posicion.x()+1,posicion.y()) }
@@ -59,7 +62,7 @@ class OndaExpansiva{
 	
 	method explotarObjeto(explosion,onda) {}
 	
-	method image() = imagen.imagen()
+	method image() = imagen
 	
 	//method cambiarImagen(nuevaImagen) { picture = nuevaImagen }
 	
@@ -73,10 +76,12 @@ class OndaExpansiva{
 		if(explosion.encontroBloqueIdestructible()) self.removerOnda()
 	}
 	
+	//method generar2 {  }
+	
 	method configurarRemover() { game.onTick(1500, "remover", { self.remover()}) }
 	
 	method remover() { 
-		self.imagen(ceniza)
+		self.imagen(ceniza.imagen())
 		self.apagada(true)
 	}
 	
@@ -94,24 +99,55 @@ class OndaExpansiva{
 }
 
 object ceniza{
-	method imagen() = "groundMap1Broken.png"
+	method imagen() = "groundMap3Broken.png"
 }
 
 object central{
-	method imagen() = "explosionCentral.png"
+	method imagen(desde,hasta) ="explosionCentral.png"
 }
 
 object derecha{
-	method imagen() = "explosionSideRight.png"
+	method imagen(desde,hasta) { 
+		if(desde == hasta) return self.explosionEnd()
+		else return self.explosionSide()
+	}
+	
+	method explosionSide() = "explosionSideRight.png"
+	
+	method explosionEnd() = "explosionEndRight.png"
 }
 
 object izquierda{
-	method imagen() = "explosionSideLeft.png"
+	method imagen(desde,hasta) { 
+		if(desde == hasta) return self.explosionEnd()
+		else return self.explosionSide()
+	}
+	
+	method explosionSide() = "explosionSideLeft.png"
+	
+	method explosionEnd() = "explosionEndLeft.png"
 }
 
 object arriba{
-	method imagen() = "explosionSideUp.png"
+	method imagen(desde,hasta) { 
+		if(desde == hasta) return self.explosionEnd()
+		else return self.explosionSide()
+	}
+	
+	method explosionSide() = "explosionSideUp.png"
+	
+	method explosionEnd() = "explosionEndUp.png"
+	
 }
 object abajo{
-	method imagen() = "explosionSideDown.png"
+	method imagen(desde,hasta) { 
+		if(desde == hasta) return self.explosionEnd()
+		else return self.explosionSide()
+	}
+	
+	method explosionSide() = "explosionSideDown.png"
+	
+	method explosionEnd() = "explosionEndDown.png"
+	
+}
 }

@@ -15,12 +15,18 @@ object powerUpEscudo{
 	method construir(newPosition)  = new PowerUpEscudo(position = newPosition)
 }
 
+object powerUpMasBombas{
+	method construir(newPosition)  = new PowerUpMasBombas(position = newPosition)
+}
+
 //CLASES DE PowerUPS
 
 class PowerUP{
 	var property position
 	
-	method generar() { game.addVisual(self) }	
+	method generar() { game.addVisual(self) }
+	
+	method remover() { game.removeVisual(self) }
 	
 	method explotarObjeto(explosion,onda) { game.removeVisual(self) }
 	
@@ -56,5 +62,17 @@ class PowerUpEscudo inherits PowerUP{
 		jugador.ponerEscudo()
 		super(jugador)
 	}
+	
+}
+
+class PowerUpMasBombas inherits PowerUP{
+	
+	method image() = "block01.png"
+	
+	override method chocoJugador(jugador) {
+		jugador.cambiarBombasEnPantalla(1)
+		super(jugador)
+	}
+	
 	
 }
