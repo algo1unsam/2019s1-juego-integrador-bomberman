@@ -32,62 +32,25 @@ object selectorDeMapa{
 	
 	method generar() { 
 		game.addVisual(self)
-		selector.generar()
-		keyboard.space().onPressDo { game.clear() mapa1.generar() }
+		selector.generar(menuMapa1)
 	}
 }
 
-object selector{
-	
-	var x = 2
-	var y = 8
-	
+object selector{	
 	var property paradoEn = menuMapa1
 	
-	var property position = game.at(x,y)
+	var property position = paradoEn.position()
 	
 	method image() = "selector.png"
 	
-	method generar() { 
+	method generar(mapaNuevo) {
+		game.clear()
+		game.addVisual(selectorDeMapa)
 		game.addVisual(self)
-		self.irA(self.paradoEn())
-	}
-	
-	method mover(){
-		keyboard.left().onPressDo { self.moverIzquierda() }
-		keyboard.right().onPressDo { self.moverDerecha()}
-		keyboard.up().onPressDo { self.moverArriba()}
-		keyboard.down().onPressDo { self.moverAbajo()}
-	}
-	
-	method irA(mapaNuevo){
 		self.paradoEn(mapaNuevo)
+		self.position(mapaNuevo.position())
 		self.paradoEn().configurarSelector(self)
-	}
-	
-	method moverIzquierda(){
-		if((game.width()/2) < x ) {
-			x = 2
-			self.position(game.at(x,y))
-		}
-	}
-	method moverDerecha(){
-		if((game.width()/2) > x ) {
-			x = 12
-			self.position(game.at(x,y))
-		}
-	}
-	method moverArriba(){
-		if((game.height()/2) > y ) {
-			y = 8
-			self.position(game.at(x,y))
-		}
-	}
-	method moverAbajo(){
-		if((game.height()/2) < y ) {
-			y = 1
-			self.position(game.at(x,y))
-		}
+		keyboard.space().onPressDo { game.clear() mapa1.generar() }
 	}
 }
 
@@ -96,8 +59,8 @@ object menuMapa1{
 	var property position = game.at(2,8)
 	
 	method configurarSelector(selector){
-		keyboard.right().onPressDo { selector.irA(menuMapa2) selector.position(self.position()) }
-		keyboard.down().onPressDo { selector.irA(menuMapa3) selector.position(self.position()) }
+		keyboard.right().onPressDo { selector.generar(menuMapa2) }
+		keyboard.down().onPressDo { selector.generar(menuMapa3) }
 	}
 }
 
@@ -105,24 +68,24 @@ object menuMapa2{
 	var property position = game.at(12,8)
 	
 	method configurarSelector(selector){
-		keyboard.left().onPressDo { selector.irA(menuMapa1) selector.position(self.position()) }
-		keyboard.down().onPressDo { selector.irA(menuMapa4) selector.position(self.position()) }
+		keyboard.left().onPressDo { selector.generar(menuMapa1) }
+		keyboard.down().onPressDo { selector.generar(menuMapa4) }
 	}
 }
 object menuMapa3{
 	var property position = game.at(2,1)
 	
 	method configurarSelector(selector){
-		keyboard.right().onPressDo { selector.irA(menuMapa4) selector.position(self.position()) }
-		keyboard.up().onPressDo { selector.irA(menuMapa1) selector.position(self.position()) }
+		keyboard.right().onPressDo { selector.generar(menuMapa4) }
+		keyboard.up().onPressDo { selector.generar(menuMapa1) }
 	}
 }
 object menuMapa4{
 	var property position = game.at(12,1)
 	
 	method configurarSelector(selector){
-		keyboard.left().onPressDo { selector.irA(menuMapa3) selector.position(self.position()) }
-		keyboard.up().onPressDo { selector.irA(menuMapa2)  selector.position(self.position())}
+		keyboard.left().onPressDo { selector.generar(menuMapa3) }
+		keyboard.up().onPressDo { selector.generar(menuMapa2) }
 	}
 }
 

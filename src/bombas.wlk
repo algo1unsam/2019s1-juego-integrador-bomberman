@@ -59,6 +59,6 @@ class BombaFuerte inherits Bomba{
 	method image() = "bomb03.png"
 	
 	//ELIGO EL RADIO DE LA BOMBA
-	override method radio() = 5
+	override method radio() = 4
 }
 
