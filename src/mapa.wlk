@@ -4,8 +4,16 @@ import powerUps.*
 import players.*
 
 class Mapa {
-	
 	var elementos = []
+	
+	method generar(){
+		self.construir()
+		self.crear()
+		player1.generar()
+		player2.generar()
+	}
+	
+	method construir() 
 	
 	//GENERO TODOS LOS ELEMENTOS DE LA LISTA
 	method crear() { elementos.forEach{ elemento => elemento.generar() } }
@@ -40,7 +48,7 @@ class Mapa {
 
 object mapa1 inherits Mapa{
 	
-	method construir() {
+	override method construir() {
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
 		self.aniadirLineaHorizontal(bloqueIndestructible, 12, 0, 20)
@@ -57,34 +65,18 @@ object mapa1 inherits Mapa{
 		self.aniadirElemento(powerUpMasBombas, 13, 1)
 		self.aniadirElemento(powerUpMasBombas, 13, 3)
 		self.aniadirElemento(powerUpMasBombas, 11, 5)
-		self.aniadirElemento(powerUpMasBombas, 11, 7)
+		self.aniadirElemento(powerUpMasBombas, 11, 9)
 	}
-	
-	method generar(){
-		self.construir()
-		self.crear()
-	}
-	
 }
 
 object mapa2 inherits Mapa{
 	
-	method construir() {
+	override method construir() {
 		//Para crear lineas! (en donde, inicio, fin)
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
 		self.aniadirLineaHorizontal(bloqueIndestructible, 12, 0, 20)
 		self.aniadirLineaVertical(bloqueIndestructible, 0, 0, 12)
 		//self.aniadirLineaVertical(bloqueIndestructible, 20, 0, 12)
-		
-		//Se puede aniadirElementos, (tipo,x,y) los elementos pueden ser power ups o bloques
-		//self.aniadirElemento(bloqueIndestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-		//self.aniadirElemento(bloqueIndestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-		//self.aniadirElemento(bloqueIndestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-		
-		//self.aniadirElemento(bloqueDestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-		//self.aniadirElemento(bloqueDestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-		//self.aniadirElemento(bloqueDestructible, (0.randomUpTo(18)).roundUp(), (0.randomUpTo(13)).roundUp())
-		
 		
 		self.aniadirElemento(powerUpBombaFuerte, 5, 7)
 		self.aniadirElemento(powerUpAumentarVelocidad, 7, 11)
@@ -94,20 +86,10 @@ object mapa2 inherits Mapa{
 		self.aniadirElemento(powerUpMasBombas, 11, 5)
 		self.aniadirElemento(powerUpMasBombas, 11, 7)
 		
-		
 		//Esto hace el grid del mapa 1. A lo mejor se puede acortar.
 		self.aniadirElemento(bloqueIndestructible, 2,2)
 		self.aniadirElemento(bloqueIndestructible, 2, 4)
 		self.aniadirElemento(bloqueIndestructible, 2, 6)
 		self.aniadirElemento(bloqueIndestructible, 2, 8)
-
 	}
-	
-	method generar(){
-		self.construir()
-		self.crear()
-		/*player1.generar()
-		player2.generar()*/
-	}
-	
 }

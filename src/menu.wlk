@@ -42,13 +42,15 @@ object selector{
 	var x = 2
 	var y = 8
 	
+	var property paradoEn = menuMapa1
+	
 	var property position = game.at(x,y)
 	
 	method image() = "selector.png"
 	
 	method generar() { 
 		game.addVisual(self)
-		self.mover()
+		self.irA(self.paradoEn())
 	}
 	
 	method mover(){
@@ -56,6 +58,11 @@ object selector{
 		keyboard.right().onPressDo { self.moverDerecha()}
 		keyboard.up().onPressDo { self.moverArriba()}
 		keyboard.down().onPressDo { self.moverAbajo()}
+	}
+	
+	method irA(mapaNuevo){
+		self.paradoEn(mapaNuevo)
+		self.paradoEn().configurarSelector(self)
 	}
 	
 	method moverIzquierda(){
@@ -81,6 +88,41 @@ object selector{
 			y = 1
 			self.position(game.at(x,y))
 		}
+	}
+}
+
+object menuMapa1{
+	
+	var property position = game.at(2,8)
+	
+	method configurarSelector(selector){
+		keyboard.right().onPressDo { selector.irA(menuMapa2) selector.position(self.position()) }
+		keyboard.down().onPressDo { selector.irA(menuMapa3) selector.position(self.position()) }
+	}
+}
+
+object menuMapa2{
+	var property position = game.at(12,8)
+	
+	method configurarSelector(selector){
+		keyboard.left().onPressDo { selector.irA(menuMapa1) selector.position(self.position()) }
+		keyboard.down().onPressDo { selector.irA(menuMapa4) selector.position(self.position()) }
+	}
+}
+object menuMapa3{
+	var property position = game.at(2,1)
+	
+	method configurarSelector(selector){
+		keyboard.right().onPressDo { selector.irA(menuMapa4) selector.position(self.position()) }
+		keyboard.up().onPressDo { selector.irA(menuMapa1) selector.position(self.position()) }
+	}
+}
+object menuMapa4{
+	var property position = game.at(12,1)
+	
+	method configurarSelector(selector){
+		keyboard.left().onPressDo { selector.irA(menuMapa3) selector.position(self.position()) }
+		keyboard.up().onPressDo { selector.irA(menuMapa2)  selector.position(self.position())}
 	}
 }
 

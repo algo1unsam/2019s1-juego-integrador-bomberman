@@ -3,6 +3,7 @@ import players.*
 import bloques.*
 import mapa.*
 import powerUps.*
+import menu.*
 
 program Bomberman {
 	
@@ -12,14 +13,11 @@ program Bomberman {
 	game.width(21)
 	game.ground("groundMap3.png")
 	
-//CREAR MAPA
-	mapa1.generar()
-	/*keyboard.t().onPressDo {mapa1.generar()}
-	keyboard.y().onPressDo {mapa1.remover() mapa2.generar()}*/
+//Creo menu
+	menu.generar()
 	
 // CREAR JUGADOR
-	player1.generar()
-	player2.generar()
+
 
 //	START
 	game.start()
