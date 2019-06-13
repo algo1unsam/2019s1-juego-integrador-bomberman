@@ -24,6 +24,8 @@ object powerUpMasBombas{
 class PowerUP{
 	var property position
 	
+	method esDuro() = false
+	
 	method generar() { game.addVisual(self) }
 	
 	method remover() { game.removeVisual(self) }
@@ -62,7 +64,6 @@ class PowerUpEscudo inherits PowerUP{
 		jugador.ponerEscudo()
 		super(jugador)
 	}
-	
 }
 
 class PowerUpMasBombas inherits PowerUP{
@@ -73,6 +74,4 @@ class PowerUpMasBombas inherits PowerUP{
 		jugador.cambiarBombasEnPantalla(1)
 		super(jugador)
 	}
-	
-	
 }

@@ -1,12 +1,13 @@
 import wollok.game.*
 import bombas.*
+import direcciones.*
 
 class Player{
 	
 	//ATRIBUTOS
 	var property position = self.respawn()
 	
-	var property lastPosition 
+	var property direccion = abajo
 	
 	var property tipoDeBomba = constructorDeBombaNormal
 	
@@ -14,13 +15,15 @@ class Player{
 	
 	var property reductorDeVelocidad = false
 	
-	var property bombasEnPantalla = 2
-	
 	var property reductor = 0
+	
+	var property bombasEnPantalla = 2
 	
 	var property escudo = false
 	
 	var property choco = true
+	
+	method esDuro() = true
 	
 	//ABSTRACTOS
 	method configurarTeclado()
@@ -32,14 +35,18 @@ class Player{
 	method nombreDelReductor()
 	
 	//MOVIMIENTO
-	method mover(nuevaPosicion) {
-		if(not(self.reductorDeVelocidad())){
-			self.guardarPosicionAnterior()
+	method mover(nuevaPosicion,direcion) {
+		self.direccion(direcion)
+		
+		if(not(self.reductorDeVelocidad()) && self.movimientoValido(direcion)){
 			self.position(nuevaPosicion)
 			self.pusoBomba(false)
 			self.reductorDeVelocidad(true)
-			self.desactivarReductor()			}
+			self.desactivarReductor()
+		}
 	}
+	
+	method movimientoValido(direcion) = direccion.comprobarMovimiento(position)
 	
 	method desactivarReductor() {
 		game.onTick(self.reductor(),self.nombreDelReductor(), { 
@@ -93,23 +100,13 @@ class Player{
 		self.configurarColiciones()
 	}	
 
-	method chocoJugador(algo) { algo.volverAlaAnteriorPosicion() self.lastPosition(self.position())
-	}
-
-	
-	method volverAlaAnteriorPosicion() { self.position(self.lastPosition()) }
-	
-	method guardarPosicionAnterior() { self.lastPosition(self.position())}
-
 	method configurarColiciones() { game.whenCollideDo(self, { algo => algo.chocoJugador(self) }) }
 }
 
 //PLAYER 1
 object player1 inherits Player{
 	
-	var picture = "player1down.png"
-	
-	method image() = picture
+	method image() = direccion.imagenJugador1()
 	
 	override method respawn() = game.at(1,1)
 	
@@ -117,10 +114,10 @@ object player1 inherits Player{
 	
 	//TECLADO
 	override method configurarTeclado(){
-		keyboard.w().onPressDo { self.mover(self.position().up(1))	 }
-		keyboard.s().onPressDo { self.mover(self.position().down(1)) }
-		keyboard.a().onPressDo { self.mover(self.position().left(1)) }
-		keyboard.d().onPressDo { self.mover(self.position().right(1)) }
+		keyboard.w().onPressDo { self.mover(self.position().up(1),arriba) }
+		keyboard.s().onPressDo { self.mover(self.position().down(1),abajo) }
+		keyboard.a().onPressDo { self.mover(self.position().left(1),izquierda) }
+		keyboard.d().onPressDo { self.mover(self.position().right(1),derecha) }
 		keyboard.space().onPressDo { self.ponerBomba() }
 	}
 }
@@ -128,7 +125,7 @@ object player1 inherits Player{
 //PLAYER 2
 object player2 inherits Player{
 	
-	method image() = "player2down.png"
+	method image() = direccion.imagenJugador2()
 	
 	override method respawn() = game.at(19,11)
 	
@@ -136,10 +133,10 @@ object player2 inherits Player{
 	
 	//TECLADO
 	override method configurarTeclado(){
-		keyboard.up().onPressDo { self.mover(self.position().up(1))	 }
-		keyboard.down().onPressDo { self.mover(self.position().down(1)) }
-		keyboard.left().onPressDo { self.mover(self.position().left(1)) }
-		keyboard.right().onPressDo { self.mover(self.position().right(1)) }
+		keyboard.up().onPressDo { self.mover(self.position().up(1),arriba) }
+		keyboard.down().onPressDo { self.mover(self.position().down(1),abajo) }
+		keyboard.left().onPressDo { self.mover(self.position().left(1),izquierda) }
+		keyboard.right().onPressDo { self.mover(self.position().right(1),derecha) }
 		keyboard.num1().onPressDo { self.ponerBomba() }
 	}
 	

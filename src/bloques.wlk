@@ -9,17 +9,13 @@ object bloqueDestructible {
 	method construir(newPosition) = new BloqueDestructible(position = newPosition)
 } 
 
-
-
 //TIPOS DE BLOQUE
 class Bloque {
 	var property position
 	
-	constructor(x,y) { self.position(game.at(x,y)) }
-
-	method generar() { game.addVisual(self) }
+	method esDuro() = true
 	
-	method chocoJugador(algo) { algo.volverAlaAnteriorPosicion()}
+	method generar() { game.addVisual(self) }
 }
 
 //BLOQUE INDESTRUCCTIBLE
@@ -33,6 +29,7 @@ class BloqueIndestructible inherits Bloque {
 
 //BLOQUE DESTRUCCTIBLE
 class BloqueDestructible inherits Bloque {
+	
 	method image() = "blockMap1Breakable.png"
 	
 	//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE

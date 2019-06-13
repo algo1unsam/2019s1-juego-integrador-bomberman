@@ -15,13 +15,16 @@ object constructorDeBombaFuerte {
 class Bomba{
 	
 	var property position
-
+	
+	var property esDuro = true
+	
 	method radio()
 	
 	method explotarObjeto(explocion,onda) { }
 	
+	
 	//PARA QUE SOLO SE ACTIVE EL CHOQUE CUANDO SE MUEVE Y VUELVE A TOCARLA
-	method chocoJugador(algo) { if(not(algo.pusoBomba())) algo.volverAlaAnteriorPosicion()  }
+	method chocoJugador(jugador) { }
 	
 	//GENERO LA BOMBA Y LA CONFIGURO
 	method generar(jugador) {

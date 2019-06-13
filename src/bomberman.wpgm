@@ -12,14 +12,14 @@ program Bomberman {
 	game.width(21)
 	game.ground("groundMap3.png")
 	
-// CREAR JUGADOR
-	player1.generar()
-	player2.generar()
-	
 //CREAR MAPA
 	mapa1.generar()
 	/*keyboard.t().onPressDo {mapa1.generar()}
 	keyboard.y().onPressDo {mapa1.remover() mapa2.generar()}*/
+	
+// CREAR JUGADOR
+	player1.generar()
+	player2.generar()
 
 //	START
 	game.start()

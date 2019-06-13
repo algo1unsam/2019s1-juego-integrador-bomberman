@@ -1,13 +1,14 @@
 import wollok.game.*
 import bloques.*
 import players.*
+import direcciones.*
 
 class Explosion{
 	
 	//PARA PARAR LA EXPLOCION
 	var property encontroBloqueIdestructible = false
 	
-	var property lado = central
+	var property direccion = central
 	
 	//GENERO LA EXPLOCION
 	method generar(radio,posicion){
@@ -16,38 +17,43 @@ class Explosion{
 	 	self.explosionIzquierda(radio,posicion)
 		self.explosionArriba(radio,posicion)
 		self.explosionAbajo(radio,posicion)
-		
 	}
 	
 	//CREO LA EXPLOCION
 	
-	method explosionCentral(posicion) { new OndaExpansiva(position = posicion,imagen = (self.lado()).imagen(0,0)).generar(self) }
+	method explosionCentral(posicion) { 
+		new OndaExpansiva(position = posicion,imagen = (self.direccion()).imagenExplosionCentral()).generar(self)
+	}
 	
-	method explosionHorizontal(radio,x,y) {
-		(x.. x+radio).forEach { 
+	method explosionHorizontal(signo,radio,x,y) {
+		(x+signo.. (x+(signo*radio))-signo).forEach { 
 			n => if (not(self.encontroBloqueIdestructible()) )
-				new OndaExpansiva(position = game.at(n,y),imagen = (self.lado()).imagen(n,x+radio)).generar(self)
+				new OndaExpansiva(position = game.at(n,y),imagen = (self.direccion()).imagenExplosionSide()).generar(self)
 		}
+		self.crearFinDeExplosion((x+(signo*radio)),y)
 		self.encontroBloqueIdestructible(false)
 	}
 
-	method explosionVertical(radio,x,y) {
-		(y.. y+radio).forEach { 
+	method explosionVertical(signo,radio,x,y) {
+		(y+signo.. (y+(signo*radio))-signo).forEach { 
 			n => if (not(self.encontroBloqueIdestructible()))
-					new OndaExpansiva(position = game.at(x,n),imagen = (self.lado()).imagen(n,y+radio)).generar(self)
+					new OndaExpansiva(position = game.at(x,n),imagen = (self.direccion()).imagenExplosionSide()).generar(self)
 		}
+		self.crearFinDeExplosion(x,y+(signo*radio))
 		self.encontroBloqueIdestructible(false)
-		
-		
 	}
 	
-	method explosionDerecha(radio,posicion) {self.lado(derecha) self.explosionHorizontal(radio-1,posicion.x()+1,posicion.y()) }
+	method crearFinDeExplosion(x,y) { 
+		if(not(self.encontroBloqueIdestructible()))new OndaExpansiva(position = game.at(x,y),imagen = (self.direccion()).imagenExplosionEnd()).generar(self)
+	} 
 	
-	method explosionIzquierda(radio,posicion) {self.lado(izquierda) self.explosionHorizontal(-radio+1,posicion.x()-1,posicion.y()) }
+	method explosionDerecha(radio,posicion) {self.direccion(derecha) self.explosionHorizontal(1,radio,posicion.x(),posicion.y()) }
 	
-	method explosionArriba(radio,posicion) { self.lado(arriba) self.explosionVertical(radio-1,posicion.x(),posicion.y()+1) }
+	method explosionIzquierda(radio,posicion) {self.direccion(izquierda) self.explosionHorizontal(-1,radio,posicion.x(),posicion.y()) }
 	
-	method explosionAbajo(radio,posicion) {self.lado(abajo) self.explosionVertical(-radio+1,posicion.x(),posicion.y()-1) }
+	method explosionArriba(radio,posicion) { self.direccion(arriba) self.explosionVertical(1,radio,posicion.x(),posicion.y()) }
+	
+	method explosionAbajo(radio,posicion) {self.direccion(abajo) self.explosionVertical(-1,radio,posicion.x(),posicion.y()) }
 }
 
 //ONDA EXPANSIVA (FUEGO)
@@ -55,7 +61,7 @@ class OndaExpansiva{
 	
 	var property position
 	
-	var property imagen 
+	var property imagen
 	
 	//PARA CREAR LA CENIZA
 	var property apagada = false
@@ -64,7 +70,7 @@ class OndaExpansiva{
 	
 	method image() = imagen
 	
-	//method cambiarImagen(nuevaImagen) { picture = nuevaImagen }
+	method esDuro() = false
 	
 	//GENERO LA ONDA
 	method generar(explosion){
@@ -75,8 +81,6 @@ class OndaExpansiva{
 		self.explotarObjetos(explosion,self)
 		if(explosion.encontroBloqueIdestructible()) self.removerOnda()
 	}
-	
-	//method generar2 {  }
 	
 	method configurarRemover() { game.onTick(1500, "remover", { self.remover()}) }
 	
@@ -102,51 +106,4 @@ object ceniza{
 	method imagen() = "groundMap3Broken.png"
 }
 
-object central{
-	method imagen(desde,hasta) ="explosionCentral.png"
-}
 
-object derecha{
-	method imagen(desde,hasta) { 
-		if(desde == hasta) return self.explosionEnd()
-		else return self.explosionSide()
-	}
-	
-	method explosionSide() = "explosionSideRight.png"
-	
-	method explosionEnd() = "explosionEndRight.png"
-}
-
-object izquierda{
-	method imagen(desde,hasta) { 
-		if(desde == hasta) return self.explosionEnd()
-		else return self.explosionSide()
-	}
-	
-	method explosionSide() = "explosionSideLeft.png"
-	
-	method explosionEnd() = "explosionEndLeft.png"
-}
-
-object arriba{
-	method imagen(desde,hasta) { 
-		if(desde == hasta) return self.explosionEnd()
-		else return self.explosionSide()
-	}
-	
-	method explosionSide() = "explosionSideUp.png"
-	
-	method explosionEnd() = "explosionEndUp.png"
-	
-}
-object abajo{
-	method imagen(desde,hasta) { 
-		if(desde == hasta) return self.explosionEnd()
-		else return self.explosionSide()
-	}
-	
-	method explosionSide() = "explosionSideDown.png"
-	
-	method explosionEnd() = "explosionEndDown.png"
-	
-}
