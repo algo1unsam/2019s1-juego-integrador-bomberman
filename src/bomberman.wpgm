@@ -20,8 +20,6 @@ program Bomberman {
 	mapa1.generar()
 	/*keyboard.t().onPressDo {mapa1.generar()}
 	keyboard.y().onPressDo {mapa1.remover() mapa2.generar()}*/
-	
-//Movi todo a sus respectivos objetos, asi es mas facil ubicarlos
 
 //	START
 	game.start()

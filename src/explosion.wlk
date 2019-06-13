@@ -150,4 +150,3 @@ object abajo{
 	method explosionEnd() = "explosionEndDown.png"
 	
 }
-}
