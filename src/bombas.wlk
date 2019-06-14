@@ -11,6 +11,11 @@ object constructorDeBombaFuerte {
 	method construir(jugador) { new BombaFuerte().generar(jugador)}
 }
 
+object constructorDeBombaPegajosa {
+	method construir(jugador) { new BombaPegajosa().generar(jugador)}
+}
+
+
 //CLASE BOMBA ABSTRACTA
 class Bomba{
 	
@@ -41,14 +46,17 @@ class Bomba{
 		
 	//VUELVA LA BOMBA
 	method explotar(jugador){
-		new Explosion().generar(self.radio(),self.position())
+		new Explosion().generar(self.radio(),self.position(),self.tipo())
 		jugador.cambiarBombasEnPantalla(1)
 		game.removeTickEvent("explotar")
 		game.removeVisual(self)
 	}
+	method tipo()
 }
 
 class BombaNormal inherits Bomba{
+	override method tipo() = fuego
+	
 	method image() = "bomb02.png"
 	
 	//ELIGO EL RADIO DE LA BOMBA
@@ -60,5 +68,12 @@ class BombaFuerte inherits Bomba{
 	
 	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 4
+}
+
+class BombaPegajosa inherits Bomba{
+	method image() = "block01.png"
+	
+	//ELIGO EL RADIO DE LA BOMBA
+	override method radio() = 2
 }
 

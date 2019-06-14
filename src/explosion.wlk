@@ -11,53 +11,63 @@ class Explosion{
 	var property direccion = central
 	
 	//GENERO LA EXPLOCION
-	method generar(radio,posicion){
-		self.explosionCentral(posicion)
-		self.explosionDerecha(radio,posicion)
-	 	self.explosionIzquierda(radio,posicion)
-		self.explosionArriba(radio,posicion)
-		self.explosionAbajo(radio,posicion)
+	method generar(radio,posicion,tipo){
+		self.explosionCentral(posicion,tipo)
+		self.explosionDerecha(radio,posicion,tipo)
+	 	self.explosionIzquierda(radio,posicion,tipo)
+		self.explosionArriba(radio,posicion,tipo)
+		self.explosionAbajo(radio,posicion,tipo)
 	}
 	
 	//CREO LA EXPLOCION
+	method explosionCentral(posicion,tipo) { tipo.crearCentro(posicion,self) }
 	
-	method explosionCentral(posicion) { 
-		new OndaExpansiva(position = posicion,imagen = (self.direccion()).imagenExplosionCentral()).generar(self)
-	}
-	
-	method explosionHorizontal(signo,radio,x,y) {
+	method explosionHorizontal(signo,radio,x,y,tipo) {
 		(x+signo.. (x+(signo*radio))-signo).forEach { 
 			n => if (not(self.encontroBloqueIdestructible()) )
-				new OndaExpansiva(position = game.at(n,y),imagen = (self.direccion()).imagenExplosionSide()).generar(self)
+				tipo.crearLados(n,y,self)
 		}
-		self.crearFinDeExplosion((x+(signo*radio)),y)
+		self.crearFinDeExplosion((x+(signo*radio)),y,tipo)
 		self.encontroBloqueIdestructible(false)
 	}
 
-	method explosionVertical(signo,radio,x,y) {
+	method explosionVertical(signo,radio,x,y,tipo) {
 		(y+signo.. (y+(signo*radio))-signo).forEach { 
 			n => if (not(self.encontroBloqueIdestructible()))
-					new OndaExpansiva(position = game.at(x,n),imagen = (self.direccion()).imagenExplosionSide()).generar(self)
+					tipo.crearLados(x,n,self)
 		}
-		self.crearFinDeExplosion(x,y+(signo*radio))
+		self.crearFinDeExplosion(x,y+(signo*radio),tipo)
 		self.encontroBloqueIdestructible(false)
 	}
 	
-	method crearFinDeExplosion(x,y) { 
-		if(not(self.encontroBloqueIdestructible()))new OndaExpansiva(position = game.at(x,y),imagen = (self.direccion()).imagenExplosionEnd()).generar(self)
+	method crearFinDeExplosion(x,y,tipo) { 
+		if(not(self.encontroBloqueIdestructible())) tipo.crearFin(x,y,self)
 	} 
 	
-	method explosionDerecha(radio,posicion) {self.direccion(derecha) self.explosionHorizontal(1,radio,posicion.x(),posicion.y()) }
+	method explosionDerecha(radio,posicion,tipo) {self.direccion(derecha) self.explosionHorizontal(1,radio,posicion.x(),posicion.y(),tipo) }
 	
-	method explosionIzquierda(radio,posicion) {self.direccion(izquierda) self.explosionHorizontal(-1,radio,posicion.x(),posicion.y()) }
+	method explosionIzquierda(radio,posicion,tipo) {self.direccion(izquierda) self.explosionHorizontal(-1,radio,posicion.x(),posicion.y(),tipo) }
 	
-	method explosionArriba(radio,posicion) { self.direccion(arriba) self.explosionVertical(1,radio,posicion.x(),posicion.y()) }
+	method explosionArriba(radio,posicion,tipo) { self.direccion(arriba) self.explosionVertical(1,radio,posicion.x(),posicion.y(),tipo) }
 	
-	method explosionAbajo(radio,posicion) {self.direccion(abajo) self.explosionVertical(-1,radio,posicion.x(),posicion.y()) }
+	method explosionAbajo(radio,posicion,tipo) {self.direccion(abajo) self.explosionVertical(-1,radio,posicion.x(),posicion.y(),tipo) }
 }
 
 //ONDA EXPANSIVA (FUEGO)
-class OndaExpansiva{
+
+object fuego{
+	method crearCentro(nuevaPosicion,explosion) {
+		new Fuego(position = nuevaPosicion,imagen = central.imagenExplosionCentral()).generar(explosion)
+	}
+	method crearLados(x,y,explosion) {
+		new Fuego(position = game.at(x,y),imagen = (explosion.direccion()).imagenExplosionSide()).generar(explosion)
+	}
+	method crearFin(x,y,explosion) {
+		new Fuego(position = game.at(x,y),imagen = (explosion.direccion()).imagenExplosionEnd()).generar(explosion)
+	}
+}
+
+class Fuego{
 	
 	var property position
 	
@@ -66,7 +76,7 @@ class OndaExpansiva{
 	//PARA CREAR LA CENIZA
 	var property apagada = false
 	
-	method explotarObjeto(explosion,onda) {}
+	method explotarObjeto(explosion,onda) { }
 	
 	method image() = imagen
 	
@@ -84,7 +94,7 @@ class OndaExpansiva{
 	
 	method configurarRemover() { game.onTick(1500, "remover", { self.remover()}) }
 	
-	method remover() { 
+	method remover() {
 		self.imagen(ceniza.imagen())
 		self.apagada(true)
 	}
@@ -103,7 +113,5 @@ class OndaExpansiva{
 }
 
 object ceniza{
-	method imagen() = "groundMap3Broken.png"
+	method imagen() = "groundMap1Broken.png"
 }
-
-

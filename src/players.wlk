@@ -3,7 +3,6 @@ import bombas.*
 import direcciones.*
 
 class Player{
-	
 	//ATRIBUTOS
 	var property position = self.respawn()
 	
@@ -64,9 +63,9 @@ class Player{
 	}
 	
 	//ACCIONES
-	method ponerBomba() {
+	method ponerBomba(bomba) {
 		if(self.bombasEnPantalla ()>0){
-			self.tipoDeBomba().construir(self)
+			bomba.construir(self)
 			self.pusoBomba(true)
 			self.cambiarBombasEnPantalla(-1)
 		}
@@ -93,14 +92,15 @@ class Player{
 		//cambiar imagen
 		 }
 	
-	
 	method refresh() {
 		game.removeVisual(self)
 		game.addVisual(self)
 		self.configurarColiciones()
 	}	
 
-	method configurarColiciones() { game.whenCollideDo(self, { algo => algo.chocoJugador(self) }) }
+	method configurarColiciones() { 
+		game.whenCollideDo( self, { algo => algo.chocoJugador(self) } )
+	}
 }
 
 //PLAYER 1
@@ -118,7 +118,8 @@ object player1 inherits Player{
 		keyboard.s().onPressDo { self.mover(self.position().down(1),abajo) }
 		keyboard.a().onPressDo { self.mover(self.position().left(1),izquierda) }
 		keyboard.d().onPressDo { self.mover(self.position().right(1),derecha) }
-		keyboard.space().onPressDo { self.ponerBomba() }
+		keyboard.space().onPressDo { self.ponerBomba(tipoDeBomba) }
+		keyboard.b().onPressDo { self.ponerBomba(constructorDeBombaPegajosa) }
 	}
 }
 

@@ -1,7 +1,7 @@
 import wollok.game.*
 import mapa.*
 
-object menu{
+object pantallaDeInicio{
 	
 	var picture = "menu_sin_enter.png"
 	
@@ -11,7 +11,7 @@ object menu{
 	
 	method generar() { 
 		self.cargarImagen()
-		keyboard.enter().onPressDo { game.removeVisual(self) game.removeTickEvent("cambio") selectorDeMapa.generar() } 
+		keyboard.enter().onPressDo { selector.generar(menuMapa1) } 
 	}
 	
 	method cargarImagen(){
@@ -25,15 +25,12 @@ object menu{
 	}
 }
 
-object selectorDeMapa{
+object fondoSelectorDeMapa{
 	var position = game.at(0,0)
 	
 	method image() = "menuMapas.png"
 	
-	method generar() { 
-		game.addVisual(self)
-		selector.generar(menuMapa1)
-	}
+	method generar() { game.addVisual(self) }
 }
 
 object selector{	
@@ -45,17 +42,21 @@ object selector{
 	
 	method generar(mapaNuevo) {
 		game.clear()
-		game.addVisual(selectorDeMapa)
+		fondoSelectorDeMapa.generar()
 		game.addVisual(self)
 		self.paradoEn(mapaNuevo)
 		self.position(mapaNuevo.position())
 		self.paradoEn().configurarSelector(self)
-		keyboard.space().onPressDo { game.clear() mapa1.generar() }
+		keyboard.space().onPressDo { self.cargarMapa() }
+	}
+	
+	method cargarMapa(){
+		game.clear()
+		mapa1.generar()
 	}
 }
 
 object menuMapa1{
-	
 	var property position = game.at(2,8)
 	
 	method configurarSelector(selector){
