@@ -1,7 +1,7 @@
 import wollok.game.*
 
 class Lados{
-	method comprobarMovimiento(position) = not( self.objetosDeAlLado(position).any { elemento => elemento.esDuro() } )
+	method comprobarSiNoHayObjetoDuro(position) = not( self.objetosDeAlLado(position).any { elemento => elemento.esDuro() } )
 	
 	method objetosDeAlLado(position)
 }
@@ -11,6 +11,10 @@ object central{
 	method imagenExplosionCentralFuego() = "explosionCentral.png"
 	
 	method imagenExplosionCentralSticky () = "slime.png"
+	
+	method noHayNadaDuro(posicion) = not( self.objetosDeEncima(posicion).any { elemento => elemento.esDuro() } )
+	
+	method objetosDeEncima(position) = game.getObjectsIn(game.at(position.x(),position.y()))
 }
 
 object derecha inherits Lados{

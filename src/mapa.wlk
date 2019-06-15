@@ -43,7 +43,7 @@ class Mapa {
 	
 	//CREDO GRILLA
 	method aniadirGrilla(tipoDeBloque) {
-		(2 .. game.width()-2).forEach{ 
+		(8 .. game.width()-8).forEach{ 
 			i => (2 .. game.height()-2).forEach{ 
 				j => if( j%2==0 && i%2==0 )self.aniadirElemento(tipoDeBloque,i,j) 
 			}

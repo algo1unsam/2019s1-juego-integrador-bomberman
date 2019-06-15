@@ -1,6 +1,8 @@
 import wollok.game.*
 import explosion.*
 import players.*
+import scheduler.*
+import tiposDeExplosion.*
 
 //CONSTRUCTORES DE BOMBAS
 object constructorDeBombaNormal {
@@ -22,7 +24,6 @@ object constructorDeBombaRemota {
 
 //CLASE BOMBA ABSTRACTA
 class Bomba{
-	var cantBombas = 0
 	
 	var property position
 	
@@ -30,13 +31,14 @@ class Bomba{
 	
 	method radio()
 	
+	method tipo()
+	
 	method explotarObjeto(explocion,onda) { }
 	
+	method mancharObjeto(explosion,sticky) { }
 	
-	//PARA QUE SOLO SE ACTIVE EL CHOQUE CUANDO SE MUEVE Y VUELVE A TOCARLA
 	method chocoJugador(jugador) { }
 	
-	//GENERO LA BOMBA Y LA CONFIGURO
 	method generar(jugador) {
 		self.position(jugador.position())
 		game.addVisual(self)
@@ -45,24 +47,15 @@ class Bomba{
 		self.configurar(jugador)
 	}
 	
-	//LA CONFIGURO CON LOS MILISEGUDOS QUE QUIERO PARA QUE EXPLOTE
 	method configurar(jugador){
-		
-		cantBombas += 1
-		var nombre = "explotar" + cantBombas
-		game.onTick(2000, nombre, { 
-			self.explotar(jugador)
-			game.removeTickEvent(nombre)
-		})
+		scheduler.schedule(2000,{ self.explotar(jugador) })
 	}
 		
-	//VUELVA LA BOMBA
 	method explotar(jugador){
 		new Explosion().generar(self.radio(),self.position(),self.tipo())
 		jugador.cambiarBombasEnPantalla(1)
 		game.removeVisual(self)
 	}
-	method tipo() 
 }
 
 class BombaNormal inherits Bomba{
@@ -101,6 +94,6 @@ class BombaRemota inherits Bomba{
 	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 2
 	
-	override method configurar(jugador) { cantBombas += 1 jugador.agregarBombaRemota(self) }
+	override method configurar(jugador) { jugador.agregarBombaRemota(self) }
 }
 

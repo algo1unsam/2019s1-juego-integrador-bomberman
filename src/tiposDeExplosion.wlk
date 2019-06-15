@@ -36,11 +36,21 @@ class OndaExpansiva{
 	
 	var property imagen
 	
+	var property apagada = false
+	
 	method image() = imagen
 	
 	method esDuro() = false
 	
+	method removerYcrearCeniza(tipoDeCeniza) {
+		 scheduler.schedule(2000,{ 
+		 	self.remover()
+		 	(tipoDeCeniza.construir(self.position())).generar()})	 	
+	}
+	
 	method explotarObjeto(explosion,onda) { }
+	
+	method mancharObjeto(explosion,onda) { }
 	
 	method accionAlExplotar(explosion)
 	
@@ -49,18 +59,22 @@ class OndaExpansiva{
 		player1.refresh()
 		player2.refresh()
 		self.accionAlExplotar(explosion)
-		self.configurarRemover()
+		
+		
 	}
-	
-	method configurarRemover() { }
-	
 	method objetosConLosQueColiciona() = game.colliders(self)
 	
-	method removerOnda() { game.removeVisual(self) }
+	method remover() { game.removeVisual(self) }
 }
 
 //TIPOS
 class Fuego inherits OndaExpansiva{
+	
+	override method generar(explosion) {
+		super(explosion)
+		if(explosion.encontroBloqueIdestructible()) self.remover()
+		else self.removerYcrearCeniza(constructorDeCeniza)
+	}
 	
 	override method accionAlExplotar(explosion) {
 		(self.objetosConLosQueColiciona()).forEach {
@@ -68,19 +82,16 @@ class Fuego inherits OndaExpansiva{
 		} 
 	}
 
-	override method configurarRemover() { scheduler.schedule(2000,{ self.remover() }) }
-
-	method remover() {
-		game.removeVisual(self)
-		(constructorDeCeniza.construir(self.position())).generar()
-	}
-	
-	method chocoJugador(jugador) { jugador.morir()} 
+	method chocoJugador(jugador) { if(not(apagada)) jugador.morir()} 
 }
 
 class Sticky inherits OndaExpansiva{
 	
-	override method accionAlExplotar(explosion) {  }
+	override method accionAlExplotar(explosion) {
+		(self.objetosConLosQueColiciona()).forEach {
+			elemento => elemento.mancharObjeto(explosion,self)
+		} 
+	}
 	
 	method chocoJugador(jugador) { jugador.reductor(300) }
 }

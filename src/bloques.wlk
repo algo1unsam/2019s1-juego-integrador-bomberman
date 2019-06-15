@@ -23,12 +23,22 @@ class Bloque {
 //BLOQUE INDESTRUCCTIBLE
 class BloqueIndestructible inherits Bloque {
 	
+	var property imagen = "blockMap1Unbreakable.png"
+	
 	method esDuro() = true
 	
-	method image() = "blockMap1Unbreakable.png"
+	method image() = imagen
 	
 	//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
-	method explotarObjeto(explosion,onda) { explosion.encontroBloqueIdestructible(true) }
+	method explotarObjeto(explosion,onda) { 
+		explosion.encontroBloqueIdestructible(true)
+	}
+	
+	method mancharObjeto(explosion,sticky) {
+		explosion.encontroBloqueIdestructible(true) 
+		self.imagen("blockMap1UnbreakableSticky.png")
+		sticky.remover()
+	}
 }
 
 //BLOQUE DESTRUCCTIBLE
@@ -40,6 +50,8 @@ class BloqueDestructible inherits Bloque {
 	
 	//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
 	method explotarObjeto(explosion,onda) { self.destruirBloque() }
+	
+	method mancharObjeto() { }
 	
 	method destruirBloque() { game.removeVisual(self) }
 }

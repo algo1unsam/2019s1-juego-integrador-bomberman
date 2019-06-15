@@ -1,6 +1,7 @@
 import wollok.game.*
 import bombas.*
 import direcciones.*
+import scheduler.*
 
 class Player{
 	//ATRIBUTOS
@@ -12,8 +13,6 @@ class Player{
 	var property tipoDeBomba = constructorDeBombaNormal
 	
 	var property bombaSticky = false
-	
-	var property pusoBomba = false //Esto es para choque con la bomba
 	
 	var property bombasEnPantalla = 2
 	
@@ -28,37 +27,15 @@ class Player{
 	
 	var property choco = true
 	
-	method esDuro() = true
 	
 	//ABSTRACTOS
 	method configurarTeclado()
 	
-	method respawn() = game.at(0,0)
+	method respawn() 
 	
 	method explotarObjeto(explosion,onda) { }
 	
-	method nombreDelReductor()
-	
-	//MOVIMIENTO
-	method mover(nuevaPosicion,direcion) {
-		self.direccion(direcion)
-		if(not(self.reductorDeVelocidad()) && self.movimientoValido(direcion)){
-			self.position(nuevaPosicion)
-			self.pusoBomba(false)
-			self.reductorDeVelocidad(true)
-			self.desactivarReductor()
-			self.reductor(0)
-		}
-	}
-	
-	method movimientoValido(direcion) = direccion.comprobarMovimiento(position)
-	
-	method desactivarReductor() {
-		game.onTick(self.reductor(),self.nombreDelReductor(), { 
-			self.reductorDeVelocidad(false)
-			game.removeTickEvent(self.nombreDelReductor())
-			})
-	}
+	method mancharObjeto(explosion,sticky) { }
 	
 	//GENERO EL PERSONAJE
 	method generar() { 
@@ -68,13 +45,33 @@ class Player{
 		self.reductor(0)
 	}
 	
-	//ACCIONES
+	//MOVIMIENTO
+	method mover(nuevaPosicion,direcion) {
+		self.direccion(direcion)
+		if(not(self.reductorDeVelocidad()) && self.movimientoValido(direcion)){
+			self.position(nuevaPosicion)
+		//	self.pusoBomba(false)
+			self.reductorDeVelocidad(true)
+			self.desactivarReductor()
+			self.reductor(0)
+		}
+	}
+	
+	method movimientoValido(direcion) = direccion.comprobarSiNoHayObjetoDuro(position)
+	
+	//ACCIONES CON LAS BOMBAS
 	method ponerBomba(bomba) {
 		if(self.bombasEnPantalla ()>0){
 			bomba.construir(self)
-			self.pusoBomba(true)
 			self.cambiarBombasEnPantalla(-1)
 		}
+	}
+	
+	method agregarBombaRemota(bomba) { bombasRemotas.add(bomba) }
+	
+	method explotarBombasRemotas() { 
+		bombasRemotas.forEach({ bomba => bomba.explotar(self) })
+		bombasRemotas.clear()
 	}
 	
 	method cambiarBombasEnPantalla(numero) { self.bombasEnPantalla(self.bombasEnPantalla() + numero) }
@@ -83,12 +80,11 @@ class Player{
 	
 	method activarBombaSticky() { self.bombaSticky(true) }
 	
-	method morir() {
-		if(not(self.escudo())) self.position(self.respawn())
-		else self.configurarSacarEscudo()
-	}
-	
-	method configurarSacarEscudo() { game.onTick(1000, "escudo", { self.sacarEscudo() } ) }	
+	//REDUCTOR DE VELOCIAD
+	method desactivarReductor() { scheduler.schedule(self.reductor(), { self.reductorDeVelocidad(false) }) }
+
+	//ESCUDO
+	method configurarSacarEscudo() {  scheduler.schedule(1000, { self.sacarEscudo() } ) }
 	
 	method ponerEscudo() {
 		self.escudo(true)
@@ -100,21 +96,32 @@ class Player{
 		//cambiar imagen
 		 }
 	
+	
+	//ACCIONES GENERALES
+	method esDuro() = true
+	
 	method refresh() {
 		game.removeVisual(self)
 		game.addVisual(self)
 		self.configurarColiciones()
-	}	
-
-	method configurarColiciones() { 
-		game.whenCollideDo( self, { algo => algo.chocoJugador(self) } )
 	}
 	
-	method agregarBombaRemota(bomba) { bombasRemotas.add(bomba) }
+	method morir() {
+		if(not(self.escudo())) {
+			self.position(self.respawn())
+			self.darInmunidad()
+			}
+		else self.configurarSacarEscudo()
+	}
 	
-	method explotarBombasRemotas() { 
-		bombasRemotas.forEach({ bomba => bomba.explotar(self) })
-		bombasRemotas.clear()
+	method darInmunidad(){
+		self.ponerEscudo()
+		self.sacarEscudo()
+	}
+	
+	//COLICCIONES
+		method configurarColiciones() { 
+		game.whenCollideDo( self, { algo => algo.chocoJugador(self) } )
 	}
 }
 
@@ -124,8 +131,7 @@ object player1 inherits Player{
 	method image() = direccion.imagenJugador1()
 	
 	override method respawn() = game.at(1,1)
-	
-	override method nombreDelReductor() = "reductor1"
+
 	
 	//TECLADO
 	override method configurarTeclado(){
@@ -150,7 +156,6 @@ object player2 inherits Player{
 	
 	override method respawn() = game.at(19,11)
 	
-	override method nombreDelReductor() = "reductor2"
 	
 	//TECLADO
 	override method configurarTeclado(){

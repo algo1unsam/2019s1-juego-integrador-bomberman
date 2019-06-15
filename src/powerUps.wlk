@@ -36,6 +36,8 @@ class PowerUP{
 	
 	method explotarObjeto(explosion,onda) { game.removeVisual(self) }
 	
+	method mancharObjeto(explosion,sticky) { }
+	
 	method chocoJugador(jugador) { game.removeVisual(self) }
 }
 
