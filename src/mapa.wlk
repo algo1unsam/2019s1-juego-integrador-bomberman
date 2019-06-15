@@ -73,6 +73,7 @@ object mapa1 inherits Mapa{
 		self.aniadirElemento(powerUpMasBombas, 13, 3)
 		self.aniadirElemento(powerUpMasBombas, 11, 5)
 		self.aniadirElemento(powerUpMasBombas, 11, 9)
+		self.aniadirElemento(powerUpBombaSticky, 9, 9)
 	}
 }
 

@@ -11,13 +11,18 @@ object constructorDeBombaFuerte {
 	method construir(jugador) { new BombaFuerte().generar(jugador)}
 }
 
-object constructorDeBombaPegajosa {
-	method construir(jugador) { new BombaPegajosa().generar(jugador)}
+object constructorDeBombaSticky {
+	method construir(jugador) { new BombaSticky().generar(jugador)}
+}
+
+object constructorDeBombaRemota {
+	method construir(jugador) { new BombaRemota().generar(jugador)}
 }
 
 
 //CLASE BOMBA ABSTRACTA
 class Bomba{
+	var cantBombas = 0
 	
 	var property position
 	
@@ -42,16 +47,22 @@ class Bomba{
 	
 	//LA CONFIGURO CON LOS MILISEGUDOS QUE QUIERO PARA QUE EXPLOTE
 	method configurar(jugador){
-		game.onTick(2000, "explotar", { self.explotar(jugador) })}
+		
+		cantBombas += 1
+		var nombre = "explotar" + cantBombas
+		game.onTick(2000, nombre, { 
+			self.explotar(jugador)
+			game.removeTickEvent(nombre)
+		})
+	}
 		
 	//VUELVA LA BOMBA
 	method explotar(jugador){
 		new Explosion().generar(self.radio(),self.position(),self.tipo())
 		jugador.cambiarBombasEnPantalla(1)
-		game.removeTickEvent("explotar")
 		game.removeVisual(self)
 	}
-	method tipo()
+	method tipo() 
 }
 
 class BombaNormal inherits Bomba{
@@ -64,16 +75,32 @@ class BombaNormal inherits Bomba{
 }
 
 class BombaFuerte inherits Bomba{
+	override method tipo() = fuego
+	
 	method image() = "bomb03.png"
 	
 	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 4
 }
 
-class BombaPegajosa inherits Bomba{
-	method image() = "block01.png"
+class BombaSticky inherits Bomba{
+	override method tipo() = sticky
+	
+	method image() = "bomb04.png"
 	
 	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 2
+}
+
+class BombaRemota inherits Bomba{
+	
+	override method tipo() = fuego
+	
+	method image() = "bomb05.png"
+	
+	//ELIGO EL RADIO DE LA BOMBA
+	override method radio() = 2
+	
+	override method configurar(jugador) { cantBombas += 1 jugador.agregarBombaRemota(self) }
 }
 

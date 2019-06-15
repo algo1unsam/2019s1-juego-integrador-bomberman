@@ -57,61 +57,110 @@ class Explosion{
 
 object fuego{
 	method crearCentro(nuevaPosicion,explosion) {
-		new Fuego(position = nuevaPosicion,imagen = central.imagenExplosionCentral()).generar(explosion)
+		new Fuego(position = nuevaPosicion,imagen = central.imagenExplosionCentralFuego()).generar(explosion)
 	}
 	method crearLados(x,y,explosion) {
-		new Fuego(position = game.at(x,y),imagen = (explosion.direccion()).imagenExplosionSide()).generar(explosion)
+		new Fuego(position = game.at(x,y),imagen = (explosion.direccion()).imagenExplosionSideFuego()).generar(explosion)
 	}
 	method crearFin(x,y,explosion) {
-		new Fuego(position = game.at(x,y),imagen = (explosion.direccion()).imagenExplosionEnd()).generar(explosion)
+		new Fuego(position = game.at(x,y),imagen = (explosion.direccion()).imagenExplosionEndFuego()).generar(explosion)
 	}
 }
 
-class Fuego{
+object sticky{
+	method crearCentro(nuevaPosicion,explosion) {
+		new Sticky(position = nuevaPosicion,imagen = central.imagenExplosionCentralSticky()).generar(explosion)
+	}
+	method crearLados(x,y,explosion) {
+		new Sticky(position = game.at(x,y),imagen = (explosion.direccion()).imagenExplosionSideSticky()).generar(explosion)
+	}
+	method crearFin(x,y,explosion) {
+		new Sticky(position = game.at(x,y),imagen = (explosion.direccion()).imagenExplosionEndSticky()).generar(explosion)
+	}
+}
+
+class OndaExpansiva{
+	
+	var cant = 0
 	
 	var property position
 	
 	var property imagen
 	
-	//PARA CREAR LA CENIZA
 	var property apagada = false
-	
-	method explotarObjeto(explosion,onda) { }
 	
 	method image() = imagen
 	
 	method esDuro() = false
 	
-	//GENERO LA ONDA
+	method explotarObjeto(explosion,onda) { }
+	
+	method accionAlExplotar(explosion)
+	
 	method generar(explosion){
 		game.addVisual(self)
 		player1.refresh()
 		player2.refresh()
 		self.configurarRemover()
-		self.explotarObjetos(explosion,self)
+		self.accionAlExplotar(explosion)
 		if(explosion.encontroBloqueIdestructible()) self.removerOnda()
 	}
 	
-	method configurarRemover() { game.onTick(1500, "remover", { self.remover()}) }
-	
-	method remover() {
-		self.imagen(ceniza.imagen())
-		self.apagada(true)
-	}
-	
-	method removerOnda() { game.removeVisual(self) }
-	
-	//EXPLOTO LOS OBJETOS QUE TOCA LA ONDA
-	method explotarObjetos(explosion,onda) {
-		 (self.objetosConLosQueColiciona()).forEach { elemento => elemento.explotarObjeto(explosion,onda) } 
-	}
+	method configurarRemover() { }
 	
 	method objetosConLosQueColiciona() = game.colliders(self)
 	
-	//MUERE EL JUGADOR SI TOCA LA ONDA *estaria bueno hacer esto en .explotarObjeto()*
+	method removerOnda() { game.removeVisual(self) }
+}
+
+class Fuego inherits OndaExpansiva{
+	
+	override method accionAlExplotar(explosion) {
+		 (self.objetosConLosQueColiciona()).forEach {
+		 	elemento => elemento.explotarObjeto(explosion,self)
+		 } 
+	}
+
+	override method configurarRemover() { 
+		cant += 1
+		var nombre = "remover" + cant
+		console.println(nombre)
+		game.onTick(1500, nombre, { self.remover(nombre)})
+	}
+
+	method remover(nombre) {
+		self.imagen(ceniza.imagen())
+		self.apagada(true)
+		game.removeTickEvent(nombre)
+		console.println(nombre)
+	}
+	
+	
+
 	method chocoJugador(alguien) { if(not(apagada)) alguien.morir()} 
+}
+
+class Sticky inherits OndaExpansiva{
+	
+	override method accionAlExplotar(explosion) {  }
+	
+	override method configurarRemover() { 
+		self.imagen(moco.imagen())
+		self.apagada(true) 
+		}
+	
+	method remover() {
+		self.imagen(moco.imagen())
+		self.apagada(true)
+	}
+	//MUERE EL JUGADOR SI TOCA LA ONDA *estaria bueno hacer esto en .explotarObjeto()*
+	method chocoJugador(alguien) { alguien.reductor(300) }
 }
 
 object ceniza{
 	method imagen() = "groundMap1Broken.png"
+}
+
+object moco {
+	method imagen() = "slime.png"
 }

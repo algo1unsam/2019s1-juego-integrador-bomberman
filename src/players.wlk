@@ -8,15 +8,21 @@ class Player{
 	
 	var property direccion = abajo
 	
+	//BOMBAS
 	var property tipoDeBomba = constructorDeBombaNormal
+	
+	var property bombaSticky = false
 	
 	var property pusoBomba = false //Esto es para choque con la bomba
 	
+	var property bombasEnPantalla = 2
+	
+	var property bombasRemotas = []
+	
+	//POWERUPS
 	var property reductorDeVelocidad = false
 	
 	var property reductor = 0
-	
-	var property bombasEnPantalla = 2
 	
 	var property escudo = false
 	
@@ -36,12 +42,12 @@ class Player{
 	//MOVIMIENTO
 	method mover(nuevaPosicion,direcion) {
 		self.direccion(direcion)
-		
 		if(not(self.reductorDeVelocidad()) && self.movimientoValido(direcion)){
 			self.position(nuevaPosicion)
 			self.pusoBomba(false)
 			self.reductorDeVelocidad(true)
 			self.desactivarReductor()
+			self.reductor(0)
 		}
 	}
 	
@@ -75,6 +81,8 @@ class Player{
 	
 	method cambiarBomba(nuevaBomba,tiempo) { self.tipoDeBomba(nuevaBomba) }
 	
+	method activarBombaSticky() { self.bombaSticky(true) }
+	
 	method morir() {
 		if(not(self.escudo())) self.position(self.respawn())
 		else self.configurarSacarEscudo()
@@ -101,6 +109,13 @@ class Player{
 	method configurarColiciones() { 
 		game.whenCollideDo( self, { algo => algo.chocoJugador(self) } )
 	}
+	
+	method agregarBombaRemota(bomba) { bombasRemotas.add(bomba) }
+	
+	method explotarBombasRemotas() { 
+		bombasRemotas.forEach({ bomba => bomba.explotar(self) })
+		bombasRemotas.clear()
+	}
 }
 
 //PLAYER 1
@@ -114,12 +129,17 @@ object player1 inherits Player{
 	
 	//TECLADO
 	override method configurarTeclado(){
+		//MOVIMIENTO
 		keyboard.w().onPressDo { self.mover(self.position().up(1),arriba) }
 		keyboard.s().onPressDo { self.mover(self.position().down(1),abajo) }
 		keyboard.a().onPressDo { self.mover(self.position().left(1),izquierda) }
 		keyboard.d().onPressDo { self.mover(self.position().right(1),derecha) }
-		keyboard.space().onPressDo { self.ponerBomba(tipoDeBomba) }
-		keyboard.b().onPressDo { self.ponerBomba(constructorDeBombaPegajosa) }
+		
+		//BOMBAS
+		keyboard.j().onPressDo { self.ponerBomba(tipoDeBomba) }
+		keyboard.k().onPressDo { self.ponerBomba(constructorDeBombaSticky) }
+		keyboard.l().onPressDo { self.ponerBomba(constructorDeBombaRemota) }
+		keyboard.space().onPressDo { self.explotarBombasRemotas() }
 	}
 }
 
@@ -138,7 +158,7 @@ object player2 inherits Player{
 		keyboard.down().onPressDo { self.mover(self.position().down(1),abajo) }
 		keyboard.left().onPressDo { self.mover(self.position().left(1),izquierda) }
 		keyboard.right().onPressDo { self.mover(self.position().right(1),derecha) }
-		keyboard.num1().onPressDo { self.ponerBomba() }
+		keyboard.num1().onPressDo { self.ponerBomba(tipoDeBomba) }
 	}
 	
 }

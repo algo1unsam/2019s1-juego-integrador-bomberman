@@ -7,6 +7,10 @@ object powerUpBombaFuerte{
 	method construir(newPosition)  = new PowerUpBombaFuerte(position = newPosition)
 }
 
+object powerUpBombaSticky{
+	method construir(newPosition)  = new PowerUpBombaSticky(position = newPosition)
+}
+
 object powerUpAumentarVelocidad{
 	method construir(newPosition)  = new PowerUpAumentarVelocidad(position = newPosition)
 }
@@ -46,6 +50,17 @@ class PowerUpBombaFuerte inherits PowerUP{
 	}
 }
 
+class PowerUpBombaSticky inherits PowerUP{
+	
+	method image() = "powerupStickyBomb.png"
+	
+	//SI UN JUGADOR TOCA EL PowerUP LO AGARRA
+	override method chocoJugador(jugador) {
+		jugador.activarBombaSticky()
+		super(jugador)
+	}
+}
+
 class PowerUpAumentarVelocidad inherits PowerUP{
 	
 	method image() = "powerup01.png"
@@ -68,7 +83,7 @@ class PowerUpEscudo inherits PowerUP{
 
 class PowerUpMasBombas inherits PowerUP{
 	
-	method image() = "block01.png"
+	method image() = "powerupBombaExtra.png"
 	
 	override method chocoJugador(jugador) {
 		jugador.cambiarBombasEnPantalla(1)
