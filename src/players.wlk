@@ -2,12 +2,15 @@ import wollok.game.*
 import bombas.*
 import direcciones.*
 import scheduler.*
+import gameover.*
 
 class Player{
 //ATRIBUTOS
 	var property position = self.respawn()
 	
 	var property direccion = abajo
+	
+	var property vidas = 3
 	
 //BOMBAS
 	var property tipoDeBomba = constructorDeBombaNormal
@@ -44,7 +47,17 @@ class Player{
 		game.addVisual(self)
 		self.configurarTeclado()
 		self.configurarColiciones()
-		self.reductor(0)
+		self.reiniciarJugador()
+		self.vidas(3)
+	}
+	
+	method reiniciarJugador(){
+		self.vidas(3)
+		self.tipoDeBomba(constructorDeBombaNormal)
+		self.bombaSticky(false)
+		self.bombaRemota(false)
+		self.bombasEnPantalla(2)
+		self.bombasRemotas([])
 	}
 	
 //MOVIMIENTO
@@ -87,7 +100,7 @@ class Player{
 	method desactivarReductor() { scheduler.schedule(self.reductor(), { self.reductorDeVelocidad(false) }) }
 
 //ESCUDO
-	method configurarSacarEscudo() {  scheduler.schedule(1000, { self.sacarEscudo() } ) }
+	method configurarSacarEscudo() {  scheduler.schedule(2000, { self.sacarEscudo() } ) }
 	
 	method ponerEscudo() {
 		self.escudo(true)
@@ -98,6 +111,21 @@ class Player{
 		self.escudo(false)
 		//cambiar imagen
 		 }
+		 
+//VIDAS
+	method agregasVidas() { vidas+=1 } 
+	
+	method restarVidas() { vidas+=-1 }
+	
+	method morir() {
+		if(not(self.escudo())) {
+			self.position(self.respawn())
+			//self.darInmunidad()
+			self.restarVidas()
+		}
+		else self.configurarSacarEscudo()
+		gameover.comprobar(vidas)
+	}
 	
 //ACCIONES GENERALES
 	method esDuro() = true
@@ -108,17 +136,9 @@ class Player{
 		self.configurarColiciones()
 	}
 	
-	method morir() {
-		if(not(self.escudo())) {
-			self.position(self.respawn())
-			self.darInmunidad()
-			}
-		else self.configurarSacarEscudo()
-	}
-	
 	method darInmunidad(){
 		self.ponerEscudo()
-		self.sacarEscudo()
+		self.configurarSacarEscudo()
 	}
 	
 //COLICCIONES
@@ -143,8 +163,8 @@ object player1 inherits Player{
 		
 	//BOMBAS
 		keyboard.j().onPressDo { self.ponerBomba(tipoDeBomba) }
-		keyboard.k().onPressDo { if(bombaSticky) self.ponerBomba(constructorDeBombaSticky) }
-		keyboard.l().onPressDo { if(bombaRemota) self.ponerBomba(constructorDeBombaRemota) }
+		keyboard.k().onPressDo { /*if(bombaSticky)*/ self.ponerBomba(constructorDeBombaSticky) }
+		keyboard.l().onPressDo { /*if(bombaRemota)*/ self.ponerBomba(constructorDeBombaRemota) }
 		keyboard.space().onPressDo { self.explotarBombasRemotas() }
 	}
 }

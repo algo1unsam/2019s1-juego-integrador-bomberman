@@ -67,8 +67,7 @@ class Fuego inherits OndaExpansiva{
 	
 	override method generar(explosion) {
 		super(explosion)
-		if(explosion.encontroBloqueIdestructible()) self.remover()
-		else self.removerYcrearCeniza(constructorDeCeniza)
+		if(not(explosion.encontroBloque())) self.removerYcrearCeniza()
 	}
 	
 	override method accionAlExplotar(explosion) {
@@ -77,13 +76,14 @@ class Fuego inherits OndaExpansiva{
 		} 
 	}
 	
-	method removerYcrearCeniza(tipoDeCeniza) {
-		 scheduler.schedule(tiempoDeExplosion,{ 
+	method removerYcrearCeniza() {
+		 scheduler.schedule(tiempoDeExplosion,{
+		 	(constructorDeCeniza.construir(self.position())).generar() 
 		 	self.remover()
-		 	(tipoDeCeniza.construir(self.position())).generar()})	 	
+		 })
 	}
 
-	method chocoJugador(jugador) { if(not(apagada)) jugador.morir()} 
+	method chocoJugador(jugador) { jugador.morir() } 
 }
 
 class Sticky inherits OndaExpansiva{

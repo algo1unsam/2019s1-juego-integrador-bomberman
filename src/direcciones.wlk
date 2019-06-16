@@ -6,6 +6,8 @@ class Direccion{
 	method comprobarSiNoHayObjetoDuro(position) = not( self.objetosEn(position).any { elemento => elemento.esDuro() } )
 	
 	method objetosEn(position) = game.getObjectsIn(position)
+	
+	method imagenExplosionSideSticky() = "slime.png"
 }
 
 //CENTRAL
@@ -32,9 +34,9 @@ object derecha inherits Direccion{
 	method imagenExplosionEndFuego() = "explosionEndRight.png"
 	
 	//STICKY
-	method imagenExplosionSideSticky() = "slime.png"
+
 	
-	method imagenExplosionEndSticky() = "slime.png"
+	method imagenExplosionEndSticky() = "slimeEndRight.png"
 	
 //COMPROBAR OBJETOS DE AL LADO
 	override method objetosEn(position) = super(game.at(position.x()+1,position.y()))
@@ -53,10 +55,8 @@ object izquierda inherits Direccion{
 	
 	method imagenExplosionEndFuego() = "explosionEndLeft.png"
 	
-	//STICKY
-	method imagenExplosionSideSticky() = "slime.png"
-	
-	method imagenExplosionEndSticky() = "slime.png"
+	//STICKY"
+	method imagenExplosionEndSticky() = "slimeEndLeft.png"
 	
 //COMPROBAR OBJETOS DE AL LADO
 	override method objetosEn(position) = super(game.at(position.x()-1,position.y()))
@@ -76,9 +76,7 @@ object arriba inherits Direccion{
 	method imagenExplosionEndFuego() = "explosionEndUp.png"
 	
 	//STCIKY
-	method imagenExplosionSideSticky() = "slime.png"
-	
-	method imagenExplosionEndSticky() = "slime.png"
+	method imagenExplosionEndSticky() = "slimeEndUp.png"
 	
 //COMPROBAR OBJETOS DE AL LADO
 	override method objetosEn(position) = super(game.at(position.x(),position.y()+1))
@@ -98,9 +96,7 @@ object abajo inherits Direccion{
 	method imagenExplosionEndFuego() = "explosionEndDown.png"
 	
 	//STCIKY
-	method imagenExplosionSideSticky() = "slime.png"
-	
-	method imagenExplosionEndSticky() = "slime.png"
+	method imagenExplosionEndSticky() = "slimeEndDown.png"
 	
 //COMPROBAR OBJETOS DE AL LADO
 	override method objetosEn(position) = super(game.at(position.x(),position.y()-1))

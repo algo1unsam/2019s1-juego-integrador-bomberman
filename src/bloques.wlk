@@ -1,6 +1,8 @@
 import wollok.game.*
 import powerUps.*
 import scheduler.*
+import tiposDeExplosion.*
+import restosDeExplosion.*
 
 //CONSTRUCTOR DE BLOQUES
 object bloqueIndestructible { 
@@ -34,12 +36,13 @@ class BloqueIndestructible inherits Bloque {
 //ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
 	//SI EXPLOTA
 	method explotarObjeto(explosion,onda) { 
-		explosion.encontroBloqueIdestructible(true)
+		explosion.encontroBloque(true)
+		onda.remover()
 	}
 	
 	//SI SE MANCHA
 	method mancharObjeto(explosion,sticky) {
-		explosion.encontroBloqueIdestructible(true) 
+		explosion.encontroBloque(true) 
 		self.imagen("blockMap1UnbreakableSticky.png")
 		sticky.remover()
 	}
@@ -50,23 +53,37 @@ class BloqueDestructible inherits Bloque {
 	
 	var property probabilidadDePowerUp = 10
 	
+	var property imagen = "blockMap1Breakable.png"
+	
 	method esDuro() = true
 	
-	method image() = "blockMap1Breakable.png"
+	method image() = imagen
 	
 //ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
-	method explotarObjeto(explosion,onda) { self.destruirBloque(onda) }
-	
-	method mancharObjeto(explosion,sticky) { explosion.encontroBloqueIdestructible(true) }
-	
-	method destruirBloque(onda) {
-		if(self.ponerPowerUp()) 
-			scheduler.schedule(onda.tiempoDeExplosion()+50, {
-				(powerUPsRandom.obtener()).construir(self.position()).generar()
-			})
-		game.removeVisual(self)
+	method explotarObjeto(explosion,onda) { 
+		explosion.encontroBloque(true)
+		onda.imagen((explosion.direccion()).imagenExplosionEndFuego())
+		self.destruirBloque(onda)
 	}
 	
+	method cambiarFuego(onda,explosion){
+		fuego.crearFin((onda.position()).x(),(onda.position()).y(),explosion)
+	}
+	
+	method mancharObjeto(explosion,sticky) { 
+		explosion.encontroBloque(true)
+		sticky.imagen((explosion.direccion()).imagenExplosionEndSticky())
+	}
+	
+	method destruirBloque(onda) {
+		scheduler.schedule(onda.tiempoDeExplosion()+50, {
+			onda.remover()
+			(constructorDeCeniza.construir(onda.position())).generar()
+			if(self.ponerPowerUp())(powerUPsRandom.obtener()).construir(self.position()).generar()
+			game.removeVisual(self)
+		})
+	}
+
 	method random() = 0.randomUpTo(10).roundUp()
 	
 	method ponerPowerUp() = self.random() <= self.probabilidadDePowerUp()
