@@ -11,7 +11,7 @@ object pantallaDeInicio{
 	
 	method generar() { 
 		self.cargarImagen()
-		keyboard.enter().onPressDo { selector.generar(menuMapa1) } 
+		keyboard.enter().onPressDo { selectorDeMapa.generar(mapa1) } 
 	}
 	
 	method cargarImagen(){
@@ -25,29 +25,27 @@ object pantallaDeInicio{
 	}
 }
 
-object fondoSelectorDeMapa{
-	var position = game.at(0,0)
+object fondoDelMenu{
+	var position =game.at(0,0)
 	
-	method image() = "menuMapas.png"
-	
-	method generar() { game.addVisual(self) }
+	method image() = "menuMapas.png" 	 
 }
 
-object selector{	
-	var property paradoEn = menuMapa1
+object selectorDeMapa{		
+	var property paradoEn = mapa1
 	
-	var property position = paradoEn.position()
+	var property position = paradoEn.positionEnMenu()
 	
 	method image() = "selector.png"
 	
 	method generar(mapaNuevo) {
 		game.clear()
-		fondoSelectorDeMapa.generar()
+		game.addVisual(fondoDelMenu)
 		game.addVisual(self)
 		self.paradoEn(mapaNuevo)
-		self.position(mapaNuevo.position())
+		self.position(mapaNuevo.positionEnMenu())
 		self.paradoEn().configurarSelector(self)
-		keyboard.space().onPressDo { self.cargarMapa() }
+		keyboard.space().onPressDo { paradoEn.generar() }
 	}
 	
 	method cargarMapa(){
@@ -56,39 +54,8 @@ object selector{
 	}
 }
 
-object menuMapa1{
-	var property position = game.at(2,8)
-	
-	method configurarSelector(selector){
-		keyboard.right().onPressDo { selector.generar(menuMapa2) }
-		keyboard.down().onPressDo { selector.generar(menuMapa3) }
-	}
-}
 
-object menuMapa2{
-	var property position = game.at(12,8)
-	
-	method configurarSelector(selector){
-		keyboard.left().onPressDo { selector.generar(menuMapa1) }
-		keyboard.down().onPressDo { selector.generar(menuMapa4) }
-	}
-}
-object menuMapa3{
-	var property position = game.at(2,1)
-	
-	method configurarSelector(selector){
-		keyboard.right().onPressDo { selector.generar(menuMapa4) }
-		keyboard.up().onPressDo { selector.generar(menuMapa1) }
-	}
-}
-object menuMapa4{
-	var property position = game.at(12,1)
-	
-	method configurarSelector(selector){
-		keyboard.left().onPressDo { selector.generar(menuMapa3) }
-		keyboard.up().onPressDo { selector.generar(menuMapa2) }
-	}
-}
+
 
 
 	

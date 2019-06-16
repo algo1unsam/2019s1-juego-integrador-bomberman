@@ -13,7 +13,7 @@ program Bomberman {
 	game.width(23)
 	
 // START
-	mapa1.generar()
+	pantallaDeInicio.generar()
 //	START
 	game.start()
 }

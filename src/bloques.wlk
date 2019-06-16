@@ -3,6 +3,7 @@ import powerUps.*
 import scheduler.*
 import tiposDeExplosion.*
 import restosDeExplosion.*
+import mapa.*
 
 //CONSTRUCTOR DE BLOQUES
 object bloqueIndestructible { 
@@ -27,11 +28,11 @@ class Bloque {
 //BLOQUE INDESTRUCCTIBLE
 class BloqueIndestructible inherits Bloque {
 	
-	var property imagen = "blockMap1Unbreakable.png"
+
 	
 	method esDuro() = true
 	
-	method image() = imagen
+	method image() = "blockMapUnbreakable" +  mapa.numeroDeMapa() + ".png"
 	
 //ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
 	//SI EXPLOTA
@@ -53,11 +54,9 @@ class BloqueDestructible inherits Bloque {
 	
 	var property probabilidadDePowerUp = 10
 	
-	var property imagen = "blockMap1Breakable.png"
-	
 	method esDuro() = true
 	
-	method image() = imagen
+	method image() = "blockMapBreakable" + mapa.numeroDeMapa() + ".png"
 	
 //ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
 	method explotarObjeto(explosion,onda) { 
