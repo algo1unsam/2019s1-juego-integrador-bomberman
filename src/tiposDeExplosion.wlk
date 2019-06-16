@@ -94,5 +94,5 @@ class Sticky inherits OndaExpansiva{
 		} 
 	}
 	
-	method chocoJugador(jugador) { jugador.reductor(300) }
+	method chocoJugador(jugador) { if(not(jugador.botas())) jugador.reductor(300) }
 }

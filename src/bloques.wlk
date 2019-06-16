@@ -77,10 +77,10 @@ class BloqueDestructible inherits Bloque {
 	
 	method destruirBloque(onda) {
 		scheduler.schedule(onda.tiempoDeExplosion()+50, {
-			onda.remover()
 			(constructorDeCeniza.construir(onda.position())).generar()
-			if(self.ponerPowerUp())(powerUPsRandom.obtener()).construir(self.position()).generar()
+			onda.remover()
 			game.removeVisual(self)
+			if(self.ponerPowerUp())(powerUPsRandom.obtener()).construir(self.position()).generar()
 		})
 	}
 

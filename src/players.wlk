@@ -24,6 +24,8 @@ class Player{
 	var property bombasRemotas = []
 	
 //POWERUPS
+	var property botas = false
+	
 	var property reductorDeVelocidad = false
 	
 	var property reductor = 0
@@ -99,6 +101,9 @@ class Player{
 //REDUCTOR DE VELOCIAD
 	method desactivarReductor() { scheduler.schedule(self.reductor(), { self.reductorDeVelocidad(false) }) }
 
+//BOTAS
+	method activarBotas() { self.botas(true) }
+
 //ESCUDO
 	method configurarSacarEscudo() {  scheduler.schedule(2000, { self.sacarEscudo() } ) }
 	
@@ -113,15 +118,15 @@ class Player{
 		 }
 		 
 //VIDAS
-	method agregasVidas() { vidas+=1 } 
+	method sumarVida() { vidas+=1 } 
 	
-	method restarVidas() { vidas+=-1 }
+	method restaVida() { vidas+=-1 }
 	
 	method morir() {
 		if(not(self.escudo())) {
 			self.position(self.respawn())
 			//self.darInmunidad()
-			self.restarVidas()
+			self.restaVida()
 		}
 		else self.configurarSacarEscudo()
 		gameover.comprobar(vidas)

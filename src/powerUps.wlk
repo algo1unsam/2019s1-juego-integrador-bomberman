@@ -5,8 +5,10 @@ import bombas.*
 //CREADOR DE POWERUP AL AZAR
 object powerUPsRandom{
 	var property powerUPs = [ 
-		powerUpBombaFuerte, powerUpBombaSticky, powerUpAumentarVelocidad, powerUpEscudo, powerUpMasBombas, powerUpBombaRemota
+		powerUpBombaFuerte, powerUpBombaSticky, powerUpAumentarVelocidad,
+		powerUpEscudo,powerUpMasBombas, powerUpBombaRemota, powerUpAgregarVida
 	]
+	
 	method obtener() = powerUPs.anyOne()
 }
 
@@ -34,6 +36,11 @@ object powerUpAumentarVelocidad{
 object powerUpEscudo{
 	method construir(newPosition)  = new PowerUpEscudo(position = newPosition)
 }
+
+object powerUpAgregarVida{
+	method construir(newPosition)  = new PowerUpAgregarVida(position = newPosition)
+}
+
 
 //CLASES DE PowerUPS
 class PowerUP{
@@ -95,7 +102,7 @@ class PowerUpAumentarVelocidad inherits PowerUP{
 	method image() = "powerup01.png"
 	
 	override method chocoJugador(jugador) {
-		jugador.reductor(0)
+		jugador.activarBotas()
 		super(jugador)
 	}
 }
@@ -119,5 +126,15 @@ class PowerUpMasBombas inherits PowerUP{
 	override method chocoJugador(jugador) {
 		jugador.cambiarBombasEnPantalla(1)
 		super(jugador)
+	}
+}
+
+//AGREGAR VIDA
+class PowerUpAgregarVida inherits PowerUP{
+	
+	method image() = "poweruplife.png"
+	
+	override method chocoJugador(jugador) {
+		jugador.sumarVida()
 	}
 }
