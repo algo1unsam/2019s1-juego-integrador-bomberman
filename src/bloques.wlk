@@ -1,4 +1,6 @@
 import wollok.game.*
+import powerUps.*
+import scheduler.*
 
 //CONSTRUCTOR DE BLOQUES
 object bloqueIndestructible { 
@@ -29,11 +31,13 @@ class BloqueIndestructible inherits Bloque {
 	
 	method image() = imagen
 	
-	//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
+//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
+	//SI EXPLOTA
 	method explotarObjeto(explosion,onda) { 
 		explosion.encontroBloqueIdestructible(true)
 	}
 	
+	//SI SE MANCHA
 	method mancharObjeto(explosion,sticky) {
 		explosion.encontroBloqueIdestructible(true) 
 		self.imagen("blockMap1UnbreakableSticky.png")
@@ -44,23 +48,35 @@ class BloqueIndestructible inherits Bloque {
 //BLOQUE DESTRUCCTIBLE
 class BloqueDestructible inherits Bloque {
 	
+	var property probabilidadDePowerUp = 10
+	
 	method esDuro() = true
 	
 	method image() = "blockMap1Breakable.png"
 	
-	//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
-	method explotarObjeto(explosion,onda) { self.destruirBloque() }
+//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
+	method explotarObjeto(explosion,onda) { self.destruirBloque(onda) }
 	
-	method mancharObjeto() { }
+	method mancharObjeto(explosion,sticky) { explosion.encontroBloqueIdestructible(true) }
 	
-	method destruirBloque() { game.removeVisual(self) }
+	method destruirBloque(onda) {
+		if(self.ponerPowerUp()) 
+			scheduler.schedule(onda.tiempoDeExplosion()+50, {
+				(powerUPsRandom.obtener()).construir(self.position()).generar()
+			})
+		game.removeVisual(self)
+	}
+	
+	method random() = 0.randomUpTo(10).roundUp()
+	
+	method ponerPowerUp() = self.random() <= self.probabilidadDePowerUp()
 }
 
 class BloqueDestruido inherits Bloque {
 	
 	method esDuro() = false
 	
-	method image() = "groundMap3Broken.png"
+	method image() = "groundMap1Broken.png"
 	
 	//ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
 	method explotarObjeto(explosion,onda) {  }

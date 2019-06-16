@@ -43,7 +43,7 @@ class Mapa {
 	
 	//CREDO GRILLA
 	method aniadirGrilla(tipoDeBloque) {
-		(8 .. game.width()-8).forEach{ 
+		(2 .. game.width()-2).forEach{ 
 			i => (2 .. game.height()-2).forEach{ 
 				j => if( j%2==0 && i%2==0 )self.aniadirElemento(tipoDeBloque,i,j) 
 			}
@@ -63,17 +63,17 @@ object mapa1 inherits Mapa{
 		self.aniadirLineaVertical(bloqueIndestructible, 20, 0, 12)
 		
 		//Creo grilla
-		self.aniadirGrilla(bloqueIndestructible)
+		self.aniadirGrilla(bloqueDestructible)
 		
 		//Aniado elementos
-		self.aniadirElemento(powerUpBombaFuerte, 5, 7)
+		/*self.aniadirElemento(powerUpBombaFuerte, 5, 7)
 		self.aniadirElemento(powerUpAumentarVelocidad, 7, 11)
 		self.aniadirElemento(powerUpEscudo, 11, 7)
 		self.aniadirElemento(powerUpMasBombas, 13, 1)
 		self.aniadirElemento(powerUpMasBombas, 13, 3)
 		self.aniadirElemento(powerUpMasBombas, 11, 5)
 		self.aniadirElemento(powerUpMasBombas, 11, 9)
-		self.aniadirElemento(powerUpBombaSticky, 9, 9)
+		self.aniadirElemento(powerUpBombaSticky, 9, 9)*/
 	}
 }
 

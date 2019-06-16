@@ -14,7 +14,7 @@ program Bomberman {
 	
 // START
 	mapa1.generar()
-
+	
 //	START
 	game.start()
 }

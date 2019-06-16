@@ -42,12 +42,6 @@ class OndaExpansiva{
 	
 	method esDuro() = false
 	
-	method removerYcrearCeniza(tipoDeCeniza) {
-		 scheduler.schedule(2000,{ 
-		 	self.remover()
-		 	(tipoDeCeniza.construir(self.position())).generar()})	 	
-	}
-	
 	method explotarObjeto(explosion,onda) { }
 	
 	method mancharObjeto(explosion,onda) { }
@@ -59,9 +53,8 @@ class OndaExpansiva{
 		player1.refresh()
 		player2.refresh()
 		self.accionAlExplotar(explosion)
-		
-		
 	}
+	
 	method objetosConLosQueColiciona() = game.colliders(self)
 	
 	method remover() { game.removeVisual(self) }
@@ -69,6 +62,8 @@ class OndaExpansiva{
 
 //TIPOS
 class Fuego inherits OndaExpansiva{
+	
+	var property tiempoDeExplosion = 1000
 	
 	override method generar(explosion) {
 		super(explosion)
@@ -80,6 +75,12 @@ class Fuego inherits OndaExpansiva{
 		(self.objetosConLosQueColiciona()).forEach {
 			elemento => elemento.explotarObjeto(explosion,self)
 		} 
+	}
+	
+	method removerYcrearCeniza(tipoDeCeniza) {
+		 scheduler.schedule(tiempoDeExplosion,{ 
+		 	self.remover()
+		 	(tipoDeCeniza.construir(self.position())).generar()})	 	
 	}
 
 	method chocoJugador(jugador) { if(not(apagada)) jugador.morir()} 

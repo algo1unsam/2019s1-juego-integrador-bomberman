@@ -1,93 +1,107 @@
 import wollok.game.*
 
-class Lados{
-	method comprobarSiNoHayObjetoDuro(position) = not( self.objetosDeAlLado(position).any { elemento => elemento.esDuro() } )
+//DIRECCIONES
+class Direccion{
 	
-	method objetosDeAlLado(position)
+	method comprobarSiNoHayObjetoDuro(position) = not( self.objetosEn(position).any { elemento => elemento.esDuro() } )
+	
+	method objetosEn(position) = game.getObjectsIn(position)
 }
 
-object central{
-	//BOMBAS
+//CENTRAL
+object central inherits Direccion{
+//BOMBAS
+	//FUEGO
 	method imagenExplosionCentralFuego() = "explosionCentral.png"
 	
+	//STCIKY
 	method imagenExplosionCentralSticky () = "slime.png"
-	
-	method noHayNadaDuro(posicion) = not( self.objetosDeEncima(posicion).any { elemento => elemento.esDuro() } )
-	
-	method objetosDeEncima(position) = game.getObjectsIn(game.at(position.x(),position.y()))
 }
 
-object derecha inherits Lados{
-	//JUGADOR
+//DERECHA
+object derecha inherits Direccion{
+//JUGADOR
 	method imagenJugador1() = "player1right.png"
 	
 	method imagenJugador2() = "player2right.png"
 	
-	//BOMBAS
+//BOMBAS
+	//FUEGO
 	method imagenExplosionSideFuego() = "explosionSideRight.png"
 	
 	method imagenExplosionEndFuego() = "explosionEndRight.png"
 	
+	//STICKY
 	method imagenExplosionSideSticky() = "slime.png"
 	
 	method imagenExplosionEndSticky() = "slime.png"
-
-	override method objetosDeAlLado(position) = game.getObjectsIn(game.at(position.x()+1,position.y()))
+	
+//COMPROBAR OBJETOS DE AL LADO
+	override method objetosEn(position) = super(game.at(position.x()+1,position.y()))
 }
 
-object izquierda inherits Lados{
-	//JUGADOR
+//IZQUIERDA
+object izquierda inherits Direccion{
+//JUGADOR
 	method imagenJugador1() = "player1left.png"
 	
 	method imagenJugador2() = "player2left.png"
 	
-	//BOMBAS
+//BOMBAS
+	//FUEGO
 	method imagenExplosionSideFuego() = "explosionSideLeft.png"
 	
 	method imagenExplosionEndFuego() = "explosionEndLeft.png"
 	
+	//STICKY
 	method imagenExplosionSideSticky() = "slime.png"
 	
 	method imagenExplosionEndSticky() = "slime.png"
 	
-	
-	override method objetosDeAlLado(position) = game.getObjectsIn(game.at(position.x()-1,position.y()))
+//COMPROBAR OBJETOS DE AL LADO
+	override method objetosEn(position) = super(game.at(position.x()-1,position.y()))
 }
 
-object arriba inherits Lados{
-	//JUGADOR
+//ARRIBA
+object arriba inherits Direccion{
+//JUGADOR
 	method imagenJugador1() = "player1up.png"
 	
 	method imagenJugador2() = "player2up.png"
 	
-	//BOMBAS
+//BOMBAS
+	//FUEGO
 	method imagenExplosionSideFuego() = "explosionSideUp.png"
 	
 	method imagenExplosionEndFuego() = "explosionEndUp.png"
 	
+	//STCIKY
 	method imagenExplosionSideSticky() = "slime.png"
 	
 	method imagenExplosionEndSticky() = "slime.png"
 	
-	
-	override method objetosDeAlLado(position) = game.getObjectsIn(game.at(position.x(),position.y()+1))
+//COMPROBAR OBJETOS DE AL LADO
+	override method objetosEn(position) = super(game.at(position.x(),position.y()+1))
 }
 
-object abajo inherits Lados{
-	//JUGADOR
+//ABAJO
+object abajo inherits Direccion{
+//JUGADOR
 	method imagenJugador1() = "player1down.png"
 	
 	method imagenJugador2() = "player2down.png"
 	
-	//BOMBAS
+//BOMBAS
+	//FUEGO
 	method imagenExplosionSideFuego() = "explosionSideDown.png"
 	
 	method imagenExplosionEndFuego() = "explosionEndDown.png"
 	
-		method imagenExplosionSideSticky() = "slime.png"
+	//STCIKY
+	method imagenExplosionSideSticky() = "slime.png"
 	
 	method imagenExplosionEndSticky() = "slime.png"
 	
-	
-	override method objetosDeAlLado(position) = game.getObjectsIn(game.at(position.x(),position.y()-1))
+//COMPROBAR OBJETOS DE AL LADO
+	override method objetosEn(position) = super(game.at(position.x(),position.y()-1))
 }

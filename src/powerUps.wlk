@@ -2,6 +2,14 @@ import wollok.game.*
 import players.*
 import bombas.*
 
+//CREADOR DE POWERUP AL AZAR
+object powerUPsRandom{
+	var property powerUPs = [ 
+		powerUpBombaFuerte, powerUpBombaSticky, powerUpAumentarVelocidad, powerUpEscudo, powerUpMasBombas, powerUpBombaRemota
+	]
+	method obtener() = powerUPs.anyOne()
+}
+
 //CONSTRUCTOR DE PowerUPs
 object powerUpBombaFuerte{
 	method construir(newPosition)  = new PowerUpBombaFuerte(position = newPosition)
@@ -9,6 +17,14 @@ object powerUpBombaFuerte{
 
 object powerUpBombaSticky{
 	method construir(newPosition)  = new PowerUpBombaSticky(position = newPosition)
+}
+
+object powerUpMasBombas{
+	method construir(newPosition)  = new PowerUpMasBombas(position = newPosition)
+}
+
+object powerUpBombaRemota{
+	method construir(newPosition)  = new PowerUpBombaRemota(position = newPosition)
 }
 
 object powerUpAumentarVelocidad{
@@ -19,12 +35,7 @@ object powerUpEscudo{
 	method construir(newPosition)  = new PowerUpEscudo(position = newPosition)
 }
 
-object powerUpMasBombas{
-	method construir(newPosition)  = new PowerUpMasBombas(position = newPosition)
-}
-
 //CLASES DE PowerUPS
-
 class PowerUP{
 	var property position
 	
@@ -41,17 +52,20 @@ class PowerUP{
 	method chocoJugador(jugador) { game.removeVisual(self) }
 }
 
+//TIPO DE POWER UPS
+
+//BOMBA FUERTE
 class PowerUpBombaFuerte inherits PowerUP{
 	
 	method image() = "powerup02.png"
 	
-	//SI UN JUGADOR TOCA EL PowerUP LO AGARRA
 	override method chocoJugador(jugador) {
 		jugador.cambiarBomba(constructorDeBombaFuerte,0)
 		super(jugador)
 	}
 }
 
+//BOMBA STICKY
 class PowerUpBombaSticky inherits PowerUP{
 	
 	method image() = "powerupStickyBomb.png"
@@ -63,6 +77,19 @@ class PowerUpBombaSticky inherits PowerUP{
 	}
 }
 
+//BOMBA REMOTA
+class PowerUpBombaRemota inherits PowerUP{
+	
+	method image() = "powerupBombaRemota.png"
+	
+	//SI UN JUGADOR TOCA EL PowerUP LO AGARRA
+	override method chocoJugador(jugador) {
+		jugador.activarBombaRemota()
+		super(jugador)
+	}
+}
+
+//AUMENTAR LA VELOCIDAD
 class PowerUpAumentarVelocidad inherits PowerUP{
 	
 	method image() = "powerup01.png"
@@ -73,6 +100,7 @@ class PowerUpAumentarVelocidad inherits PowerUP{
 	}
 }
 
+//ESCUDO
 class PowerUpEscudo inherits PowerUP{
 	
 	method image() = "powerup03.png"
@@ -83,6 +111,7 @@ class PowerUpEscudo inherits PowerUP{
 	}
 }
 
+//MAS BOMBAS
 class PowerUpMasBombas inherits PowerUP{
 	
 	method image() = "powerupBombaExtra.png"

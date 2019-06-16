@@ -10,7 +10,7 @@ class Explosion{
 	
 	var property direccion = central
 	
-	//GENERO LA EXPLOCION
+//GENERO LA EXPLOCION
 	var property encontroBloqueIdestructible = false
 
 	method generar(radio,posicion,tipo){
@@ -21,7 +21,7 @@ class Explosion{
 		self.explosionAbajo(radio,posicion,tipo)
 	}
 	
-	//GENERO LOS LADOS
+//GENERO LOS LADOS Y ASIGNO EL TIPO
 	method explosionCentral(posicion,tipo) { tipo.crearCentro(posicion,self) }
 	
 	method explosionDerecha(radio,posicion,tipo) {self.direccion(derecha) self.explosionHorizontal(1,radio,posicion.x(),posicion.y(),tipo) }
@@ -34,7 +34,9 @@ class Explosion{
 	
 	method crearFinDeExplosion(x,y,tipo) { if(not(self.encontroBloqueIdestructible())) tipo.crearFin(x,y,self) } 
 	
-	//CREO LA EXPLOCION
+//CREO LA EXPLOCION
+	
+	//HORIZONTAL
 	method explosionHorizontal(signo,radio,x,y,tipo) {
 		(x+signo.. (x+(signo*radio))-signo).forEach { 
 			n => if (not(self.encontroBloqueIdestructible()) )
@@ -44,6 +46,7 @@ class Explosion{
 		self.encontroBloqueIdestructible(false)
 	}
 
+	//VERTICAL
 	method explosionVertical(signo,radio,x,y,tipo) {
 		(y+signo.. (y+(signo*radio))-signo).forEach { 
 			n => if (not(self.encontroBloqueIdestructible()))
