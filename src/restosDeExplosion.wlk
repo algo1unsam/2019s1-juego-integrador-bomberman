@@ -1,8 +1,9 @@
 import wollok.game.*
+import mapa.*
 
 object constructorDeCeniza{ 
 	
-	method imagen() = "groundMap1Broken.png"
+	method imagen() = "groundMapBroken"+ mapa.numeroDeMapa() +".png"
 		
 	method construir(newPosition) = new Ceniza(position = newPosition)
 }

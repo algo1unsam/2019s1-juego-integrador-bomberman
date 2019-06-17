@@ -11,7 +11,7 @@ object pantallaDeInicio{
 	
 	method generar() { 
 		self.cargarImagen()
-		keyboard.enter().onPressDo { selectorDeMapa.generar(mapa1) } 
+		keyboard.enter().onPressDo { selectorDeMapa.generar(previewMapa1) } 
 	}
 	
 	method cargarImagen(){
@@ -32,30 +32,85 @@ object fondoDelMenu{
 }
 
 object selectorDeMapa{		
-	var property paradoEn = mapa1
+	var property paradoEn = previewMapa1
 	
-	var property position = paradoEn.positionEnMenu()
+	var property position = game.at(paradoEn.position().x()-1,paradoEn.position().y()-1)
 	
 	method image() = "selector.png"
 	
-	method generar(mapaNuevo) {
+	method generar(nuevaSelecion) {
 		game.clear()
 		game.addVisual(fondoDelMenu)
+		self.cargarPreview()
 		game.addVisual(self)
-		self.paradoEn(mapaNuevo)
-		self.position(mapaNuevo.positionEnMenu())
+		self.paradoEn(nuevaSelecion)
+		self.position(game.at(nuevaSelecion.position().x()-1,nuevaSelecion.position().y()-1))
 		self.paradoEn().configurarSelector(self)
-		keyboard.space().onPressDo { paradoEn.generar() }
+		keyboard.space().onPressDo { (paradoEn.mapa()).generar() }
 	}
 	
 	method cargarMapa(){
 		game.clear()
 		mapa1.generar()
 	}
+	
+	method cargarPreview(){
+		game.addVisual(previewMapa1)
+		game.addVisual(previewMapa2)
+		game.addVisual(previewMapa3)
+		game.addVisual(previewMapa4)
+	}
 }
 
+object previewMapa1{
+	var property position =  game.at(3,6)
+	
+	method image() = "mapaDemo.png"
+	
+	method mapa() = mapa1
+	
+	method configurarSelector(selector){
+		keyboard.right().onPressDo { selector.generar(previewMapa2) }
+		keyboard.down().onPressDo { selector.generar(previewMapa3) }
+	}
+}
 
+object previewMapa2{
+	var property position =  game.at(14,6)
+	
+	method configurarSelector(selector){
+		keyboard.left().onPressDo { selector.generar(previewMapa1) }
+		keyboard.down().onPressDo { selector.generar(previewMapa4) }
+	}
+	
+	method image() = "mapaDemo.png"
+	
+	method mapa() = mapa2
+}
 
+object previewMapa3{
+	var property position =  game.at(3,1)
+	
+	method configurarSelector(selector){
+		keyboard.right().onPressDo { selector.generar(previewMapa4) }
+		keyboard.up().onPressDo { selector.generar(previewMapa1) }
+	}
+	
+	method image() = "mapaDemo.png"
+	
+	method mapa() = mapa3
+}
 
-
+object previewMapa4{
+	var property position =  game.at(14,1)
+	
+	method configurarSelector(selector){
+		keyboard.left().onPressDo { selector.generar(previewMapa3) }
+		keyboard.up().onPressDo { selector.generar(previewMapa2) }
+	}
+	
+	method image() = "mapaDemo.png"
+	
+	method mapa() = mapa4
+}
 	

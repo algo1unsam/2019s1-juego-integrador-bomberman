@@ -8,8 +8,6 @@ class Mapa {
 	
 	var position = game.at(0, 0)
 	
-	method image() = "fondoPiedra.png"
-	
 	method generar(){
 		game.clear()
 		game.addVisual(self)
@@ -52,19 +50,18 @@ class Mapa {
 	}
 }
 
+
+//MAPAS
+
 object mapa { var property numeroDeMapa = null }
 
 object mapa1 inherits Mapa{
 	
-	var property positionEnMenu = game.at(2,8)
-	
-	method configurarSelector(selector){
-		keyboard.right().onPressDo { selector.generar(mapa2) }
-		keyboard.down().onPressDo { selector.generar(mapa3) }
-	}
+	method image() = "backgroundmap" + 1 + ".png"
 	
 	override method construir() {
 		mapa.numeroDeMapa(1)
+		
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
 		self.aniadirLineaHorizontal(bloqueIndestructible, 12, 0, 20)
@@ -73,30 +70,16 @@ object mapa1 inherits Mapa{
 		
 		//Creo grilla
 		self.aniadirGrilla(bloqueDestructible)
-		
-		//Aniado elementos
-		/*self.aniadirElemento(powerUpBombaFuerte, 5, 7)
-		self.aniadirElemento(powerUpAumentarVelocidad, 7, 11)
-		self.aniadirElemento(powerUpEscudo, 11, 7)
-		self.aniadirElemento(powerUpMasBombas, 13, 1)
-		self.aniadirElemento(powerUpMasBombas, 13, 3)
-		self.aniadirElemento(powerUpMasBombas, 11, 5)
-		self.aniadirElemento(powerUpMasBombas, 11, 9)
-		self.aniadirElemento(powerUpBombaSticky, 9, 9)*/
 	}
 }
 
 object mapa2 inherits Mapa{
 	
-	var property positionEnMenu = game.at(12,8)
-	
-	method configurarSelector(selector){
-		keyboard.left().onPressDo { selector.generar(mapa1) }
-		keyboard.down().onPressDo { selector.generar(mapa4) }
-	}
+	method image() = "backgroundmap" + 2 + ".png"
 	
 	override method construir() {
 		mapa.numeroDeMapa(2)
+		
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
 		self.aniadirLineaHorizontal(bloqueIndestructible, 12, 0, 20)
@@ -105,29 +88,16 @@ object mapa2 inherits Mapa{
 		
 		//Creo grilla
 		self.aniadirGrilla(bloqueDestructible)
-		
-		//Aniado elementos
-		/*self.aniadirElemento(powerUpBombaFuerte, 5, 7)
-		self.aniadirElemento(powerUpAumentarVelocidad, 7, 11)
-		self.aniadirElemento(powerUpEscudo, 11, 7)
-		self.aniadirElemento(powerUpMasBombas, 13, 1)
-		self.aniadirElemento(powerUpMasBombas, 13, 3)
-		self.aniadirElemento(powerUpMasBombas, 11, 5)
-		self.aniadirElemento(powerUpMasBombas, 11, 9)
-		self.aniadirElemento(powerUpBombaSticky, 9, 9)*/
 	}
 }
 
 object mapa3 inherits Mapa{
-	var property positionEnMenu = game.at(2,1)
+
+	method image() = "backgroundmap" + 3 + ".png"
 	
-	method configurarSelector(selector){
-		keyboard.right().onPressDo { selector.generar(mapa4) }
-		keyboard.up().onPressDo { selector.generar(mapa1) }
-	}
-	
-		override method construir() {
+	override method construir() {
 		mapa.numeroDeMapa(3)
+		
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
 		self.aniadirLineaHorizontal(bloqueIndestructible, 12, 0, 20)
@@ -136,28 +106,16 @@ object mapa3 inherits Mapa{
 		
 		//Creo grilla
 		self.aniadirGrilla(bloqueDestructible)
-		
-		//Aniado elementos
-		/*self.aniadirElemento(powerUpBombaFuerte, 5, 7)
-		self.aniadirElemento(powerUpAumentarVelocidad, 7, 11)
-		self.aniadirElemento(powerUpEscudo, 11, 7)
-		self.aniadirElemento(powerUpMasBombas, 13, 1)
-		self.aniadirElemento(powerUpMasBombas, 13, 3)
-		self.aniadirElemento(powerUpMasBombas, 11, 5)
-		self.aniadirElemento(powerUpMasBombas, 11, 9)
-		self.aniadirElemento(powerUpBombaSticky, 9, 9)*/
 	}
 }
+
 object mapa4 inherits Mapa{
-	var property positionEnMenu = game.at(12,1)
 	
-	method configurarSelector(selector){
-		keyboard.left().onPressDo { selector.generar(mapa3) }
-		keyboard.up().onPressDo { selector.generar(mapa2) }
-	}
+	method image() = "backgroundmap" + 4 + ".png"
 	
-		override method construir() {
+	override method construir() {
 		mapa.numeroDeMapa(4)
+		
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
 		self.aniadirLineaHorizontal(bloqueIndestructible, 12, 0, 20)
@@ -166,15 +124,5 @@ object mapa4 inherits Mapa{
 		
 		//Creo grilla
 		self.aniadirGrilla(bloqueDestructible)
-		
-		//Aniado elementos
-		/*self.aniadirElemento(powerUpBombaFuerte, 5, 7)
-		self.aniadirElemento(powerUpAumentarVelocidad, 7, 11)
-		self.aniadirElemento(powerUpEscudo, 11, 7)
-		self.aniadirElemento(powerUpMasBombas, 13, 1)
-		self.aniadirElemento(powerUpMasBombas, 13, 3)
-		self.aniadirElemento(powerUpMasBombas, 11, 5)
-		self.aniadirElemento(powerUpMasBombas, 11, 9)
-		self.aniadirElemento(powerUpBombaSticky, 9, 9)*/
 	}
 }
