@@ -50,7 +50,6 @@ class Player{
 		self.configurarTeclado()
 		self.configurarColiciones()
 		self.reiniciarJugador()
-		self.vidas(3)
 	}
 	
 	method reiniciarJugador(){
