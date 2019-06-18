@@ -4,16 +4,19 @@ import bloques.*
 import mapa.*
 import powerUps.*
 import menu.*
+import HUD.*
 
 program Bomberman {
 	
 //	CONFIG	
 	game.title("Bomberman")
-	game.height(13)
 	game.width(24)
+	game.height(13)
 	
 // START
-	pantallaDeInicio.generar()
+	mapa1.generar()
+	//hudJugador1.generar()
+	//hud.generar()
 //	START
 	game.start()
 }

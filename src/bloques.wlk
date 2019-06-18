@@ -28,8 +28,6 @@ class Bloque {
 //BLOQUE INDESTRUCCTIBLE
 class BloqueIndestructible inherits Bloque {
 	
-
-	
 	method esDuro() = true
 	
 	method image() = "blockMapUnbreakable" +  mapa.numeroDeMapa() + ".png"
@@ -44,7 +42,6 @@ class BloqueIndestructible inherits Bloque {
 	//SI SE MANCHA
 	method mancharObjeto(explosion,sticky) {
 		explosion.encontroBloque(true) 
-		self.imagen("blockMap1UnbreakableSticky.png")
 		sticky.remover()
 	}
 }

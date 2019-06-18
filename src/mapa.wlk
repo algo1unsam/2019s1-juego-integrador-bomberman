@@ -70,6 +70,15 @@ object mapa1 inherits Mapa{
 		
 		//Creo grilla
 		self.aniadirGrilla(bloqueDestructible)
+		
+		/*self.aniadirElemento(powerUpAgregarVida, 2, 3)
+		self.aniadirElemento(powerUpAgregarVida, 2, 4)
+		self.aniadirElemento(powerUpAgregarVida, 2, 5)
+		self.aniadirElemento(powerUpAgregarVida, 2, 6)
+		self.aniadirElemento(powerUpAgregarVida, 2, 7)
+		self.aniadirElemento(powerUpAgregarVida, 2, 8)
+		self.aniadirElemento(powerUpAgregarVida, 2, 9)
+		self.aniadirElemento(powerUpAgregarVida, 2, 10)*/
 	}
 }
 

@@ -136,5 +136,6 @@ class PowerUpAgregarVida inherits PowerUP{
 	
 	override method chocoJugador(jugador) {
 		jugador.sumarVida()
+		super(jugador)
 	}
 }

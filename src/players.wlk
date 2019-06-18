@@ -3,6 +3,7 @@ import bombas.*
 import direcciones.*
 import scheduler.*
 import gameover.*
+import HUD.*
 
 class Player{
 //ATRIBUTOS
@@ -55,8 +56,8 @@ class Player{
 	method reiniciarJugador(){
 		self.vidas(3)
 		self.tipoDeBomba(constructorDeBombaNormal)
-		self.bombaSticky(false)
-		self.bombaRemota(false)
+		self.bombaSticky(true)
+		self.bombaRemota(true)
 		self.bombasEnPantalla(2)
 		self.bombasRemotas([])
 	}
@@ -117,7 +118,9 @@ class Player{
 		 }
 		 
 //VIDAS
-	method sumarVida() { vidas+=1 } 
+	method sumarVida() {
+		if(self.vidas() < 11) vidas+=1
+	} 
 	
 	method restaVida() { vidas+=-1 }
 	
