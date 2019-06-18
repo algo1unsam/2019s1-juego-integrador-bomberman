@@ -82,7 +82,7 @@ class BloqueDestructible inherits Bloque {
 
 	method random() = 0.randomUpTo(10).roundUp()
 	
-	method ponerPowerUp() = self.random() <= self.probabilidadDePowerUp()
+	method ponerPowerUp() = self.random() == self.probabilidadDePowerUp()
 }
 
 class BloqueDestruido inherits Bloque {

@@ -19,7 +19,7 @@ class Ceniza{
 	
 	method explotarObjeto(explosion,onda) { }
 	
-	method chocoJugador(jugador) { jugador.refresh }
+	method chocoJugador(jugador) { jugador.refresh() }
 	
 	method mancharObjeto(explosion,sticky) { }
 }

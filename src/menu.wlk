@@ -3,7 +3,7 @@ import mapa.*
 
 object pantallaDeInicio{
 	
-	var picture = "menu_sin_enter.png"
+	var picture = "menu_sin_enter2.png"
 	
 	var position = game.at(0,0)
 	
@@ -20,8 +20,8 @@ object pantallaDeInicio{
 	}
 	
 	method cambiarImagen(){
-		if(picture == "menu_sin_enter.png") picture = "menu_con_enter.png"
-		else picture = "menu_sin_enter.png"
+		if(picture == "menu_sin_enter2.png") picture = "menu_con_enter2.png"
+		else picture = "menu_sin_enter2.png"
 	}
 }
 
@@ -36,7 +36,7 @@ object selectorDeMapa{
 	
 	var property position = game.at(paradoEn.position().x()-1,paradoEn.position().y()-1)
 	
-	method image() = "selector.png"
+	method image() = "selector2.png"
 	
 	method generar(nuevaSelecion) {
 		game.clear()
@@ -65,7 +65,7 @@ object selectorDeMapa{
 object previewMapa1{
 	var property position =  game.at(3,6)
 	
-	method image() = "mapaDemo.png"
+	method image() = "SelectorMapa1.png"
 	
 	method mapa() = mapa1
 	
@@ -83,7 +83,7 @@ object previewMapa2{
 		keyboard.down().onPressDo { selector.generar(previewMapa4) }
 	}
 	
-	method image() = "mapaDemo.png"
+	method image() = "SelectorMapa2.png"
 	
 	method mapa() = mapa2
 }
@@ -96,7 +96,7 @@ object previewMapa3{
 		keyboard.up().onPressDo { selector.generar(previewMapa1) }
 	}
 	
-	method image() = "mapaDemo.png"
+	method image() = "SelectorMapa3.png"
 	
 	method mapa() = mapa3
 }
@@ -109,7 +109,7 @@ object previewMapa4{
 		keyboard.up().onPressDo { selector.generar(previewMapa2) }
 	}
 	
-	method image() = "mapaDemo.png"
+	method image() = "SelectorMapa4.png"
 	
 	method mapa() = mapa4
 }

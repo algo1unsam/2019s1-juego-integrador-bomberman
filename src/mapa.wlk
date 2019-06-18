@@ -69,7 +69,27 @@ object mapa1 inherits Mapa{
 		self.aniadirLineaVertical(bloqueIndestructible, 20, 0, 12)
 		
 		//Creo grilla
-		self.aniadirGrilla(bloqueDestructible)
+		//self.aniadirGrilla(bloqueDestructible)
+		
+		self.aniadirGrilla(bloqueIndestructible)
+		
+				//Creo bloques destructibles
+	
+		self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 9)
+		self.aniadirLineaHorizontal(bloqueDestructible, 1, 11, 17)
+		self.aniadirLineaHorizontal(bloqueDestructible, 3, 1, 6)
+		self.aniadirLineaHorizontal(bloqueDestructible, 3, 8, 12)
+		self.aniadirLineaHorizontal(bloqueDestructible, 3, 14, 19)
+		self.aniadirLineaHorizontal(bloqueDestructible, 5, 1, 8)
+		self.aniadirLineaHorizontal(bloqueDestructible, 5, 12, 19)
+		self.aniadirLineaHorizontal(bloqueDestructible, 7, 1, 8)
+		self.aniadirLineaHorizontal(bloqueDestructible, 7, 12, 19)
+		self.aniadirLineaHorizontal(bloqueDestructible, 9, 1, 6)
+		self.aniadirLineaHorizontal(bloqueDestructible, 9, 8, 12)
+		self.aniadirLineaHorizontal(bloqueDestructible, 9, 14, 19)
+		self.aniadirLineaHorizontal(bloqueDestructible, 11, 3, 9)
+		self.aniadirLineaHorizontal(bloqueDestructible, 11, 11, 17)
+		game.addVisual(new BloqueDestructible(position = game.at(2,3)))
 		
 		/*self.aniadirElemento(powerUpAgregarVida, 2, 3)
 		self.aniadirElemento(powerUpAgregarVida, 2, 4)
