@@ -13,6 +13,10 @@ class Player{
 	
 	var property vidas = 3
 	
+	var property parpadeo = apagado
+	
+	var property inmune = false
+	
 //BOMBAS
 	var property tipoDeBomba = constructorDeBombaNormal
 	
@@ -29,11 +33,9 @@ class Player{
 	
 	var property reductorDeVelocidad = false
 	
-	var property reductor = 0
-	
 	var property escudo = false
 	
-	var property choco = true
+	//var property choco = true
 	
 	
 //ABSTRACTOS
@@ -45,15 +47,21 @@ class Player{
 	
 	method mancharObjeto(explosion,sticky) { }
 	
+	method chocoJugador(algo) {}
+	
+	method imagenEscudo() { if(parpadeo == prendido) return "ConEscudo"
+		else return ""
+	} 
+	
 //GENERO EL PERSONAJE
 	method generar() { 
 		game.addVisual(self)
-		self.configurarTeclado()
-		self.configurarColiciones()
-		self.reiniciarJugador()
+		self.configurarJugador()
 	}
 	
-	method reiniciarJugador(){
+	method configurarJugador(){
+		self.configurarTeclado()
+		self.configurarColiciones()
 		self.vidas(3)
 		self.tipoDeBomba(constructorDeBombaNormal)
 		self.bombaSticky(true)
@@ -65,11 +73,10 @@ class Player{
 //MOVIMIENTO
 	method mover(nuevaPosicion,direcion) {
 		self.direccion(direcion)
+		console.println(self.reductorDeVelocidad())
 		if(not(self.reductorDeVelocidad()) && self.movimientoValido(direcion)){
 			self.position(nuevaPosicion)
-			self.reductorDeVelocidad(true)
-			self.desactivarReductor()
-			self.reductor(0)
+			self.refresh()
 		}
 	}
 	
@@ -99,13 +106,26 @@ class Player{
 	method activarBombaRemota() { self.bombaRemota(true) }
 	
 //REDUCTOR DE VELOCIAD
-	method desactivarReductor() { scheduler.schedule(self.reductor(), { self.reductorDeVelocidad(false) }) }
+
+	
+	method activarReductor(tiempo) { 
+		self.reductorDeVelocidad(true)
+		scheduler.schedule(tiempo, { self.reductorDeVelocidad(false) })
+	}
 
 //BOTAS
 	method activarBotas() { self.botas(true) }
 
 //ESCUDO
-	method configurarSacarEscudo() {  scheduler.schedule(2000, { self.sacarEscudo() } ) }
+	method configurarSacarEscudo() {
+		game.onTick(100,"parpadeo", { parpadeo.escudo(self) } )
+		scheduler.schedule(2000, { 
+			self.sacarEscudo()
+			self.parpadeo(apagado)
+			game.removeTickEvent("parpadeo")
+			self.inmune(false)
+		} )
+	}
 	
 	method ponerEscudo() {
 		self.escudo(true)
@@ -125,15 +145,20 @@ class Player{
 	method restaVida() { vidas+=-1 }
 	
 	method morir() {
-		if(not(self.escudo())) {
+		if(not(self.escudo()) && not(self.inmune())) {
 			self.position(self.respawn())
-			//self.darInmunidad()
 			self.restaVida()
+			self.darInmunidad()
 		}
 		else self.configurarSacarEscudo()
 		gameover.comprobar(vidas)
 	}
 	
+	method darInmunidad(){
+		self.inmune(true)
+		self.ponerEscudo()
+		self.configurarSacarEscudo()
+	}
 //ACCIONES GENERALES
 	method esDuro() = true
 	
@@ -142,21 +167,25 @@ class Player{
 		game.addVisual(self)
 		self.configurarColiciones()
 	}
-	
-	method darInmunidad(){
-		self.ponerEscudo()
-		self.configurarSacarEscudo()
-	}
-	
+
 //COLICCIONES
 		method configurarColiciones() { 
-		game.whenCollideDo( self, { algo => algo.chocoJugador(self) } )
+			game.whenCollideDo( self, { algo => algo.chocoJugador(self) } )
 	}
+}
+
+object apagado{
+	method escudo(jugador) { jugador.parpadeo(prendido) jugador.ImagenEscudo() }
+}
+
+object prendido{
+	method escudo(jugador) {  jugador.parpadeo(apagado) jugador.ImagenEscudo()}
 }
 
 //PLAYER 1
 object player1 inherits Player{
-	method image() = direccion.imagenJugador1()
+	
+	method image() = "player1" + direccion + ".png"
 	
 	override method respawn() = game.at(1,1)
 
@@ -178,7 +207,7 @@ object player1 inherits Player{
 
 //PLAYER 2
 object player2 inherits Player{
-	method image() = direccion.imagenJugador2()
+	method image() = "player2" + direccion + ".png"
 	
 	override method respawn() = game.at(19,11)
 	

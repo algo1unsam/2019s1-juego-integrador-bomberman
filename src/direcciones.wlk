@@ -22,11 +22,6 @@ object central inherits Direccion{
 
 //DERECHA
 object derecha inherits Direccion{
-//JUGADOR
-	method imagenJugador1() = "player1right.png"
-	
-	method imagenJugador2() = "player2right.png"
-	
 //BOMBAS
 	//FUEGO
 	method imagenExplosionSideFuego() = "explosionSideRight.png"
@@ -34,7 +29,6 @@ object derecha inherits Direccion{
 	method imagenExplosionEndFuego() = "explosionEndRight.png"
 	
 	//STICKY
-
 	
 	method imagenExplosionEndSticky() = "slimeEndRight.png"
 	
@@ -45,9 +39,6 @@ object derecha inherits Direccion{
 //IZQUIERDA
 object izquierda inherits Direccion{
 //JUGADOR
-	method imagenJugador1() = "player1left.png"
-	
-	method imagenJugador2() = "player2left.png"
 	
 //BOMBAS
 	//FUEGO
@@ -65,10 +56,6 @@ object izquierda inherits Direccion{
 //ARRIBA
 object arriba inherits Direccion{
 //JUGADOR
-	method imagenJugador1() = "player1up.png"
-	
-	method imagenJugador2() = "player2up.png"
-	
 //BOMBAS
 	//FUEGO
 	method imagenExplosionSideFuego() = "explosionSideUp.png"
@@ -85,9 +72,6 @@ object arriba inherits Direccion{
 //ABAJO
 object abajo inherits Direccion{
 //JUGADOR
-	method imagenJugador1() = "player1down.png"
-	
-	method imagenJugador2() = "player2down.png"
 	
 //BOMBAS
 	//FUEGO

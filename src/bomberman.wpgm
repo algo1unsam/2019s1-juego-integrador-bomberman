@@ -14,9 +14,8 @@ program Bomberman {
 	game.height(13)
 	
 // START
-	pantallaDeInicio.generar()
+	mapa1.generar()
 
-	//hud.generar()
 //	START
 	game.start()
 }

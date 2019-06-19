@@ -1,6 +1,8 @@
 import wollok.game.*
 import mapa.*
+import menu.*
 
+//PANTALLA DE GAME-OVER
 object gameover{
 	
 	method image() = "gameover.png"
@@ -12,6 +14,9 @@ object gameover{
 	method cargar(){ 
 		game.clear()
 		game.addVisual(self)
-		keyboard.enter().onPressDo { mapa1.generar() }
+		keyboard.enter().onPressDo {
+			game.clear()
+			selectorDeMapa.generar(previewMapa1)
+		}
 	}
 }

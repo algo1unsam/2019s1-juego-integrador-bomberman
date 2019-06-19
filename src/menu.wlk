@@ -1,13 +1,13 @@
 import wollok.game.*
 import mapa.*
 
+//PANTALLA QUE CARGA AL INICIAR EL JUEGO
 object pantallaDeInicio{
-	
-	var picture = "menu_sin_enter2.png"
+	var property estado = imagenMenuSinEnter
 	
 	var position = game.at(0,0)
 	
-	method image() = picture
+	method image() =  estado.imagen()
 	
 	method generar() { 
 		self.cargarImagen()
@@ -16,25 +16,34 @@ object pantallaDeInicio{
 	
 	method cargarImagen(){
 		game.addVisual(self)
-		game.onTick(500, "cambio", { self.cambiarImagen() } )
-	}
-	
-	method cambiarImagen(){
-		if(picture == "menu_sin_enter2.png") picture = "menu_con_enter2.png"
-		else picture = "menu_sin_enter2.png"
+		game.onTick(500, "cambio", { self.estado(estado.cambio()) } )
 	}
 }
 
+object imagenMenuConEnter{
+	var property imagen ="menu_con_enter2.png"
+	
+	method cambio() = imagenMenuSinEnter
+}
+
+object imagenMenuSinEnter{
+	var property imagen ="menu_sin_enter2.png"
+	
+	method cambio() = imagenMenuConEnter
+}
+
+//FONDO DEL MENU DE SELECCION DE MAPA
 object fondoDelMenu{
 	var position =game.at(0,0)
 	
 	method image() = "menuMapas.png" 	 
 }
 
+//OBJECTO SELECTOR DE MAPAS
 object selectorDeMapa{		
 	var property paradoEn = previewMapa1
 	
-	var property position = game.at(paradoEn.position().x()-1,paradoEn.position().y()-1)
+	var property position = paradoEn.position().down(1).left(1)
 	
 	method image() = "selector.png"
 	
@@ -44,16 +53,9 @@ object selectorDeMapa{
 		self.cargarPreview()
 		game.addVisual(self)
 		self.paradoEn(nuevaSelecion)
-//		self.position(game.at(nuevaSelecion.position().x()-1,nuevaSelecion.position().y()-1))
 		self.position(nuevaSelecion.position().down(1).left(1))
-		self.paradoEn().configurarSelector(self)
-		keyboard.space().onPressDo { (paradoEn.mapa()).generar() }
-		
-	}
-	
-	method cargarMapa(){
-		game.clear()
-		mapa1.generar()
+		paradoEn.configurarSelector(self)
+		keyboard.space().onPressDo { (paradoEn.mapa()).generar() }	
 	}
 	
 	method cargarPreview(){
@@ -64,6 +66,7 @@ object selectorDeMapa{
 	}
 }
 
+//MINIAUTAS QUE DAN IMAGEN DEL MAPA
 object previewMapa1{
 	var property position =  game.at(3,6)
 	
@@ -80,39 +83,40 @@ object previewMapa1{
 object previewMapa2{
 	var property position =  game.at(14,6)
 	
+	method image() = "SelectorMapa2.png"
+	
+	method mapa() = mapa2
+	
 	method configurarSelector(selector){
 		keyboard.left().onPressDo { selector.generar(previewMapa1) }
 		keyboard.down().onPressDo { selector.generar(previewMapa4) }
 	}
-	
-	method image() = "SelectorMapa2.png"
-	
-	method mapa() = mapa2
 }
 
 object previewMapa3{
 	var property position =  game.at(3,1)
 	
+	method image() = "SelectorMapa3.png"
+	
+	method mapa() = mapa3
+	
 	method configurarSelector(selector){
 		keyboard.right().onPressDo { selector.generar(previewMapa4) }
 		keyboard.up().onPressDo { selector.generar(previewMapa1) }
 	}
-	
-	method image() = "SelectorMapa3.png"
-	
-	method mapa() = mapa3
 }
 
 object previewMapa4{
 	var property position =  game.at(14,1)
+		
+	method image() = "SelectorMapa4.png"
+	
+	method mapa() = mapa4
 	
 	method configurarSelector(selector){
 		keyboard.left().onPressDo { selector.generar(previewMapa3) }
 		keyboard.up().onPressDo { selector.generar(previewMapa2) }
 	}
-	
-	method image() = "SelectorMapa4.png"
-	
-	method mapa() = mapa4
 }
+
 	

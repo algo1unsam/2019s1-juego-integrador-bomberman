@@ -36,8 +36,6 @@ class OndaExpansiva{
 	
 	var property imagen
 	
-	var property apagada = false
-	
 	method image() = imagen
 	
 	method esDuro() = false
@@ -94,5 +92,8 @@ class Sticky inherits OndaExpansiva{
 		} 
 	}
 	
-	method chocoJugador(jugador) { if(not(jugador.botas())) jugador.reductor(300) }
+	method chocoJugador(jugador) { 
+		if(not(jugador.botas())) 
+	jugador.activarReductor(300)
+	}
 }

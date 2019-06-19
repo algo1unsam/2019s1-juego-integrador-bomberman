@@ -16,7 +16,7 @@ class Mapa {
 		self.crear()
 		player1.generar()
 		player2.generar()
-		hudJugador1.generar()
+	//	hudJugador1.generar()
 	}
 	
 	method construir() 
@@ -55,8 +55,10 @@ class Mapa {
 
 //MAPAS
 
+//OBJETO PARA CAMBIAR LOS ASSETS SEGUEN EL MAPA
 object mapa { var property numeroDeMapa = null }
 
+//MAPA 1
 object mapa1 inherits Mapa{
 	
 	method image() = "backgroundmap" + 1 + ".png"
@@ -77,7 +79,7 @@ object mapa1 inherits Mapa{
 		
 				//Creo bloques destructibles
 	
-	 	self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 9)
+	 	/*self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 9)
 		self.aniadirLineaHorizontal(bloqueDestructible, 1, 11, 17)
 		self.aniadirLineaHorizontal(bloqueDestructible, 3, 1, 6)
 		self.aniadirLineaHorizontal(bloqueDestructible, 3, 8, 12)
@@ -90,7 +92,7 @@ object mapa1 inherits Mapa{
 		self.aniadirLineaHorizontal(bloqueDestructible, 9, 8, 12)
 		self.aniadirLineaHorizontal(bloqueDestructible, 9, 14, 19)
 		self.aniadirLineaHorizontal(bloqueDestructible, 11, 3, 9)
-		self.aniadirLineaHorizontal(bloqueDestructible, 11, 11, 17)
+		self.aniadirLineaHorizontal(bloqueDestructible, 11, 11, 17)*/
 		
 		//self.aniadirElemento(bloqueDestructible, x, y)
 		
@@ -106,6 +108,7 @@ object mapa1 inherits Mapa{
 	}
 }
 
+//MAPA 2
 object mapa2 inherits Mapa{
 	
 	method image() = "backgroundmap" + 2 + ".png"
@@ -124,6 +127,7 @@ object mapa2 inherits Mapa{
 	}
 }
 
+//MAPA 3
 object mapa3 inherits Mapa{
 
 	method image() = "backgroundmap" + 3 + ".png"
@@ -142,6 +146,7 @@ object mapa3 inherits Mapa{
 	}
 }
 
+//MAPA 4
 object mapa4 inherits Mapa{
 	
 	method image() = "backgroundmap" + 4 + ".png"

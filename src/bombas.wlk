@@ -44,10 +44,10 @@ class Bomba{
 		game.addVisual(self)
 		player1.refresh()
 		player2.refresh()
-		self.configurar(jugador)
+		self.configurarExplosion(jugador)
 	}
 	
-	method configurar(jugador){
+	method configurarExplosion(jugador){
 		scheduler.schedule(2000,{ self.explotar(jugador) })
 	}
 		
@@ -94,6 +94,7 @@ class BombaRemota inherits Bomba{
 	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 2
 	
-	override method configurar(jugador) { jugador.agregarBombaRemota(self) }
+	//NO VA A EXPLOTAR EN UN TIMPO X, SINO CUANDO EL JUGADOR LA ACTIVE
+	override method configurarExplosion(jugador) { jugador.agregarBombaRemota(self) } 
 }
 
