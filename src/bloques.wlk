@@ -49,7 +49,7 @@ class BloqueIndestructible inherits Bloque {
 //BLOQUE DESTRUCCTIBLE
 class BloqueDestructible inherits Bloque {
 	
-	var property probabilidadDePowerUp = 10
+	var property probabilidadDePowerUp = 1
 	
 	method esDuro() = true
 	
@@ -59,6 +59,7 @@ class BloqueDestructible inherits Bloque {
 	method explotarObjeto(explosion,onda) { 
 		explosion.encontroBloque(true)
 		onda.imagen((explosion.direccion()).imagenExplosionEndFuego())
+		game.removeVisual(self)
 		self.destruirBloque(onda)
 	}
 	
@@ -67,22 +68,20 @@ class BloqueDestructible inherits Bloque {
 	}
 	
 	method mancharObjeto(explosion,sticky) { 
-		explosion.encontroBloque(true)
-		sticky.imagen((explosion.direccion()).imagenExplosionEndSticky())
+		explosion.encontroBloque(true) 
+		sticky.remover()
 	}
 	
 	method destruirBloque(onda) {
 		scheduler.schedule(onda.tiempoDeExplosion()+50, {
-			(constructorDeCeniza.construir(onda.position())).generar()
 			onda.remover()
-			game.removeVisual(self)
 			if(self.ponerPowerUp())(powerUPsRandom.obtener()).construir(self.position()).generar()
 		})
 	}
 
 	method random() = 0.randomUpTo(10).roundUp()
 	
-	method ponerPowerUp() = self.random() == self.probabilidadDePowerUp()
+	method ponerPowerUp() = self.random() <= self.probabilidadDePowerUp()
 }
 
 class BloqueDestruido inherits Bloque {

@@ -57,7 +57,8 @@ class OndaExpansiva{
 	
 	method objetosConLosQueColiciona() = game.colliders(self)
 	
-	method remover() { game.removeVisual(self) }
+	method remover() { game.removeVisual(self)
+	}
 }
 
 //TIPOS
@@ -67,7 +68,7 @@ class Fuego inherits OndaExpansiva{
 	
 	override method generar(explosion) {
 		super(explosion)
-		if(not(explosion.encontroBloque())) self.removerYcrearCeniza()
+		if(not(explosion.encontroBloque())) self.removerYconfigurar()
 	}
 	
 	override method accionAlExplotar(explosion) {
@@ -76,9 +77,8 @@ class Fuego inherits OndaExpansiva{
 		} 
 	}
 	
-	method removerYcrearCeniza() {
+	method removerYconfigurar() {
 		 scheduler.schedule(tiempoDeExplosion,{
-		 	(constructorDeCeniza.construir(self.position())).generar() 
 		 	self.remover()
 		 })
 	}

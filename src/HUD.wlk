@@ -4,7 +4,8 @@ import players.*
 
 object hudJugador1{
 	
-	method generar(){ game.onTick(1000, "hudJugador1", { self.mostrarHUD() } ) }
+	method generar(){ game.onTick(500, "hudJugador1", { self.mostrarHUD() }
+	) }
 	
 	method mostrarHUD(){
 		
@@ -31,10 +32,7 @@ object hudJugador1{
 	
 		method mostrarBombaRemota(){
 		(powerUpBombaRemota.construir(game.at(22,8))).generar()
-	}
-	
-	
-	
+	}	
 }
 
 

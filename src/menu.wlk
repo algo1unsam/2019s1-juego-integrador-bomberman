@@ -36,7 +36,7 @@ object selectorDeMapa{
 	
 	var property position = game.at(paradoEn.position().x()-1,paradoEn.position().y()-1)
 	
-	method image() = "selector2.png"
+	method image() = "selector.png"
 	
 	method generar(nuevaSelecion) {
 		game.clear()
@@ -44,9 +44,11 @@ object selectorDeMapa{
 		self.cargarPreview()
 		game.addVisual(self)
 		self.paradoEn(nuevaSelecion)
-		self.position(game.at(nuevaSelecion.position().x()-1,nuevaSelecion.position().y()-1))
+//		self.position(game.at(nuevaSelecion.position().x()-1,nuevaSelecion.position().y()-1))
+		self.position(nuevaSelecion.position().down(1).left(1))
 		self.paradoEn().configurarSelector(self)
 		keyboard.space().onPressDo { (paradoEn.mapa()).generar() }
+		
 	}
 	
 	method cargarMapa(){

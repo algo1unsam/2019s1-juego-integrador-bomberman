@@ -2,6 +2,7 @@ import wollok.game.*
 import bloques.*
 import powerUps.*
 import players.*
+import HUD.*
 
 class Mapa {
 	var elementos = []
@@ -15,6 +16,7 @@ class Mapa {
 		self.crear()
 		player1.generar()
 		player2.generar()
+		hudJugador1.generar()
 	}
 	
 	method construir() 
@@ -42,7 +44,7 @@ class Mapa {
 	
 	//CREDO GRILLA
 	method aniadirGrilla(tipoDeBloque) {
-		(2 .. game.width()-4).forEach{ 
+		(2 .. game.width()-6).forEach{ 
 			i => (2 .. game.height()-2).forEach{ 
 				j => if( j%2==0 && i%2==0 )self.aniadirElemento(tipoDeBloque,i,j) 
 			}
@@ -75,7 +77,7 @@ object mapa1 inherits Mapa{
 		
 				//Creo bloques destructibles
 	
-		self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 9)
+	 	self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 9)
 		self.aniadirLineaHorizontal(bloqueDestructible, 1, 11, 17)
 		self.aniadirLineaHorizontal(bloqueDestructible, 3, 1, 6)
 		self.aniadirLineaHorizontal(bloqueDestructible, 3, 8, 12)
@@ -89,7 +91,9 @@ object mapa1 inherits Mapa{
 		self.aniadirLineaHorizontal(bloqueDestructible, 9, 14, 19)
 		self.aniadirLineaHorizontal(bloqueDestructible, 11, 3, 9)
 		self.aniadirLineaHorizontal(bloqueDestructible, 11, 11, 17)
-		game.addVisual(new BloqueDestructible(position = game.at(2,3)))
+		
+		//self.aniadirElemento(bloqueDestructible, x, y)
+		
 		
 		/*self.aniadirElemento(powerUpAgregarVida, 2, 3)
 		self.aniadirElemento(powerUpAgregarVida, 2, 4)

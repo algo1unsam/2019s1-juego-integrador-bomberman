@@ -170,8 +170,8 @@ object player1 inherits Player{
 		
 	//BOMBAS
 		keyboard.j().onPressDo { self.ponerBomba(tipoDeBomba) }
-		keyboard.k().onPressDo { /*if(bombaSticky)*/ self.ponerBomba(constructorDeBombaSticky) }
-		keyboard.l().onPressDo { /*if(bombaRemota)*/ self.ponerBomba(constructorDeBombaRemota) }
+		keyboard.k().onPressDo { if(bombaSticky) self.ponerBomba(constructorDeBombaSticky) }
+		keyboard.l().onPressDo { if(bombaRemota) self.ponerBomba(constructorDeBombaRemota) }
 		keyboard.space().onPressDo { self.explotarBombasRemotas() }
 	}
 }
@@ -192,8 +192,8 @@ object player2 inherits Player{
 		
 	//BOMBAS
 		keyboard.num1().onPressDo { self.ponerBomba(tipoDeBomba) }
-		keyboard.num2().onPressDo { self.ponerBomba(constructorDeBombaSticky) }
-		keyboard.num3().onPressDo { self.ponerBomba(constructorDeBombaRemota) }
+		keyboard.num2().onPressDo { if(bombaSticky) self.ponerBomba(constructorDeBombaSticky) }
+		keyboard.num3().onPressDo { if(bombaRemota) self.ponerBomba(constructorDeBombaRemota) }
 		keyboard.num0().onPressDo { self.explotarBombasRemotas() }
 	}
 }

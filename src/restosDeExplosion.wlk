@@ -15,11 +15,11 @@ class Ceniza{
 	
 	method image() = constructorDeCeniza.imagen()
 	
-	method generar() { game.addVisual(self) }
+	method generar() { /*game.addVisual(self)*/ }
 	
 	method explotarObjeto(explosion,onda) { }
 	
-	method chocoJugador(jugador) { jugador.refresh() }
+	method chocoJugador(jugador) { }
 	
 	method mancharObjeto(explosion,sticky) { }
 }
