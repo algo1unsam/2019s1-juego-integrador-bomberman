@@ -45,7 +45,7 @@ object selectorDeMapa{
 	
 	var property position = paradoEn.position().down(1).left(1)
 	
-	method image() = "selector.png"
+	method image() = "selector3.png"
 	
 	method generar(nuevaSelecion) {
 		game.clear()

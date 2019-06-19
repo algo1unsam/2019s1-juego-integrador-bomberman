@@ -16,7 +16,7 @@ class Mapa {
 		self.crear()
 		player1.generar()
 		player2.generar()
-	//	hudJugador1.generar()
+		hudJugador1.generar()
 	}
 	
 	method construir() 
@@ -79,7 +79,7 @@ object mapa1 inherits Mapa{
 		
 				//Creo bloques destructibles
 	
-	 	/*self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 9)
+	 	self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 9)
 		self.aniadirLineaHorizontal(bloqueDestructible, 1, 11, 17)
 		self.aniadirLineaHorizontal(bloqueDestructible, 3, 1, 6)
 		self.aniadirLineaHorizontal(bloqueDestructible, 3, 8, 12)
@@ -92,7 +92,7 @@ object mapa1 inherits Mapa{
 		self.aniadirLineaHorizontal(bloqueDestructible, 9, 8, 12)
 		self.aniadirLineaHorizontal(bloqueDestructible, 9, 14, 19)
 		self.aniadirLineaHorizontal(bloqueDestructible, 11, 3, 9)
-		self.aniadirLineaHorizontal(bloqueDestructible, 11, 11, 17)*/
+		self.aniadirLineaHorizontal(bloqueDestructible, 11, 11, 17)
 		
 		//self.aniadirElemento(bloqueDestructible, x, y)
 		
