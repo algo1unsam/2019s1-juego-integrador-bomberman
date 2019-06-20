@@ -2,36 +2,41 @@ import wollok.game.*
 import powerUps.*
 import players.*
 
-object hudJugador1{
+class HudJugador{
 	
-	method generar(){ game.onTick(500, "hudJugador1", { self.mostrarHUD() }
+	var corazones = []
+	
+	method generar(jugador,y){ game.onTick(500, "hudJugador1", { self.mostrarHUD(jugador,y) }
 	) }
 	
-	method mostrarHUD(){
+	method mostrarHUD(jugador,y){
 		
-		self.mostrarCorazones()
-		self.mostrarPowerUPs()
+		self.mostrarCorazones(jugador,y)
+		self.mostrarPowerUPs(jugador,y)
 	}
 	
-	method mostrarCorazones(){
-		(1..player1.vidas()).forEach{ 
-			n => (powerUpAgregarVida.construir(self.calcularDondeColocarCorazon(n))).generar()
+	method mostrarCorazones(jugador,y){
+		corazones.forEach({ corazon => game.removeVisual(corazon) })
+		corazones.clear()
+		(1..jugador.vidas()).forEach{ 
+			n => corazones.add((powerUpAgregarVida.construir(self.calcularDondeColocarCorazon(n,y))))
 		}
+		corazones.forEach({ corazon => corazon.generar() })
 	}
 	
-	method calcularDondeColocarCorazon(n) = game.at( 21+(n-1)%3,(33-n)/3) 
+	method calcularDondeColocarCorazon(n,y) = game.at( 21+(n-1)%3,((33-n)/3)-y) 
 	
-	method mostrarPowerUPs(){
-		if (player1.bombaSticky()) self.mostrarBombaSticky()
-		if (player1.bombaRemota()) self.mostrarBombaRemota()
+	method mostrarPowerUPs(jugador,y){
+		if (jugador.bombaSticky()) self.mostrarBombaSticky(y)
+		if (jugador.bombaRemota()) self.mostrarBombaRemota(y)
 	}
 	
-	method mostrarBombaSticky(){
-		(powerUpBombaSticky.construir(game.at(21,8))).generar()
+	method mostrarBombaSticky(y){
+		(powerUpBombaSticky.construir(game.at(21,8-y))).generar()
 	}
 	
-		method mostrarBombaRemota(){
-		(powerUpBombaRemota.construir(game.at(22,8))).generar()
+		method mostrarBombaRemota(y){
+		(powerUpBombaRemota.construir(game.at(22,8-y))).generar()
 	}	
 }
 

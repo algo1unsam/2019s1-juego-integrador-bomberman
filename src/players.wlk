@@ -15,7 +15,7 @@ class Player{
 	
 	var property parpadeo = apagado
 	
-	var property inmune = false
+//	var property inmune = false
 	
 //BOMBAS
 	var property tipoDeBomba = constructorDeBombaNormal
@@ -39,6 +39,8 @@ class Player{
 	
 	
 //ABSTRACTOS
+	method jugador()
+
 	method configurarTeclado()
 	
 	method respawn() 
@@ -49,11 +51,11 @@ class Player{
 	
 	method chocoJugador(algo) {}
 	
-	method imagenEscudo() { if(parpadeo == prendido) return "ConEscudo"
-		else return ""
-	} 
 	
 //GENERO EL PERSONAJE
+
+	method image() = self.jugador() + direccion + self.tieneEscudo() +self.tieneBotas() + ".png"
+
 	method generar() { 
 		game.addVisual(self)
 		self.configurarJugador()
@@ -73,7 +75,6 @@ class Player{
 //MOVIMIENTO
 	method mover(nuevaPosicion,direcion) {
 		self.direccion(direcion)
-		console.println(self.reductorDeVelocidad())
 		if(not(self.reductorDeVelocidad()) && self.movimientoValido(direcion)){
 			self.position(nuevaPosicion)
 			self.refresh()
@@ -115,50 +116,56 @@ class Player{
 
 //BOTAS
 	method activarBotas() { self.botas(true) }
+	
+	method tieneBotas() {
+		if (botas) return "Velocidad"
+		else return ""
+	}
 
 //ESCUDO
 	method configurarSacarEscudo() {
-		game.onTick(100,"parpadeo", { parpadeo.escudo(self) } )
-		scheduler.schedule(2000, { 
+		//const ticket = self.toString()
+		game.onTick(100, self.jugador() , { parpadeo.escudo(self) } )
+		
+		scheduler.schedule(1500, { 
 			self.sacarEscudo()
-			self.parpadeo(apagado)
-			game.removeTickEvent("parpadeo")
-			self.inmune(false)
+			parpadeo.escudo(self)
+			game.removeTickEvent(self.jugador())
 		} )
 	}
 	
-	method ponerEscudo() {
+	method ponerEscudo() { 
 		self.escudo(true)
-		//cambiar imagen
-		}
+		self.parpadeo(prendido)
+	}
 	
 	method sacarEscudo() { 
 		self.escudo(false)
-		//cambiar imagen
-		 }
+		self.parpadeo(prendido)
+	}
+	
+	method tieneEscudo(){
+		if (parpadeo == prendido) return "Escudo"
+		else return ""
+	}
 		 
 //VIDAS
-	method sumarVida() {
-		if(self.vidas() < 11) vidas+=1
-	} 
+	method sumarVida() { if(self.vidas() < 11) vidas+=1 } 
 	
 	method restaVida() { vidas+=-1 }
 	
 	method morir() {
-		if(not(self.escudo()) && not(self.inmune())) {
+		if ( not( self.escudo() ) ) {
 			self.position(self.respawn())
 			self.restaVida()
-			self.darInmunidad()
+			self.ponerEscudo()
+			self.configurarSacarEscudo()
 		}
 		else self.configurarSacarEscudo()
+		
 		gameover.comprobar(vidas)
 	}
 	
-	method darInmunidad(){
-		self.inmune(true)
-		self.ponerEscudo()
-		self.configurarSacarEscudo()
-	}
 //ACCIONES GENERALES
 	method esDuro() = true
 	
@@ -175,19 +182,20 @@ class Player{
 }
 
 object apagado{
-	method escudo(jugador) { jugador.parpadeo(prendido) jugador.ImagenEscudo() }
+	method escudo(jugador) { jugador.parpadeo(prendido) }
 }
 
 object prendido{
-	method escudo(jugador) {  jugador.parpadeo(apagado) jugador.ImagenEscudo()}
+	method escudo(jugador) {  jugador.parpadeo(apagado) }
 }
 
 //PLAYER 1
 object player1 inherits Player{
 	
-	method image() = "player1" + direccion + ".png"
+	override method jugador() = "player1"
 	
 	override method respawn() = game.at(1,1)
+	
 
 //TECLADO
 	override method configurarTeclado(){
@@ -207,7 +215,8 @@ object player1 inherits Player{
 
 //PLAYER 2
 object player2 inherits Player{
-	method image() = "player2" + direccion + ".png"
+	
+	override method jugador() = "player2"
 	
 	override method respawn() = game.at(19,11)
 	
