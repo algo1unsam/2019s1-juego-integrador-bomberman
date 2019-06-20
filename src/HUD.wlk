@@ -4,24 +4,29 @@ import players.*
 
 class HudJugador{
 	
-	var corazones = []
+	var elementos = []
 	
 	method generar(jugador,y){ game.onTick(500, "hudJugador1", { self.mostrarHUD(jugador,y) }
 	) }
 	
 	method mostrarHUD(jugador,y){
-		
+		self.limpiarPantalla()
 		self.mostrarCorazones(jugador,y)
 		self.mostrarPowerUPs(jugador,y)
+		elementos.forEach({ corazon => corazon.generar() })
 	}
 	
 	method mostrarCorazones(jugador,y){
-		corazones.forEach({ corazon => game.removeVisual(corazon) })
-		corazones.clear()
+
 		(1..jugador.vidas()).forEach{ 
-			n => corazones.add((powerUpAgregarVida.construir(self.calcularDondeColocarCorazon(n,y))))
+			n => elementos.add((powerUpAgregarVida.construir(self.calcularDondeColocarCorazon(n,y))))
 		}
-		corazones.forEach({ corazon => corazon.generar() })
+	}
+	
+	method limpiarPantalla(){
+		elementos.forEach({ corazon => game.removeVisual(corazon) })
+		elementos.clear()
+		
 	}
 	
 	method calcularDondeColocarCorazon(n,y) = game.at( 21+(n-1)%3,((33-n)/3)-y) 
@@ -32,11 +37,11 @@ class HudJugador{
 	}
 	
 	method mostrarBombaSticky(y){
-		(powerUpBombaSticky.construir(game.at(21,8-y))).generar()
+		elementos.add((powerUpBombaSticky.construir(game.at(21,7-y))))
 	}
 	
 		method mostrarBombaRemota(y){
-		(powerUpBombaRemota.construir(game.at(22,8-y))).generar()
+		elementos.add((powerUpBombaRemota.construir(game.at(22,7-y))))
 	}	
 }
 

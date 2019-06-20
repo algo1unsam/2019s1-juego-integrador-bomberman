@@ -49,7 +49,7 @@ class BloqueIndestructible inherits Bloque {
 //BLOQUE DESTRUCCTIBLE
 class BloqueDestructible inherits Bloque {
 	
-	var property probabilidadDePowerUp = 1
+	var property probabilidadDePowerUp = 4
 	
 	method esDuro() = true
 	

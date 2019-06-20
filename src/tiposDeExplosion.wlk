@@ -92,6 +92,8 @@ class Sticky inherits OndaExpansiva{
 		} 
 	}
 	
+	override method explotarObjeto(explosion,onda) { self.remover() }
+	
 	method chocoJugador(jugador) { 
 		if(not(jugador.botas())) 
 	jugador.activarReductor(300)

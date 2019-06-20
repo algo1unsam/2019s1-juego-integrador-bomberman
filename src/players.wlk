@@ -65,11 +65,15 @@ class Player{
 		self.configurarTeclado()
 		self.configurarColiciones()
 		self.vidas(3)
+		self.reiniciarJugador()
+	}
+	
+	method reiniciarJugador(){
 		self.tipoDeBomba(constructorDeBombaNormal)
-		self.bombaSticky(true)
-		self.bombaRemota(true)
+		self.bombaSticky(false)
+		self.bombaRemota(false)
 		self.bombasEnPantalla(2)
-		self.bombasRemotas([])
+		self.explotarBombasRemotas()
 	}
 	
 //MOVIMIENTO
