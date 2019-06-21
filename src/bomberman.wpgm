@@ -16,7 +16,7 @@ program Bomberman {
 // START
 	pantallaDeInicio.generar()
 	//selectorDeMapa.generar(previewMapa1)
-	//mapa1.generar()
+//	mapa1.generar()
 
 //	START
 	game.start()

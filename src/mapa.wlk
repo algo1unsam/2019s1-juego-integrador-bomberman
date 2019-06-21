@@ -85,20 +85,14 @@ object mapa1 inherits Mapa{
 		self.aniadirLineaVertical(bloqueIndestructible, 0, 0, 12)
 		self.aniadirLineaVertical(bloqueIndestructible, 20, 0, 12)
 		
-<<<<<<< HEAD
+
 		//Creo grilla
-=======
-		//Creo indestructibles
-		//self.aniadirGrilla(bloqueDestructible)
->>>>>>> branch 'master' of https://github.com/algo1unsam/2019s1-juego-integrador-bomberman.git
+
 		
 		self.aniadirGrilla(bloqueIndestructible)
-		
-<<<<<<< HEAD
-		//Creo bloques destructibles
-=======
+
 		//Creo destructibles
->>>>>>> branch 'master' of https://github.com/algo1unsam/2019s1-juego-integrador-bomberman.git
+
 	
 	 	self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 9)
 		self.aniadirLineaHorizontal(bloqueDestructible, 1, 11, 17)
@@ -474,7 +468,7 @@ object mapa3 inherits Mapa{
 object mapa4 inherits Mapa{
 	
 	override method construir() {
-	mapa.set(self,1)
+		mapa.set(self,4)
 		
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)

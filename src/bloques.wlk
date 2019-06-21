@@ -49,11 +49,9 @@ class BloqueIndestructible inherits Bloque {
 //BLOQUE DESTRUCCTIBLE
 class BloqueDestructible inherits Bloque {
 	
-<<<<<<< HEAD
-	var property probabilidadDePowerUp = 5
-=======
-	var property probabilidadDePowerUp = 15
->>>>>>> branch 'master' of https://github.com/algo1unsam/2019s1-juego-integrador-bomberman.git
+
+	var property probabilidadDePowerUp = 40
+
 	
 	method esDuro() = true
 	

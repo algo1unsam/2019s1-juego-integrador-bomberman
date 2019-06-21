@@ -124,7 +124,7 @@ object previewMapa4{
 	method mapa() = mapa4
 	
 	method configurarSelector(selector){
-		selector.paradoEnTutorial(true)
+		//selector.paradoEnTutorial(true)
 		keyboard.up().onPressDo { 
 			selector.generar(previewMapa2)
 			selector.paradoEnTutorial(false)
