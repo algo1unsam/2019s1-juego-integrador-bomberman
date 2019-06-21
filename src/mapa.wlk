@@ -3,6 +3,7 @@ import bloques.*
 import powerUps.*
 import players.*
 import HUD.*
+import menu.*
 
 class Mapa {
 	var elementos = []
@@ -453,6 +454,11 @@ object mapa4 inherits Mapa{
 	
 	override method construir() {
 		mapa.set(self,4)
+		
+		keyboard.t().onPressDo { 
+			selectorDeMapa.generar(previewMapa1)
+			selectorDeMapa.paradoEnTutorial(false)
+		}
 		
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
