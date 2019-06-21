@@ -49,7 +49,7 @@ class BloqueIndestructible inherits Bloque {
 //BLOQUE DESTRUCCTIBLE
 class BloqueDestructible inherits Bloque {
 	
-	var property probabilidadDePowerUp = 4
+	var property probabilidadDePowerUp = 15
 	
 	method esDuro() = true
 	
@@ -79,7 +79,7 @@ class BloqueDestructible inherits Bloque {
 		})
 	}
 
-	method random() = 0.randomUpTo(10).roundUp()
+	method random() = 0.randomUpTo(100).roundUp()
 	
 	method ponerPowerUp() = self.random() <= self.probabilidadDePowerUp()
 }
