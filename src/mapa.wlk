@@ -85,11 +85,10 @@ object mapa1 inherits Mapa{
 		self.aniadirLineaVertical(bloqueIndestructible, 20, 0, 12)
 		
 		//Creo grilla
-		//self.aniadirGrilla(bloqueDestructible)
 		
 		self.aniadirGrilla(bloqueIndestructible)
 		
-				//Creo bloques destructibles
+		//Creo bloques destructibles
 	
 	 	self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 9)
 		self.aniadirLineaHorizontal(bloqueDestructible, 1, 11, 17)
