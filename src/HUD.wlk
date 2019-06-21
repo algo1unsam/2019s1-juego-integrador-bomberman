@@ -74,7 +74,7 @@ class PowerUpBombaFuerteHUD inherits PowersUPsHUD{
 //ICONO DE BOMBA STCIKY
 class PowerUpBombaStickyHUD inherits PowersUPsHUD{
 	
-	method image() = "powerupStickyBomb.png"
+	method image() = "powerupBombaSticky.png"
 
 }
 

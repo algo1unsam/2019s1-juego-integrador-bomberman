@@ -64,7 +64,7 @@ class PowerUP{
 //BOMBA FUERTE
 class PowerUpBombaFuerte inherits PowerUP{
 	
-	method image() = "powerupBombaFuerte2.png"
+	method image() = "powerupBombaFuerte.png"
 	
 	override method chocoJugador(jugador) {
 		jugador.cambiarBomba(constructorDeBombaFuerte,0)
@@ -75,7 +75,7 @@ class PowerUpBombaFuerte inherits PowerUP{
 //BOMBA STICKY
 class PowerUpBombaSticky inherits PowerUP{
 	
-	method image() = "powerupBombaSticky2.png"
+	method image() = "powerupBombaSticky.png"
 	
 	//SI UN JUGADOR TOCA EL PowerUP LO AGARRA
 	override method chocoJugador(jugador) {
@@ -87,7 +87,7 @@ class PowerUpBombaSticky inherits PowerUP{
 //BOMBA REMOTA
 class PowerUpBombaRemota inherits PowerUP{
 	
-	method image() = "powerupBombaRemota2.png"
+	method image() = "powerupBombaRemota.png"
 	
 	//SI UN JUGADOR TOCA EL PowerUP LO AGARRA
 	override method chocoJugador(jugador) {
@@ -99,7 +99,7 @@ class PowerUpBombaRemota inherits PowerUP{
 //AUMENTAR LA VELOCIDAD
 class PowerUpAumentarVelocidad inherits PowerUP{
 	
-	method image() = "powerupVelocidad2.png"
+	method image() = "powerupVelocidad.png"
 	
 	override method chocoJugador(jugador) {
 		jugador.activarBotas()
@@ -110,7 +110,7 @@ class PowerUpAumentarVelocidad inherits PowerUP{
 //ESCUDO
 class PowerUpEscudo inherits PowerUP{
 	
-	method image() = "powerupEscudo2.png"
+	method image() = "powerupEscudo.png"
 	
 	override method chocoJugador(jugador) {
 		jugador.ponerEscudo()
@@ -121,7 +121,7 @@ class PowerUpEscudo inherits PowerUP{
 //MAS BOMBAS
 class PowerUpMasBombas inherits PowerUP{
 	
-	method image() = "powerupBombaExtra2.png"
+	method image() = "powerupBombaExtra.png"
 	
 	override method chocoJugador(jugador) {
 		jugador.cambiarBombasEnPantalla(1)

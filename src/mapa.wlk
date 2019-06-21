@@ -460,7 +460,24 @@ object mapa4 inherits Mapa{
 		self.aniadirLineaVertical(bloqueIndestructible, 0, 0, 12)
 		self.aniadirLineaVertical(bloqueIndestructible, 20, 0, 12)
 		
-		//Creo grilla
+		//resto
 		
+		self.aniadirLineaVertical(bloqueIndestructible, 10, 1, 2)
+		self.aniadirLineaVertical(bloqueDestructible, 10, 3, 4)
+		self.aniadirLineaVertical(bloqueIndestructible, 10, 5, 7)
+		self.aniadirLineaVertical(bloqueDestructible, 10, 8, 9)
+		self.aniadirLineaVertical(bloqueIndestructible, 10, 10, 11)
+		
+		self.aniadirElemento(powerUpBombaFuerte, 2, 6)
+		self.aniadirElemento(powerUpBombaSticky, 4, 6)
+		self.aniadirElemento(powerUpBombaRemota, 2, 9)
+		self.aniadirElemento(powerUpAumentarVelocidad, 6, 6)
+		self.aniadirElemento(powerUpEscudo, 8, 6)
+		
+		self.aniadirElemento(powerUpBombaFuerte, 16, 5)
+		self.aniadirElemento(powerUpBombaSticky, 18, 5)
+		self.aniadirElemento(powerUpBombaRemota, 16, 2)
+		self.aniadirElemento(powerUpAumentarVelocidad, 14, 5)
+		self.aniadirElemento(powerUpEscudo, 12, 5)
 	}
 }
