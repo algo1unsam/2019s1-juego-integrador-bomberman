@@ -14,9 +14,13 @@ object gameover{
 	method cargar(){ 
 		game.clear()
 		game.addVisual(self)
-		keyboard.enter().onPressDo {
+		keyboard.m().onPressDo {
 			game.clear()
 			selectorDeMapa.generar(previewMapa1)
+		}
+			keyboard.enter().onPressDo {
+			game.clear()
+			mapa.cargado().generar()
 		}
 	}
 }

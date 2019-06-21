@@ -9,10 +9,13 @@ class Mapa {
 	
 	var position = game.at(0, 0)
 	
+	method image() = "backgroundmap" + mapa.numero() + ".png"
+	
 	method generar(){
+		elementos.clear()
 		game.clear()
-		game.addVisual(self)
 		self.construir()
+		game.addVisual(self)
 		self.crear()
 		
 		player1.generar()
@@ -59,15 +62,21 @@ class Mapa {
 //MAPAS
 
 //OBJETO PARA CAMBIAR LOS ASSETS SEGUEN EL MAPA
-object mapa { var property numeroDeMapa = null }
+object mapa { 
+	var property cargado
+	var property numero 
+	
+	method set(nuevoMapa,nuevoNumero){
+		cargado = nuevoMapa
+		numero = nuevoNumero
+	}
+}
 
 //MAPA 1
 object mapa1 inherits Mapa{
-	
-	method image() = "backgroundmap" + 1 + ".png"
-	
+
 	override method construir() {
-		mapa.numeroDeMapa(1)
+		mapa.set(self,1)
 		
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
@@ -114,10 +123,10 @@ object mapa1 inherits Mapa{
 //MAPA 2
 object mapa2 inherits Mapa{
 	
-	method image() = "backgroundmap" + 2 + ".png"
+
 	
 	override method construir() {
-		mapa.numeroDeMapa(2)
+		mapa.set(self,2)
 		
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
@@ -132,11 +141,9 @@ object mapa2 inherits Mapa{
 
 //MAPA 3
 object mapa3 inherits Mapa{
-
-	method image() = "backgroundmap" + 3 + ".png"
 	
 	override method construir() {
-		mapa.numeroDeMapa(3)
+		mapa.set(self,3)
 		
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
@@ -152,10 +159,8 @@ object mapa3 inherits Mapa{
 //MAPA 4
 object mapa4 inherits Mapa{
 	
-	method image() = "backgroundmap" + 4 + ".png"
-	
 	override method construir() {
-		mapa.numeroDeMapa(4)
+	mapa.set(self,4)
 		
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)

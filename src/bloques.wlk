@@ -30,7 +30,7 @@ class BloqueIndestructible inherits Bloque {
 	
 	method esDuro() = true
 	
-	method image() = "blockMapUnbreakable" +  mapa.numeroDeMapa() + ".png"
+	method image() = "blockMapUnbreakable" +   mapa.numero() + ".png"
 	
 //ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
 	//SI EXPLOTA
@@ -53,7 +53,7 @@ class BloqueDestructible inherits Bloque {
 	
 	method esDuro() = true
 	
-	method image() = "blockMapBreakable" + mapa.numeroDeMapa() + ".png"
+	method image() = "blockMapBreakable" +  mapa.numero() + ".png"
 	
 //ACCIONES QUE SUCEDE CUANDO LA EXPLOCION ALCANZA ESTE BLOQUE
 	method explotarObjeto(explosion,onda) { 

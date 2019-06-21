@@ -72,8 +72,17 @@ class Player{
 		self.tipoDeBomba(constructorDeBombaNormal)
 		self.bombaSticky(false)
 		self.bombaRemota(false)
+		self.botas(false)
 		self.bombasEnPantalla(2)
 		self.explotarBombasRemotas()
+		self.sacarEscudo()
+	}
+	
+	method respawear(){
+		self.position(self.respawn())
+		self.restaVida()
+		self.ponerEscudo()
+		self.configurarSacarEscudo()
 	}
 	
 //MOVIMIENTO
@@ -133,7 +142,6 @@ class Player{
 		
 		scheduler.schedule(1500, { 
 			self.sacarEscudo()
-			parpadeo.escudo(self)
 			game.removeTickEvent(self.jugador())
 		} )
 	}
@@ -146,6 +154,7 @@ class Player{
 	method sacarEscudo() { 
 		self.escudo(false)
 		self.parpadeo(prendido)
+		parpadeo.escudo(self)
 	}
 	
 	method tieneEscudo(){
@@ -154,16 +163,13 @@ class Player{
 	}
 		 
 //VIDAS
-	method sumarVida() { if(self.vidas() < 11) vidas+=1 } 
+	method sumarVida() { if(self.vidas() < 6) vidas+=1 } 
 	
 	method restaVida() { vidas+=-1 }
 	
 	method morir() {
 		if ( not( self.escudo() ) ) {
-			self.position(self.respawn())
-			self.restaVida()
-			self.ponerEscudo()
-			self.configurarSacarEscudo()
+			self.respawear()
 		}
 		else self.configurarSacarEscudo()
 		
