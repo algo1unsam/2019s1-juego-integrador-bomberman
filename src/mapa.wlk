@@ -155,13 +155,13 @@ object mapa2 inherits Mapa{
 	
 	override method construir() {
 		mapa.set(self,2)
-		
+		self.aniadirGrilla(bloqueDestructible)
 		//Creo contorno
 		self.aniadirLineaHorizontal(bloqueIndestructible, 0, 0, 20)
 		self.aniadirLineaHorizontal(bloqueIndestructible, 12, 0, 20)
 		self.aniadirLineaVertical(bloqueIndestructible, 0, 0, 12)
 		self.aniadirLineaVertical(bloqueIndestructible, 20, 0, 12)
-		
+		/* 
 		//Creo indestructibles
 		self.aniadirElemento(bloqueIndestructible, 2, 2)
 		self.aniadirElemento(bloqueIndestructible, 3, 2)
@@ -307,7 +307,7 @@ object mapa2 inherits Mapa{
 		self.aniadirElemento(bloqueDestructible, 14, 10)
 		self.aniadirElemento(bloqueDestructible, 16, 10)
 		
-		self.aniadirLineaHorizontal(bloqueDestructible, 11, 3, 17)
+		self.aniadirLineaHorizontal(bloqueDestructible, 11, 3, 17)*/
 			
 	}
 }
