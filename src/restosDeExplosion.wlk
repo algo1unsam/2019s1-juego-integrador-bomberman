@@ -3,7 +3,7 @@ import mapa.*
 
 object constructorDeCeniza{ 
 	
-	method imagen() = "groundMapBroken"+ mapa.numeroDeMapa() +".png"
+	method imagen() = "groundMapBroken"+ mapa.numero() +".png"
 		
 	method construir(newPosition) = new Ceniza(position = newPosition)
 }
