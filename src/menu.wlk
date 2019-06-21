@@ -45,7 +45,9 @@ object selectorDeMapa{
 	
 	var property position = paradoEn.position().down(1).left(1)
 	
-	method image() = "selector3.png"
+	var property paradoEnTutorial = false
+	
+	method image() = "selector"+ self.tutorial() + ".png"
 	
 	method generar(nuevaSelecion) {
 		game.clear()
@@ -64,24 +66,30 @@ object selectorDeMapa{
 		game.addVisual(previewMapa3)
 		game.addVisual(previewMapa4)
 	}
+	
+	method tutorial(){
+		if (paradoEnTutorial) return "Tutorial"
+		else return ""
+	}
 }
 
 //MINIAUTAS QUE DAN IMAGEN DEL MAPA
 object previewMapa1{
-	var property position =  game.at(3,6)
+	var property position =  game.at(1,5)
 	
 	method image() = "SelectorMapa1.png"
 	
 	method mapa() = mapa1
 	
 	method configurarSelector(selector){
+	
+		keyboard.down().onPressDo { selector.generar(previewMapa4) }
 		keyboard.right().onPressDo { selector.generar(previewMapa2) }
-		keyboard.down().onPressDo { selector.generar(previewMapa3) }
 	}
 }
 
 object previewMapa2{
-	var property position =  game.at(14,6)
+	var property position =  game.at(9,5)
 	
 	method image() = "SelectorMapa2.png"
 	
@@ -89,33 +97,38 @@ object previewMapa2{
 	
 	method configurarSelector(selector){
 		keyboard.left().onPressDo { selector.generar(previewMapa1) }
+		keyboard.right().onPressDo { selector.generar(previewMapa3) }
 		keyboard.down().onPressDo { selector.generar(previewMapa4) }
 	}
 }
 
 object previewMapa3{
-	var property position =  game.at(3,1)
+	var property position =  game.at(17,5)
 	
 	method image() = "SelectorMapa3.png"
 	
 	method mapa() = mapa3
 	
 	method configurarSelector(selector){
-		keyboard.right().onPressDo { selector.generar(previewMapa4) }
-		keyboard.up().onPressDo { selector.generar(previewMapa1) }
+		keyboard.left().onPressDo { selector.generar(previewMapa2) }
+		keyboard.down().onPressDo { selector.generar(previewMapa4) }
 	}
 }
 
 object previewMapa4{
-	var property position =  game.at(14,1)
+	
+	var property position =  game.at(8,2)
 		
 	method image() = "SelectorMapa4.png"
 	
 	method mapa() = mapa4
 	
 	method configurarSelector(selector){
-		keyboard.left().onPressDo { selector.generar(previewMapa3) }
-		keyboard.up().onPressDo { selector.generar(previewMapa2) }
+		selector.paradoEnTutorial(true)
+		keyboard.up().onPressDo { 
+			selector.generar(previewMapa2)
+			selector.paradoEnTutorial(false)
+		}
 	}
 }
 
