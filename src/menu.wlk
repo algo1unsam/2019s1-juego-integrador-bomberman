@@ -1,6 +1,9 @@
 import wollok.game.*
 import mapa.*
 
+
+
+
 //PANTALLA QUE CARGA AL INICIAR EL JUEGO
 object pantallaDeInicio{
 	var property estado = imagenMenuSinEnter
@@ -20,6 +23,7 @@ object pantallaDeInicio{
 	}
 }
 
+//PARPADEO DE START
 object imagenMenuConEnter{
 	var property imagen ="menu_con_enter2.png"
 	
@@ -32,12 +36,14 @@ object imagenMenuSinEnter{
 	method cambio() = imagenMenuConEnter
 }
 
+
 //FONDO DEL MENU DE SELECCION DE MAPA
 object fondoDelMenu{
 	var position =game.at(0,0)
 	
 	method image() = "menuMapas.png" 	 
 }
+
 
 //OBJECTO SELECTOR DE MAPAS
 object selectorDeMapa{		
@@ -74,6 +80,8 @@ object selectorDeMapa{
 }
 
 //MINIAUTAS QUE DAN IMAGEN DEL MAPA
+
+//PREVIEW 1
 object previewMapa1{
 	var property position =  game.at(1,5)
 	
@@ -88,6 +96,7 @@ object previewMapa1{
 	}
 }
 
+//PREVIEW 2
 object previewMapa2{
 	var property position =  game.at(9,5)
 	
@@ -102,6 +111,7 @@ object previewMapa2{
 	}
 }
 
+//PREVIEW 3
 object previewMapa3{
 	var property position =  game.at(17,5)
 	
@@ -115,6 +125,7 @@ object previewMapa3{
 	}
 }
 
+//PREVIEW 4-TUTORIAL
 object previewMapa4{
 	
 	var property position =  game.at(8,2)

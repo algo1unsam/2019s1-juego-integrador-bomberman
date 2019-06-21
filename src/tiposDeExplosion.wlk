@@ -60,6 +60,8 @@ class OndaExpansiva{
 }
 
 //TIPOS
+
+//EXLOSION DE FUEGO
 class Fuego inherits OndaExpansiva{
 	
 	var property tiempoDeExplosion = 1000
@@ -84,6 +86,7 @@ class Fuego inherits OndaExpansiva{
 	method chocoJugador(jugador) { jugador.morir() } 
 }
 
+//EXPLOSION STICKY
 class Sticky inherits OndaExpansiva{
 	
 	override method accionAlExplotar(explosion) {

@@ -87,13 +87,9 @@ object mapa1 inherits Mapa{
 		
 
 		//Creo grilla
-
-		
 		self.aniadirGrilla(bloqueIndestructible)
 
 		//Creo destructibles
-
-	
 	 	self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 9)
 		self.aniadirLineaHorizontal(bloqueDestructible, 1, 11, 17)
 		self.aniadirLineaHorizontal(bloqueDestructible, 3, 1, 6)
@@ -149,22 +145,11 @@ object mapa1 inherits Mapa{
 		self.aniadirElemento(bloqueDestructible, 13, 10)
 		self.aniadirElemento(bloqueDestructible, 15, 10)
 		self.aniadirElemento(bloqueDestructible, 17, 10)
-		
-		
-		/*self.aniadirElemento(powerUpAgregarVida, 2, 3)
-		self.aniadirElemento(powerUpAgregarVida, 2, 4)
-		self.aniadirElemento(powerUpAgregarVida, 2, 5)
-		self.aniadirElemento(powerUpAgregarVida, 2, 6)
-		self.aniadirElemento(powerUpAgregarVida, 2, 7)
-		self.aniadirElemento(powerUpAgregarVida, 2, 8)
-		self.aniadirElemento(powerUpAgregarVida, 2, 9)
-		self.aniadirElemento(powerUpAgregarVida, 2, 10)*/
 	}
 }
 
 
 //MAPA 2
-
 object mapa2 inherits Mapa{
 	
 	override method construir() {
@@ -231,7 +216,6 @@ object mapa2 inherits Mapa{
 		self.aniadirElemento(bloqueIndestructible, 13, 10)
 		self.aniadirElemento(bloqueIndestructible, 17, 10)
 		self.aniadirElemento(bloqueIndestructible, 18, 10)
-	
 		
 		//creo destructibles
 		self.aniadirLineaHorizontal(bloqueDestructible, 1, 3, 17)

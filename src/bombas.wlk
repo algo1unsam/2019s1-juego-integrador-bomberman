@@ -58,40 +58,40 @@ class Bomba{
 	}
 }
 
+//BOMBA NORMAL
 class BombaNormal inherits Bomba{
 	override method tipo() = fuego
 	
 	method image() = "bomb02.png"
 	
-	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 2
 }
 
+//BOMBA FUERTE
 class BombaFuerte inherits Bomba{
 	override method tipo() = fuego
 	
 	method image() = "bomb03.png"
 	
-	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 4
 }
 
+//BOMBA STICKY
 class BombaSticky inherits Bomba{
 	override method tipo() = sticky
 	
 	method image() = "bomb04.png"
-	
-	//ELIGO EL RADIO DE LA BOMBA
+
 	override method radio() = 2
 }
 
+//BOMBA REMOTA
 class BombaRemota inherits Bomba{
 	
 	override method tipo() = fuego
 	
 	method image() = "bomb05.png"
 	
-	//ELIGO EL RADIO DE LA BOMBA
 	override method radio() = 2
 	
 	//NO VA A EXPLOTAR EN UN TIMPO X, SINO CUANDO EL JUGADOR LA ACTIVE

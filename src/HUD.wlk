@@ -3,6 +3,7 @@ import powerUps.*
 import players.*
 import bombas.*
 
+//HUD
 class HudJugador{
 	
 	var elementos = []
@@ -25,7 +26,7 @@ class HudJugador{
 	}
 	
 	method limpiarPantalla(){
-		elementos.forEach({ corazon => game.removeVisual(corazon) })
+		elementos.forEach({ elemento => game.removeVisual(elemento) })
 		elementos.clear()
 		
 	}
@@ -52,6 +53,7 @@ class HudJugador{
 	}	
 }
 
+//ELEMENTOS DEL HUD
 class PowersUPsHUD {
 	
 	var property position
@@ -61,19 +63,22 @@ class PowersUPsHUD {
 	}
 }
 
+//ICONO DE BOMBA FUERTE
 class PowerUpBombaFuerteHUD inherits PowersUPsHUD{
 	
 	method image() = "bomb03.png"
 
 }
 
+
+//ICONO DE BOMBA STCIKY
 class PowerUpBombaStickyHUD inherits PowersUPsHUD{
 	
 	method image() = "powerupStickyBomb.png"
 
 }
 
-//BOMBA REMOTA
+//ICONO DE BOMBA REMOTA
 class PowerUpBombaRemotaHUD inherits PowersUPsHUD{
 	
 	method image() = "powerupBombaRemota.png"

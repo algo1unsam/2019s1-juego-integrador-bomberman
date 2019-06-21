@@ -15,8 +15,6 @@ class Player{
 	
 	var property parpadeo = apagado
 	
-//	var property inmune = false
-	
 //BOMBAS
 	var property tipoDeBomba = constructorDeBombaNormal
 	
@@ -34,8 +32,6 @@ class Player{
 	var property reductorDeVelocidad = false
 	
 	var property escudo = false
-	
-	//var property choco = true
 	
 	
 //ABSTRACTOS
@@ -191,13 +187,6 @@ class Player{
 	}
 }
 
-object apagado{
-	method escudo(jugador) { jugador.parpadeo(prendido) }
-}
-
-object prendido{
-	method escudo(jugador) {  jugador.parpadeo(apagado) }
-}
 
 //PLAYER 1
 object player1 inherits Player{
@@ -244,4 +233,13 @@ object player2 inherits Player{
 		keyboard.num3().onPressDo { if(bombaRemota) self.ponerBomba(constructorDeBombaRemota) }
 		keyboard.num0().onPressDo { self.explotarBombasRemotas() }
 	}
+}
+
+//PARA QUE PARPADEE EL JUGADOR AL QUITAR EL ESCUDO
+object apagado{
+	method escudo(jugador) { jugador.parpadeo(prendido) }
+}
+
+object prendido{
+	method escudo(jugador) {  jugador.parpadeo(apagado) }
 }
