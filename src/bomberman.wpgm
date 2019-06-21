@@ -1,0 +1,23 @@
+import wollok.game.*
+import players.*
+import bloques.*
+import mapa.*
+import powerUps.*
+import menu.*
+import HUD.*
+
+program Bomberman {
+	
+//	CONFIG	
+	game.title("Bomberman")
+	game.width(24)
+	game.height(13)
+	
+// START
+	pantallaDeInicio.generar()
+	//selectorDeMapa.generar(previewMapa1)
+//	mapa1.generar()
+
+//	START
+	game.start()
+}
